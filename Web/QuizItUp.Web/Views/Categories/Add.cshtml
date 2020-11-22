@@ -1,0 +1,36 @@
+﻿@using QuizItUp.Common
+ 
+@{
+    this.ViewData["Title"] = "Add Category";
+}
+
+    <form action="" method="post">
+        <div class="preview text-center">
+         <img class="preview-img" src="https://lh3.googleusercontent.com/proxy/kECcP1xMcorPq8JtS5bcAb8i3tMPx_FH-OWuNCqOp8fizdNEemmwLcsrtBd6qKg5B23QUFSgUVgj8TzhQt1pLNNpTZZjSLlzytKico_nuLzIqJPS2Jhl36ZtlQkFTWAN" alt="Preview Image" width="200" height="200" />
+        @*<div class="browse-button">
+             <i class="fa fa-pencil-alt"></i>
+             <input class="browse-input" type="file" required name="UploadedFile" id="UploadedFile" />
+         </div>
+         <span class="Error"></span>*@
+        </div>
+        <div class="form-group">
+            <label>Title:</label>
+            <input class="form-control" type="text" name="title" required placeholder="Enter category title" />
+            <span class="Error"></span>
+        </div>
+        <div class="form-group">
+            <label>Picture:</label>
+            <input class="form-control" type="text" name="picture" required placeholder="Enter picture URL" />
+            <span class="Error"></span>
+        </div>
+        @*<div class="form-group">
+            <label>Gender:</label><br />
+            <label><input type="radio" name="gender" required value="Male" checked /> Male</label>
+            <label><input type="radio" name="gender" required value="Female" /> Female</label>
+            <label><input type="radio" name="gender" required value="Other" /> Other</label>
+            <span class="Error"></span>
+        </div>*@
+    <div class="form-group">
+        <input class="btn btn-primary btn-block"  asp-controller="Categories" asp-action="Add" type="submit" value="Create" />
+    </div>
+    </form>

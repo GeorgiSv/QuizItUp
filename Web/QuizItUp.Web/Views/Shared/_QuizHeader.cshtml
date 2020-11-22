@@ -1,0 +1,22 @@
+﻿@using QuizItUp.Common
+@model QuizItUp.Web.ViewModels.Quizes.QuizViewModel
+
+@{
+}
+
+
+    <div class="container">
+        <div class="row">
+            <div class="card w-75">
+                <div class="card-body">
+                    <h5 class="card-title">@Model.Name</h5>
+                    <p class="card-text">Questions in quiz: @Model.Questions.Count()</p>
+                    <p class="card-text">
+                        <h1><span class="badge badge-secondary badge-warning"> @Model.Trophies <img src="\trophy-shape.png" alt="icon" style="width: 30px"/></span></h1>
+                        @*<span class="badge badge-warning">Trophies:</span> </p>*@
+                </div>
+            </div>
+            <img class="card-img-top" src="@Model.Picture.Url" alt="Card image cap" style=" width: 25%; height: auto;">
+        </div>
+    </div>
+

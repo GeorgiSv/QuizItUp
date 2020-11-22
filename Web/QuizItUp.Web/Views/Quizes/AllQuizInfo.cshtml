@@ -1,0 +1,46 @@
+﻿@model QuizItUp.Web.ViewModels.Quizes.QuizViewModel
+@{
+    this.ViewData["Title"] = "All quizes";
+    var quizId = this.Model.Id;
+}
+
+    <div class="container">
+
+        @await Html.PartialAsync("_QuizHeader", Model)
+        @{
+            int counter = 0;
+            @foreach (var question in @Model.Questions)
+            {
+                counter++;
+                <div class="card text-center">
+                    <div class="card-header">
+                        Question
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">@question.QuestionText</h5>
+
+                        @foreach (var answer in question.Answers)
+                        {
+                            if (answer.IsCorrectAnswer)
+                            {
+                                <p class="card-text">@answer.AnswerText   <span class="badge badge-success">True</span></p>
+                            }
+                            else
+                            {
+                                <p class="card-text">@answer.AnswerText  <span class="badge badge-danger">False</span></p>
+                            }
+                        }
+                        <a asp-action="Edit" asp-controller="Questions" asp-route-id="@question.Id" class="btn btn-primary">Edit</a>
+                        <a asp-action="Remove" asp-controller="Questions" asp-route-id="@question.Id" class="btn btn-danger">Remove</a>
+                    </div>
+                    <div class="card-footer text-muted">
+                        @counter
+                    </div>
+                </div>
+            }
+        }
+
+        <a class="btn btn-primary btn-block" asp-controller="Questions" asp-action="Create" asp-route-id="@quizId" type="submit" value="">Add Question</a>
+        <a class="btn btn-primary btn-block" asp-controller="Quizes" asp-action="Edit" asp-route-id="@Model.Id" type="submit" value="">Edit Quiz</a>
+
+    </div>

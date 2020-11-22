@@ -1,0 +1,39 @@
+﻿@using QuizItUp.Common
+@model QuizItUp.Web.ViewModels.Quizes.QuizViewModel
+@using QuizItUp.Web.ViewModels.Quizes
+
+@{
+    this.ViewData["Title"] = "Edit quiz";
+}
+
+
+<form asp-action="Edit" asp-controller="Quizes">
+    <div asp-validation-summary="All" class="text-danger">   </div>
+
+    <div class="form-group">
+        <label asp-for="Name">Quiz name</label>
+        <input class="form-control" placeholder="Enter quiz name" asp-for="Name" value="@Model.Name">
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Description">Quiz Description</label>
+        <textarea rows="3" class="form-control" placeholder="Quiz Description" asp-for="Description">@Model.Description</textarea>
+        <span asp-validation-for="Description" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="TotalTimeToComplete">Quiz time</label>
+        <input class="form-control" placeholder="Quiz time" asp-for="TotalTimeToComplete" value="@Model.TotalTimeToComplete">
+        <span asp-validation-for="TotalTimeToComplete" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Trophies">Trophies</label>
+        <input class="form-control" placeholder="Quiz time" asp-for="Trophies" value="@Model.Trophies">
+        <span asp-validation-for="Trophies" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Update quiz</button>
+    <a asp-action="Remove" asp-controller="Quizes" asp-route-id="@Model.Id" class="btn btn-danger">Remove</a>
+</form>

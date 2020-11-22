@@ -1,0 +1,47 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <LangVersion>latest</LangVersion>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <CodeAnalysisRuleSet>..\..\Rules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <AdditionalFiles Include="..\..\stylecop.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="appsettings.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="CloudinaryDotNet" Version="1.13.2" />
+    <PackageReference Include="CommandLineParser" Version="2.8.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration" Version="3.1.9" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.EnvironmentVariables" Version="3.1.9" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="3.1.9" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="3.1.9" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="3.1.9" />
+    <PackageReference Include="StyleCop.Analyzers" Version="1.2.0-beta.205" PrivateAssets="all">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\QuizItUp.Common\QuizItUp.Common.csproj" />
+    <ProjectReference Include="..\..\Data\QuizItUp.Data.Common\QuizItUp.Data.Common.csproj" />
+    <ProjectReference Include="..\..\Data\QuizItUp.Data.Models\QuizItUp.Data.Models.csproj" />
+    <ProjectReference Include="..\..\Data\QuizItUp.Data\QuizItUp.Data.csproj" />
+    <ProjectReference Include="..\..\Services\QuizItUp.Services.Data\QuizItUp.Services.Data.csproj" />
+    <ProjectReference Include="..\..\Services\QuizItUp.Services.Mapping\QuizItUp.Services.Mapping.csproj" />
+    <ProjectReference Include="..\..\Services\QuizItUp.Services.Messaging\QuizItUp.Services.Messaging.csproj" />
+    <ProjectReference Include="..\..\Services\QuizItUp.Services\QuizItUp.Services.csproj" />
+  </ItemGroup>
+
+</Project>

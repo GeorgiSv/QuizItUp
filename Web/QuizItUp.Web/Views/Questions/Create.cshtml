@@ -1,0 +1,61 @@
+﻿@model QuizItUp.Web.ViewModels.Questions.IndexQuestionViewModel
+
+@{
+    this.ViewData["Title"] = "Create Question";
+    var quizId = this.Model.QuizViewModel.Id;
+}
+
+
+<div class="container">
+
+    @await Html.PartialAsync("_QuizHeader", Model.QuizViewModel)
+
+    <form asp-action="Add" asp-controller="Questions" asp-route-id="@quizId" method="post">
+
+        <div class="card text-center">
+            <div class="card-header">
+                <button type="submit" onclick="return validateQuestion()" class="btn btn-primary">Add question</button>
+            </div>
+
+            <div class="card-body">
+                <div class="form-group">
+                    <input class="form-control" placeholder="Question .." asp-for="@Model.QuestionInputModel.QuestionText">
+                    <span asp-validation-for="@Model.QuestionInputModel.QuestionText" class="text-danger"></span>
+                </div>
+                <div class="form-group" id="AnswersContainer">
+                    <div class='input-group mb-3' id="A0">
+                        <div class='input-group-prepend'>
+                            <div class='input-group-text'>
+                                <input type='checkbox' value='true' name='AnswersInputModel[0].IsCorrectAnswer' asp-for="@Model.Answer.AnswerText" aria-label='Checkbox' id='checkBoxAnswer' value='true'>
+                                <span asp-validation-for="@Model.Answer.AnswerText" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <input type='text' class='form-control' aria-label='Text' placeholder='Answer ..' name='AnswersInputModel[0].AnswerText'>
+                    </div>
+                    <div class='input-group mb-3' id="A1">
+                        <div class='input-group-prepend'>
+                            <div class='input-group-text'>
+                                <input type='checkbox' value='true' name='AnswersInputModel[1].IsCorrectAnswer' asp-for="@Model.Answer.AnswerText" aria-label='Checkbox' id='checkBoxAnswer' value='true' >
+                            </div>
+                        </div>
+                        <input type='text' class='form-control' aria-label='Text' placeholder='Answer ..' name='AnswersInputModel[1].AnswerText'>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+
+    </form>
+    <div class="card-footer text-muted text-center">
+
+        <button onclick="AddMoreAnswers()" class="btn btn-primary">Add answer</button>
+        <button onclick="RemoveAnswer()" class="btn btn-primary">Remove answer</button>
+    </div>
+
+    <a asp-action="AllQuizInfo" asp-controller="Quizes" asp-route-id="@Model.QuizViewModel.Id" class="btn btn-primary btn-block">All quiz info</a>
+</div>
+
+@section Scripts {
+    <script src="~/js/question.js" asp-append-version="true"></script>
+}

@@ -1,0 +1,81 @@
+﻿@model QuizItUp.Web.ViewModels.Questions.IndexQuestionViewModel
+@using QuizItUp.Web.ViewModels.Answers
+
+@{
+    this.ViewData["Title"] = "Create Question";
+    var quizId = this.Model.QuizViewModel.Id;
+    var questionId = this.Model.QuestionViewModel.Id;
+}
+
+
+<div class="container">
+
+    @await Html.PartialAsync("_QuizHeader", Model.QuizViewModel)
+
+    <form asp-action="Edit" asp-controller="Questions" asp-route-id="@questionId" method="post">
+        <div asp-validation-summary="All" class="text-danger">   </div>
+
+        <div class="card text-center">
+            <div class="card-header">
+                Featured
+            </div>
+
+            <div class="card-body">
+
+                <div class="form-group">
+                    <input class="form-control" placeholder="Question .." asp-for="@Model.QuestionInputModel.QuestionText" value="@Model.QuestionViewModel.QuestionText">
+                    <span asp-validation-for="@Model.QuestionInputModel.QuestionText" class="text-danger"></span>
+                </div>
+                <div class="form-group" id="AnswersContainer">
+
+                    @{
+                        var counter = 0;
+                        @foreach (var answer in Model.QuestionViewModel.Answers)
+                        {
+                            <div class='input-group mb-3' id="A1">
+                                <div class='input-group-prepend'>
+                                    <div class='input-group-text'>
+                                        <input type='checkbox' value='true' name='AnswersInputModel[@counter].IsCorrectAnswer' asp-for="@Model.Answer.AnswerText" aria-label='Checkbox for following text input' value='true' checked="@answer.IsCorrectAnswer">
+                                    </div>
+                                </div>
+                                <input type='text' class='form-control' aria-label='Text input with checkbox' placeholder='Answer ..' name='AnswersInputModel[@counter].AnswerText' value="@answer.AnswerText">
+                            </div>
+                            counter++;
+                        }
+                    }
+
+                </div>
+                <div class="card-footer text-muted">
+                    <button type="submit" class="btn btn-primary" onclick="return validateQuestion()">Update</button>
+                </div>
+            </div>
+
+    </form>
+    @*<button onclick="AddMoreAnswers()" class="btn btn-primary">Add answer</button>*@
+
+    <a asp-action="AllQuizInfo" asp-controller="Quizes" asp-route-id="@Model.QuizViewModel.Id" class="btn btn-primary btn-block">All quiz info</a>
+</div>
+
+@section Scripts {
+
+    <script src="~/js/question.js" asp-append-version="true"></script>
+
+    @*<script>
+            var AnswerInputModelIndex = 0;
+            function AddMoreAnswers() {
+                $("#AnswersContainer").
+                    append(" <div class='form-check'> <input class='form-check-input' type='checkbox' value='true' name='AnswerInputModel[" + AnswerInputModelIndex + "].IsCorrectAnswer'> <input class='form-control' placeholder='Answer ..'name='AnswerInputModel[" + AnswerInputModelIndex + "].AnswerText'></div>");
+                AnswerInputModelIndex++;
+            }
+        </script>*@
+}
+
+
+
+@* <div class="form-check">
+            <input class="form-check-input" type="checkbox"   @*asp-for="@Model.AnswerInputModel.">
+            <label class="form-check-label" for="defaultCheck1">
+                <input class="form-control" placeholder="Answer .." asp-for="@Model.AnswerInputModel.AnswerText">
+            </label>
+        </div>
+    </div>*@

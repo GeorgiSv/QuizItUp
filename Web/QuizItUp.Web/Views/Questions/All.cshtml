@@ -1,0 +1,20 @@
+﻿@using QuizItUp.Common
+@model QuizItUp.Web.ViewModels.Quizes.QuizViewModel
+
+@{
+    this.ViewData["Title"] = "All Question";
+}
+
+<div class="container">
+    <h1 class="alert-heading"> All Questioins</h1>
+</div>
+
+@foreach (var question in Model.Questions)
+{
+<h1>@question.QuestionText</h1>
+}
+
+@*
+  Add remove question button
+  Add go to Index quizButton
+*@

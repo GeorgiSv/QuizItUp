@@ -1,0 +1,59 @@
+﻿@using QuizItUp.Common
+@model QuizItUp.Web.ViewModels.Quizes.QuizInputModel
+@using QuizItUp.Web.ViewModels.Quizes
+@{
+    this.ViewData["Title"] = "Create quiz";
+}
+
+<div class="container">
+    <h1>Creating quiz</h1>
+</div>
+
+
+<form action="" method="post" enctype="multipart/form-data">
+    <div asp-validation-summary="All" class="text-danger">   </div>
+
+    <div class="form-group">
+        <label asp-for="Name">Quiz name</label>
+        <input class="form-control" placeholder="Enter quiz name" asp-for="Name">
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Description">Quiz Description</label>
+        <textarea rows="3" class="form-control" placeholder="Quiz Description" asp-for="Description"></textarea>
+        <span asp-validation-for="Description" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="TotalTimeToComplete">Quiz time</label>
+        <input class="form-control" placeholder="Quiz time" asp-for="TotalTimeToComplete">
+        <span asp-validation-for="TotalTimeToComplete" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Category">Quiz category</label>
+        <select asp-for="Category" asp-items="@Html.GetEnumSelectList<Categories>()" class="form-control">
+        </select>
+        <span asp-validation-for="TotalTimeToComplete" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Picture">Choose picture for you quiz</label>
+        <input type="file" class="form-control-file" asp-for="Picture">
+    </div>
+
+    @*<div class="form-group">
+            <label asp-for="PictureUrl">Quiz face</label>
+            <input class="form-control" placeholder="Quiz time" asp-for="PictureUrl">
+            <span asp-validation-for="PictureUrl" class="text-danger"></span>
+        </div>*@
+
+    @*<div class="form-check">
+            <input type="checkbox" class="form-check-input" id="exampleCheck1">
+            <label class="form-check-label" for="exampleCheck1">Check me out</label>
+        </div>*@
+    <button type="submit" class="btn btn-primary">Create quiz</button>
+</form>
+
+@*<partial name="_ValidationScriptsPartial" />*@

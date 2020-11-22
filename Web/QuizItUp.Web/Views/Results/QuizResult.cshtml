@@ -1,0 +1,33 @@
+﻿@model QuizItUp.Web.ViewModels.Results.ResultViewModel
+
+<div class="container">
+
+    @if (Model.IsPassed)
+    {
+        <h1 class="h1" style="text-align:center">Well done!</h1>
+    }
+    else
+    {
+        <h1 class="h1" style="text-align:center">Fail! Try next time!</h1>
+    }
+
+    <div class="card text-center">
+        <div class="card-header">
+            <p class="card-text">@Model.Passed</p>
+        </div>
+        <div class="card-body">
+            <h1 class="card-title">@Model.Quiz.Name</h1>
+
+            Result: <h3>@Model.CorrectAnswers/@Model.Quiz.Questions.Count</h3>
+            @if (Model.Trophies < 0)
+            {
+                <span>You have alredy achived this quiz! </span>
+                Model.Trophies++;
+            }
+            <h1><span class="badge badge-secondary badge-warning"> +@Model.Trophies <img src="\trophy-shape.png" alt="icon" style="width: 30px" /></span></h1>
+        </div>
+        <div class="card-footer text-muted">
+            <a href="/Categories/Category" class="btn btn-primary">Continue quizzing</a>
+        </div>
+    </div>
+</div>

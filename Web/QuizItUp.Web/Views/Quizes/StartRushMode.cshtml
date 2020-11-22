@@ -1,0 +1,299 @@
+﻿@model QuizItUp.Web.ViewModels.Quizes.QuizViewModel
+
+@{ ViewData["Title"] = "Take Quiz"; }
+
+
+<div class="container">
+
+    <input id="minutes" type="hidden" value="@Model.TotalTimeToComplete" />
+    <div id="timerElement" style="display:none">
+        Minutes: <span class="minutes"></span>
+        Seconds: <span class="seconds"></span>
+    </div>
+
+    <div>
+        <form id="@(Model.Questions.Count.ToString())f" method="post">
+            <div id="details" class="component pt-2">
+
+                <div class="card text-center">
+                    <div class="card-header" style="font-size: xx-large">
+                        @*<i class="far fa-list-alt"></i> class="col-11 ml-4 mb-5"  *@
+                        <p>Quiz</p>
+                    </div>
+                    <div class="card-body pt-1">
+                        <h4 class="card-title">@Model.Name</h4>
+                        <input type="hidden" asp-for="@Model.Name" value="@Model.Name" />
+                        <img src="@Model.Picture.Url" alt="Alternate Text" class="card-img" style=" width: 30%; " />
+                    </div>
+                    <div class="card-footer py-3">
+                        @*<div class="input-group">
+                            </div>*@
+                        <div class="row mx-1 text-white">
+                            <a id="start" class="btn btn-success col-md-4 mt-5 offset-md-1">Start</a>
+                            <a class="btn btn-danger col-md-4 mt-md-5 mt-2 offset-md-2"
+                               @*asp-area="@area"*@
+                               asp-action="Index"
+                               asp-controller="Home">
+                                Cancel
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            @if (Model.Questions.Count > 1)
+            {
+                <div id="pagging" class="text-center my-1" style="display:none">
+                    <ul class="pagination justify-content-center">
+                        @for (int i = 1; i <= Model.Questions.Count; i++)
+                        {
+                            <li class="page-item number @i"><a class="page-link">@i</a></li>
+                        }
+                    </ul>
+                </div>}
+
+            @{
+                            @for (int i = 0; i < Model.Questions.Count; i++)
+                            {
+                                var questionCounter = 1 + i;
+                                var question = Model.Questions[i];
+
+                <div id="@questionCounter" class="component" style="display:none">
+                    <div class="card mb-3">
+                        <div class="card-header text-center">
+                            @*<i class="fas fa-question-circle"></i>*@
+                            @Html.HiddenFor(model => model.Questions[i].Id)
+                            @Html.HiddenFor(model => model.Questions[i].QuestionText)
+                            <span class="text">Question @questionCounter</span>
+                        </div>
+                        <br />
+                        <div class="card-title text-center">
+                            <h4 class="quiz">@question.QuestionText</h4>
+                        </div>
+                        <hr>
+                        <div class="card-body text-center px-4">
+                            @for (int j = 0; j < question.Answers.Count; j++)
+                            {
+                                var answer = question.Answers[j];
+            <div class="form-group mb-0">
+                <div>
+                    @Html.EditorFor(x => x.Questions[i].Answers[j].IsCorrectAnswer)
+                    <h6 class="d-inline-block mt-0 ml-1">@answer.AnswerText</h6>
+                    @Html.HiddenFor(model => model.Questions[i].Answers[j].Id)
+                    @Html.HiddenFor(model => model.Questions[i].Answers[j].AnswerText)
+
+                </div>
+            </div>}
+                        </div>
+                        <div class="card-footer text-muted">
+                            <div class="row mx-1 text-white">
+                                <a id="prev" class="btn btn-primary col-md-5 mt-2">Previous</a>
+                                <a id="@(i)next" class="btn btn-primary col-md-5 mt-2 offset-md-2 d-inline-block">Next</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>} }
+
+            <input id="quizId" type="hidden" asp-for="@Model.Id" value="@Model.Id" />
+            <button id="submit" type="button" class="btn btn-primary col-md-5 offset-md-3" data-toggle="modal" data-target="#btn" style="display:none">
+                Submit Quiz
+            </button>
+
+
+            <!-- Finish dialog -->
+
+            <div class="modal fade" id="btn" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Attention!</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body text-center">
+                            <h5>Are you sure you want to submit and finish the quiz?</h5>
+                        </div>
+                        <div class="modal-footer">
+                            <button class="btn btn-success" type="submit" id="submitResult"
+                                    asp-action="Submit" asp-controller="Quizes">
+                                Submit
+                            </button>
+                            <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel!</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+@section Scripts
+{
+
+    <script src="~/js/quiz.js" asp-append-version="true">//$(document).ready(function () {
+                    //    var startBtn = document.getElementById('start');
+
+                    //    var questionsCount = 0;
+                    //    var counter = 1;
+
+                    //    if (startBtn) {
+                    //        var minsInput = document.getElementById("minutes");
+                    //        var mins = null;
+
+                    //        if (minsInput) {
+
+                    //            mins = minsInput.value;
+                    //        }
+                    //        var forms = document.getElementsByTagName('form');
+                    //        var form;
+                    //        if (forms.length > 1) {
+                    //            form = forms[1]
+                    //        } else {
+                    //            form = forms[0]
+                    //        }
+                    //        questionsCount = parseInt(form.id);
+                    //        var nextBtns = Array.from(document.getElementsByTagName('a')).filter(x => x.id.includes('next'));
+                    //        var prevBtns = Array.from(document.getElementsByTagName('a')).filter(x => x.id.includes('prev'));
+                    //        $(nextBtns).click(loadNextQuestion);
+                    //        $(prevBtns).click(loadPreviousQuestion);
+                    //        startQuizEventHandler(mins)
+                    //    }
+
+                    //    function startQuizEventHandler(mins) {
+                    //        $(startBtn).click(function () {
+                    //            $(window).bind('beforeunload', function () {
+                    //                return 'Are you sure you want to leave?';
+                    //            });
+
+                    //            $('#submitResult').click(function () {
+                    //                $(window).unbind('beforeunload');
+                    //            });
+
+                    //            if (mins) {
+                    //                $('#timerElement').show();
+                    //                startTimer();
+                    //            }
+                    //            $('#pagging').show();
+                    //            $('#submit').show();
+                    //            $('#details').hide();
+                    //            showQuestion(counter);
+
+                    //            var pages = [...document.getElementsByClassName('page-item number')];
+                    //            pages.forEach(x => $(x).click(loadQuestion));
+                    //            $('#first').click(loadPreviousQuestion);
+                    //            $('#last').click(loadNextQuestion);
+                    //        })
+                    //    }
+
+                    //    //function ajaxSendQuizId() {
+                    //    //    var id = $('#quizId').val();
+                    //    //    $.ajax({
+                    //    //        type: "POST",
+                    //    //        url: '/Quizzes/StartedQuizAjaxCall',
+                    //    //        data: { id: id },
+                    //    //    });
+                    //    //}
+
+                    //    function loadQuestion(e) {
+                    //        e.preventDefault();
+                    //        hideQuestion(counter)
+                    //        counter = parseInt(e.currentTarget.classList[e.currentTarget.classList.length - 1]);
+                    //        showQuestion(counter);
+                    //    }
+
+                    //    function loadNextQuestion(e) {
+                    //        e.preventDefault();
+                    //        hideQuestion(counter)
+                    //        if (counter == questionsCount) {
+                    //            showQuestion(counter);
+                    //        } else {
+                    //            showQuestion(counter + 1);
+                    //        }
+
+                    //        if (counter < questionsCount) {
+                    //            counter++;
+                    //        }
+                    //    }
+
+                    //    function loadPreviousQuestion(e) {
+                    //        e.preventDefault();
+                    //        hideQuestion(counter);
+                    //        if (counter == 1) {
+                    //            showQuestion(counter);
+                    //        } else {
+                    //            showQuestion(counter - 1)
+                    //        }
+
+                    //        if (counter > 1) {
+                    //            counter--;
+                    //        }
+                    //    }
+
+                    //    function showQuestion(counter) {
+                    //        $(`#${counter}`).show();
+                    //        if (counter == 1) {
+                    //            $('#first').addClass('disabled');
+                    //        } else if (counter == questionsCount) {
+                    //            $('#last').addClass('disabled');
+                    //        }
+                    //        else {
+                    //            $('#first').removeClass('disabled');
+                    //            $('#last').removeClass('disabled');
+                    //        }
+                    //        $('.number').removeClass('active');
+                    //        $(`.${counter}`).addClass('active');
+                    //    }
+
+                    //    function hideQuestion(counter) {
+                    //        $(`#${counter}`).hide();
+                    //    }
+
+                    //    function startTimer() {
+                    //        let now = new Date($.now());
+                    //        let endTime = getEndDate(now, mins);
+                    //        initializeTime('timerElement', endTime);
+
+                    //        function getLeftTime(endtime) {
+                    //            var t = Date.parse(endtime) - Date.parse(new Date());
+                    //            var seconds = Math.floor((t / 1000) % 60);
+                    //            var minutes = Math.floor((t / 1000 / 60) % 60);
+
+                    //            return {
+                    //                'total': t,
+                    //                'minutes': minutes,
+                    //                'seconds': seconds
+                    //            };
+                    //        }
+
+                    //        function initializeTime(id, endtime) {
+                    //            var clock = document.getElementById(id);
+                    //            var minutesSpan = clock.querySelector('.minutes');
+                    //            var secondsSpan = clock.querySelector('.seconds');
+
+                    //            function updateClock() {
+                    //                var t = getLeftTime(endtime);
+
+                    //                minutesSpan.innerHTML = ('0' + t.minutes).slice(-2);
+                    //                secondsSpan.innerHTML = ('0' + t.seconds).slice(-2);
+
+                    //                if (t.total <= 0) {
+                    //                    clearInterval(timeinterval);
+                    //                    $(window).unbind('beforeunload');
+                    //                    $('#submitResult').click();
+                    //                }
+                    //            }
+
+                    //            updateClock();
+                    //            var timeinterval = setInterval(updateClock, 1000);
+                    //        }
+
+                    //        function getEndDate(dt, minutes) {
+                    //            return new Date(dt.getTime() + minutes * 60000).toString();
+                    //        }
+                    //    }
+
+                    //})</script>
+}
+

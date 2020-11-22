@@ -1,0 +1,17 @@
+﻿@using QuizItUp.Common
+
+@{
+    this.ViewData["Title"] = "Quiz index";
+}
+
+<div class="container">
+    <div class="row">
+        <h2>Quizes</h2>
+    </div>
+
+    <div class="row">
+        <a type="button" class="btn btn-secondary btn-lg btn-block" asp-controller="Quizes" asp-action="StartCreate">Create quiz</a>
+        <a type="button" class="btn btn-secondary btn-lg btn-block" asp-controller="Quizes" asp-action="All">All quizes</a>
+    </div>
+
+</div>
