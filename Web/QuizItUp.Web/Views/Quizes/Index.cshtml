@@ -5,13 +5,36 @@
 }
 
 <div class="container">
-    <div class="row">
-        <h2>Quizes</h2>
-    </div>
+    @*<div class="row">
+            <h2 style="text-align:center">Quizes</h2>
+        </div>*@
+    <div class="row row-cols-1 row-cols-md-2">
+        <div class="col mb-4">
+            <div class="card">
+                <a asp-area="" asp-controller="Quizes" asp-action="StartCreate">
+                    <img src="https://image.freepik.com/free-vector/quiz-neon-sign_1262-19629.jpg" class="card-img-top" alt="...">
+                </a>
+                <div class="card-body">
+                    <h5 class="card-title">Create Quiz</h5>
+                    <p class="card-text">Start creating your quiz and challenge other players.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col mb-4">
+            <div class="card">
+                <a asp-area="" asp-controller="Quizes" asp-action="All">
+                    <img src="https://res.cloudinary.com/dlely3oct/image/upload/v1606170831/pics/allQuiz1_pb9zk3.png" class="card-img-top" alt="...">
+                </a>
+                <div class="card-body">
+                    <h5 class="card-title">Check all quizes</h5>
+                    <p class="card-text">Check all quizes users have created and beat theirs score.</p>
+                </div>
+            </div>
+        </div>
+        @*<div class="row">
+                <a type="button" class="btn btn-secondary btn-lg btn-block" asp-controller="Quizes" asp-action="StartCreate">Create quiz</a>
+                <a type="button" class="btn btn-secondary btn-lg btn-block" asp-controller="Quizes" asp-action="All">All quizes</a>
+            </div>*@
 
-    <div class="row">
-        <a type="button" class="btn btn-secondary btn-lg btn-block" asp-controller="Quizes" asp-action="StartCreate">Create quiz</a>
-        <a type="button" class="btn btn-secondary btn-lg btn-block" asp-controller="Quizes" asp-action="All">All quizes</a>
     </div>
-
 </div>
