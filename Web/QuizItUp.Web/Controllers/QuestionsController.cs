@@ -64,6 +64,8 @@
         public async Task<IActionResult> Remove(string id)
         {
            var quizId = await this.questionService.RemoveQuestionAsync(id);
+           await this.quizesService.UpdateQuizTrophiesAsync(quizId);
+
            return this.RedirectToAction("AllQuizInfo", "Quizes", new { id = quizId });
         }
 

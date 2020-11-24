@@ -56,7 +56,7 @@
         }
 
         [HttpPost]
-        public async Task<IActionResult> StartCreate(QuizInputModel input)
+        public async Task<IActionResult> Create(QuizInputModel input)
         {
             if (!(input.Picture.FileName.EndsWith(".png")
                 || input.Picture.FileName.EndsWith(".jpeg")
@@ -94,7 +94,7 @@
             return this.RedirectToAction("Create", "Questions", new { id = quizId });
         }
 
-        public IActionResult StartCreate()
+        public IActionResult Create()
         {
             return this.View();
         }
@@ -169,7 +169,7 @@
 
             var resultId = await this.resultsService.AddResult(result.Item1, quizFromDb.Id, quizFromDb.Trophies, userId, result.Item2);
 
-            return this.RedirectToAction("QuizResult", "Results", new { resultId = resultId });
+            return this.RedirectToAction("QuizResult", "Quizes", new { resultId });
         }
 
         public async Task<IActionResult> Start(string id)
@@ -185,6 +185,19 @@
             }
 
             return this.View(model);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> QuizResult(string resultId)
+        {
+            var result = await this.resultsService.GetResultById(resultId);
+
+            if (result.CorrectAnswers > result.Quiz.Questions.Count)
+            {
+                result.CorrectAnswers = result.Quiz.Questions.Count;
+            }
+
+            return this.View(result);
         }
     }
 }

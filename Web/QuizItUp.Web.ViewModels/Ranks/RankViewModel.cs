@@ -1,17 +1,14 @@
-﻿namespace QuizItUp.Data.Models
+﻿namespace QuizItUp.Web.ViewModels.Ranks
 {
+    using QuizItUp.Data.Models;
+    using QuizItUp.Services.Mapping;
     using System;
     using System.Collections.Generic;
     using System.Text;
 
-    using QuizItUp.Data.Common.Models;
-
-    public class Rank : BaseDeletableModel<string>
+    public class RankViewModel : IMapFrom<Rank>
     {
-        public Rank()
-        {
-            this.Id = Guid.NewGuid().ToString();
-        }
+        public string Id { get; set; }
 
         public string Name { get; set; }
 
