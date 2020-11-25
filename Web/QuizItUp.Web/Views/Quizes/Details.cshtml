@@ -10,7 +10,7 @@
             <div class="card-body">
                 <h5 class="card-title">@Model.Name</h5>
                 <p class="card-text">@Model.Description</p>
-                <p class="card-text"><small class="text-muted">Time to complete: @Model.TotalTimeToComplete</small></p>
+                <p class="card-text"><small class="text-muted">Time to complete: @Model.TotalTimeToComplete minutes</small></p>
             </div>
             @*<a class="btn btn-primary btn-block" asp-controller="Quizes" asp-action="Start" asp-route-id="@Model.Id" type="submit" value="Start Quiz">Start</a>*@
             <a class="btn btn-primary btn-block" asp-controller="Quizes" asp-action="Start" asp-route-id="@Model.Id" type="submit" value="Start Quiz">Start</a>

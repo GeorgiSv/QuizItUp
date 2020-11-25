@@ -16,7 +16,8 @@
         public string Name { get; set; }
 
         [Required]
-        //[Range(2, 40)]
+        [MaxLength(500)]
+        [MinLength(2)]
         public string Description { get; set; }
 
         public int Trophies { get; set; }

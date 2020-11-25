@@ -15,7 +15,7 @@
         {
 
             <li class="nav-item">
-                <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello @(this.User.Identity.Name)!</a>
+                <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">@(this.User.Identity.Name.Split("@")[0])!</a>
             </li>
             if (this.User.IsInRole(GlobalConstants.AdministratorRoleName))
             {

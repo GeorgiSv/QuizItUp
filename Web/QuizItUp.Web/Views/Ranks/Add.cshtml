@@ -1,7 +1,6 @@
 ﻿@model QuizItUp.Web.ViewModels.Ranks.RankInputModel
-@{
+@using QuizItUp.Common
 
-}
     <div class="container">
 
         <h1>Add rank</h1>
@@ -21,7 +20,7 @@
             <div class="form-group">
                 <label asp-for="Color">Color</label>
                 <input class="form-control-sm" placeholder="Rank color" asp-for="Color">
-                <a class="btn btn-primary btn-group-sm" href="https://cssgradient.io/" target="_blank">Crate color</a>
+                <a class="btn btn-primary btn-group-sm" href="@GlobalConstants.ColorMakerURL" target="_blank">Crate color</a>
             </div>
 
             <div class="form-group">

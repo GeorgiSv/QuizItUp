@@ -120,7 +120,6 @@
 
             quiz.Name = input.Name;
             quiz.Description = input.Description;
-            quiz.Trophies = input.Trophies;
             quiz.TotalTimeToComplete = input.TotalTimeToComplete;
 
             this.quizesRepo.Update(quiz);

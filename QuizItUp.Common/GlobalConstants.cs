@@ -9,5 +9,7 @@
         public const int InitialQuizTrophies = 10;
 
         public const string CloudinaryQuizFolder = "quizes";
+
+        public const string ColorMakerURL = "https://cssgradient.io/";
     }
 }

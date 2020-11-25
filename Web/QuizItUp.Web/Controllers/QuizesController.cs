@@ -116,7 +116,7 @@
         {
             if (!this.ModelState.IsValid)
             {
-                return this.View();
+                return this.RedirectToAction("Edit", "Quizes", new { id });
             }
 
             var quizId = await this.quizService.UpdateQuizAsync(input, id);
