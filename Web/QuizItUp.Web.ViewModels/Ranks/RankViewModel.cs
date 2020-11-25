@@ -1,10 +1,11 @@
 ﻿namespace QuizItUp.Web.ViewModels.Ranks
 {
-    using QuizItUp.Data.Models;
-    using QuizItUp.Services.Mapping;
     using System;
     using System.Collections.Generic;
     using System.Text;
+
+    using QuizItUp.Data.Models;
+    using QuizItUp.Services.Mapping;
 
     public class RankViewModel : IMapFrom<Rank>
     {

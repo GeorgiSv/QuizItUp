@@ -42,5 +42,12 @@
 
             return this.View(allRanksViewModel);
         }
+
+        public async Task<IActionResult> Remove(string id)
+        {
+            await this.ranksService.RemoveAsync(id);
+
+            return this.RedirectToAction(nameof(this.All));
+        }
     }
 }
