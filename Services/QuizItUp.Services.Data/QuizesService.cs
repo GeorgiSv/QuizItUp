@@ -1,5 +1,11 @@
 ﻿namespace QuizItUp.Services.Data
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Text;
+    using System.Threading.Tasks;
+
     using Microsoft.EntityFrameworkCore;
     using QuizItUp.Common;
     using QuizItUp.Data.Common.Repositories;
@@ -7,11 +13,6 @@
     using QuizItUp.Services.Data.Contracts;
     using QuizItUp.Services.Mapping;
     using QuizItUp.Web.ViewModels.Quizes;
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
 
     public class QuizesService : IQuizesService
     {
@@ -38,15 +39,23 @@
                 throw new Exception("Category does not exist!");
             }
 
+            var picture = new Picture() { Url = input.PicturePath };
+
+            if (input.PicturePath == null)
+            {
+                picture.Url = GlobalConstants.DefaultPicturePath;
+            }
+
             var quiz = new Quiz
             {
                 CreatorId = input.CreatorId,
                 Name = input.Name,
                 Description = input.Description,
-                Picture = new Picture() { Url = input.PicturePath },
+                Picture = picture,
                 TotalTimeToComplete = input.TotalTimeToComplete,
                 CategoryId = category.Id,
                 Trophies = GlobalConstants.InitialQuizTrophies,
+                Tag = new Tag() { CategoryId = category.Id, Title = input.TagTitle },
             };
 
             await this.quizesRepo.AddAsync(quiz);

@@ -5,7 +5,7 @@
     using System.Diagnostics;
     using System.Linq;
     using System.Threading.Tasks;
-
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
     using QuizItUp.Services.Data.Contracts;
     using QuizItUp.Web.ViewModels.Categories;
@@ -36,12 +36,14 @@
             return this.View(res);
         }
 
+        [Authorize]
         public IActionResult Add()
         {
             return this.View();
         }
 
         [HttpPost]
+       // [Authorize(Roles = "Administrator")]
         public async Task<IActionResult> Add(string title, string picture)
         {
             await this.categoriesService.Add(title, picture);

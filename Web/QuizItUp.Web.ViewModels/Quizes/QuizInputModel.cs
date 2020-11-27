@@ -1,11 +1,12 @@
 ﻿namespace QuizItUp.Web.ViewModels.Quizes
 {
-    using Microsoft.AspNetCore.Http;
-    using QuizItUp.Data.Models;
-    using QuizItUp.Web.ViewModels.Questions;
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
+
+    using Microsoft.AspNetCore.Http;
+    using QuizItUp.Data.Models;
+    using QuizItUp.Web.ViewModels.Questions;
 
     public class QuizInputModel
     {
@@ -35,6 +36,8 @@
         public IFormFile Picture { get; set; }
 
         public string PicturePath{ get; set; }
+
+        public string TagTitle{ get; set; }
 
         public Categories Category { get; set; }
 
