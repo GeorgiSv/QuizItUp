@@ -13,7 +13,7 @@
 
         Task Add(string title, string picture);
 
-        Task<IEnumerable<QuizViewModel>> GetQuizesPerCategoryId(int categoryId);
+        Task<IList<QuizViewModel>> GetQuizesPerCategoryId(int categoryId);
 
     }
 }

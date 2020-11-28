@@ -13,6 +13,7 @@
         {
             this.Id = Guid.NewGuid().ToString();
             this.Questions = new HashSet<Question>();
+            this.QuizTags = new HashSet<QuizTag>();
         }
 
         [Required]
@@ -40,10 +41,6 @@
 
         public virtual Badge Badge { get; set; }
 
-        public int? TagId { get; set; }
-
-        public virtual Tag Tag { get; set; }
-
         public string PictureId { get; set; }
 
         public virtual Picture Picture { get; set; }
@@ -53,5 +50,7 @@
         public virtual Category Category { get; set; }
 
         public virtual ICollection<Question> Questions { get; set; }
+
+        public virtual ICollection<QuizTag> QuizTags { get; set; }
     }
 }

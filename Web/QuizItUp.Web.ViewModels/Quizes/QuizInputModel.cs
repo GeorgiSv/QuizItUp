@@ -32,12 +32,11 @@
         [Range(1, 120)]
         public int TotalTimeToComplete { get; set; }
 
-        [Required]
         public IFormFile Picture { get; set; }
 
         public string PicturePath{ get; set; }
 
-        public string TagTitle{ get; set; }
+        public string Tags{ get; set; }
 
         public Categories Category { get; set; }
 

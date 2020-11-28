@@ -21,6 +21,9 @@
 
         public string PictureId { get; set; }
 
+        [Required]
+        public string Title { get; set; }
+
         public virtual Picture Picture { get; set; }
 
         public virtual ICollection<ApplicationUserBadge> ApplicationUsers { get; set; }

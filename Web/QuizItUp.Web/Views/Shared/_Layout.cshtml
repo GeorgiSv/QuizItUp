@@ -14,48 +14,55 @@
 <body>
     <div style="background-color: #f7f7f7">
         <header>
-            <nav class="navbar navbar-expand-sm navbar-light  border-bottom box-shadow mb-3"> @*bg-white*@
-                        <div class="container">
-                            <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">@GlobalConstants.SystemName</a>
-                            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                                    aria-expanded="false" aria-label="Toggle navigation">
-                                <span class="navbar-toggler-icon"></span>
-                            </button>
-                            <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
-                                <partial name="_LoginPartial" />
-                                <ul class="navbar-nav flex-grow-1">
-                                    @*<li class="nav-item">
-                                        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                                    </li>*@
-                                    <li class="nav-item">
-                                        <a class="nav-link text-dark" asp-area="" asp-controller="Categories" asp-action="Category">Categories</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link text-dark" asp-area="" asp-controller="Quizes" asp-action="Index">Quizes</a>
-                                    </li>
-                                    @*<li class="nav-item">
-                                        <a class="nav-link text-dark" asp-area="" asp-controller="Quizes" asp-action="Create">Create Quiz</a>
-                                    </li>*@
-                                    @*<li class="nav-item">
-                                        <a class="nav-link text-dark" asp-area="" asp-controller="Quizes" asp-action="MyQuizes">MyQuizes</a>
-                                    </li>*@
-                                    <li class="nav-item">
-                                        <a class="nav-link text-dark" asp-area="" asp-controller="Ranks" asp-action="All">Ranks</a>
-                                    </li>
-                                </ul>
-                            </div>
+            <nav class="navbar navbar-expand-sm navbar-light  border-bottom box-shadow mb-3">
+                @*bg-white*@
+                <div class="container">
+                    <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">@GlobalConstants.SystemName</a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                            aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
+                        <partial name="_LoginPartial" />
+                        <ul class="navbar-nav flex-grow-1">
+                            @*<li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                                </li>*@
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Categories" asp-action="Category">Categories</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Quizes" asp-action="Index">Quizes</a>
+                            </li>
+                            @*<li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Quizes" asp-action="Create">Create Quiz</a>
+                                </li>*@
+                            @*<li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Quizes" asp-action="MyQuizes">MyQuizes</a>
+                                </li>*@
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Ranks" asp-action="All">Ranks</a>
+                            </li>
+
+                        </ul>
+                        <div>
+                            <form asp-controller="Quizes" asp-action="SearchFor" method="post">
+                                <input type="text" placeholder="Search.." name="input">
+                            </form>
                         </div>
-                    </nav>
+                    </div>
+                </div>
+            </nav>
         </header>
     </div>
-    
+
     <div class="container">
         <partial name="_CookieConsentPartial" />
         <main role="main" class="pb-3">
             @this.RenderBody()
         </main>
     </div>
-    
+
     <footer class="border-top footer text-muted">
         <div class="container">
             &copy; @DateTime.Now.Year - @GlobalConstants.SystemName - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>

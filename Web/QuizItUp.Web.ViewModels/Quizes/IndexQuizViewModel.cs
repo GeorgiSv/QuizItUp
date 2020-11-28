@@ -6,6 +6,6 @@
 
     public class IndexQuizViewModel
     {
-        public IEnumerable<QuizViewModel> Quizes { get; set; }
+        public IList<QuizViewModel> Quizes { get; set; }
     }
 }

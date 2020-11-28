@@ -1,0 +1,10 @@
+﻿@using QuizItUp.Common
+@model QuizItUp.Web.ViewModels.Quizes.IndexQuizViewModel
+@{
+    this.ViewData["Title"] = "All";
+}
+
+@foreach (var quiz in Model.Quizes)
+{
+    <h1>@quiz.Name</h1>
+}

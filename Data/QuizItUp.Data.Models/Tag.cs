@@ -1,14 +1,15 @@
 ﻿namespace QuizItUp.Data.Models
 {
-    using QuizItUp.Data.Common.Models;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
+
+    using QuizItUp.Data.Common.Models;
 
     public class Tag : BaseDeletableModel<int>
     {
         public Tag()
         {
-            this.Quizes = new HashSet<Quiz>();
+            this.QuizTags = new HashSet<QuizTag>();
         }
 
         [Required]
@@ -18,6 +19,6 @@
 
         public virtual Category Category { get; set; }
 
-        public ICollection<Quiz> Quizes { get; set; }
+        public ICollection<QuizTag> QuizTags { get; set; }
     }
 }

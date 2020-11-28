@@ -1,8 +1,9 @@
 ﻿namespace QuizItUp.Services.Data.Contracts
 {
+    using System.Threading.Tasks;
+
     using QuizItUp.Web.ViewModels.Quizes;
     using QuizItUp.Web.ViewModels.Results;
-    using System.Threading.Tasks;
 
     public interface IResultsService
     {

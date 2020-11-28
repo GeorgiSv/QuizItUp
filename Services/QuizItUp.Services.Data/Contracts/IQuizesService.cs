@@ -1,16 +1,21 @@
 ﻿namespace QuizItUp.Services.Data.Contracts
 {
-    using QuizItUp.Web.ViewModels.Quizes;
     using System;
     using System.Collections.Generic;
     using System.Text;
     using System.Threading.Tasks;
 
+    using QuizItUp.Web.ViewModels.Quizes;
+
     public interface IQuizesService
     {
         Task<string> CreateQuizAsync(QuizInputModel input);
 
-        Task<ICollection<QuizViewModel>> GetAllQuizesAsync();
+        Task<IList<QuizViewModel>> GetAllQuizesAsync();
+
+        Task<IList<QuizViewModel>> GetAllQuizesWithTagAsync(string input);
+
+        Task<IList<QuizViewModel>> GetAllQuizesWithNameAsync(string input);
 
         Task<QuizViewModel> GetQuizByIdAsync(string quizId);
 

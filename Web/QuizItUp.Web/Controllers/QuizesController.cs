@@ -7,6 +7,7 @@
     using System.Security.Claims;
     using System.Threading.Tasks;
     using CloudinaryDotNet;
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
@@ -17,6 +18,7 @@
     using QuizItUp.Web.ViewModels.Quizes;
     using QuizItUp.Web.ViewModels.Results;
 
+    [Authorize]
     public class QuizesController : Controller
     {
         private readonly IQuizesService quizService;
@@ -40,11 +42,13 @@
 
         }
 
+        [AllowAnonymous]
         public IActionResult Index()
         {
             return this.View();
         }
 
+        [AllowAnonymous]
         public async Task<IActionResult> All()
         {
             var quizViewModel = new IndexQuizViewModel()
@@ -58,16 +62,24 @@
         [HttpPost]
         public async Task<IActionResult> Create(QuizInputModel input)
         {
-            if (!(input.Picture.FileName.EndsWith(".png")
+            string picturePath = null;
+
+            if (input.Picture != null)
+            {
+                if (!(input.Picture.FileName.EndsWith(".png")
                 || input.Picture.FileName.EndsWith(".jpeg")
                 || input.Picture.FileName.EndsWith(".jpg")))
-            {
-                this.ModelState.AddModelError("Picture", "Picture must be file with extension jpeg, jpg png");
-            }
+                {
+                    this.ModelState.AddModelError("Picture", "Picture must be file with extension jpeg, jpg png");
+                }
 
-            if (input.Picture.Length > 10 * 102 * 1024)
-            {
-                this.ModelState.AddModelError("Picture", "Picture is too large - Max 10Mb");
+                if (input.Picture.Length > 10 * 102 * 1024)
+                {
+                    this.ModelState.AddModelError("Picture", "Picture is too large - Max 10Mb");
+                }
+
+                picturePath = await CloudinaryService
+               .UploadPicture(this.cloudinary, input.Picture, input.Name.Replace(" ", "") + this.userManager.GetUserId(this.User), GlobalConstants.CloudinaryQuizFolder);
             }
 
             if (!this.ModelState.IsValid)
@@ -76,11 +88,8 @@
             }
 
             var userId = this.userManager.GetUserId(this.User);
+
             input.CreatorId = userId;
-
-            var picturePath = await CloudinaryService
-                .UploadPicture(this.cloudinary, input.Picture, input.Name.Replace(" ", "") + this.userManager.GetUserId(this.User), GlobalConstants.CloudinaryQuizFolder);
-
             input.PicturePath = picturePath;
 
             var quizId = await this.quizService.CreateQuizAsync(input);
@@ -99,6 +108,7 @@
             return this.View();
         }
 
+        [AllowAnonymous]
         public async Task<IActionResult> Details(string Id)
         {
             var quiz = await this.quizService.GetQuizByIdAsync(Id);
@@ -198,6 +208,20 @@
             }
 
             return this.View(result);
+        }
+
+        public async Task<IActionResult> SearchFor(string input)
+        {
+            var quizViewModel = new IndexQuizViewModel()
+            {
+                Quizes = await this.quizService.GetAllQuizesWithTagAsync(input),
+            };
+
+            quizViewModel.Quizes
+                .ToList()
+                .AddRange(await this.quizService.GetAllQuizesWithNameAsync(input));
+
+            return this.View(quizViewModel);
         }
     }
 }

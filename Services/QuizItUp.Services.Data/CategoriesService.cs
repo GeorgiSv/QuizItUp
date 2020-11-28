@@ -3,6 +3,7 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
+
     using Microsoft.EntityFrameworkCore;
     using QuizItUp.Data.Common.Repositories;
     using QuizItUp.Data.Models;
@@ -60,7 +61,7 @@
                 .FirstOrDefaultAsync();
         }
 
-        public async Task<IEnumerable<QuizViewModel>> GetQuizesPerCategoryId(int categoryId)
+        public async Task<IList<QuizViewModel>> GetQuizesPerCategoryId(int categoryId)
         {
             var quizes = await this.quizRepo.All()
                 .Where(x => x.CategoryId == categoryId && x.IsPublished == true)

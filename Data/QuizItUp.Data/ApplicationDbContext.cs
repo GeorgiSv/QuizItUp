@@ -42,6 +42,8 @@
 
         public DbSet<Rank> Ranks { get; set; }
 
+        public DbSet<QuizTag> QuizTags { get; set; }
+
         public DbSet<ApplicationUserBadge> ApplicationUserBadges { get; set; }
 
         public override int SaveChanges() => this.SaveChanges(true);
@@ -100,6 +102,8 @@
                 entity.HasOne(x => x.Badge)
                 .WithOne(c => c.Quiz)
                 .HasForeignKey<Badge>(x => x.Id);
+
+                entity.HasMany(x => x.QuizTags);
             });
 
             builder.Entity<ApplicationUserBadge>(entity =>

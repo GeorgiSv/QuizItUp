@@ -1,6 +1,7 @@
 ﻿namespace QuizItUp.Web.Controllers
 {
     using System.Threading.Tasks;
+
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
     using QuizItUp.Data.Models;

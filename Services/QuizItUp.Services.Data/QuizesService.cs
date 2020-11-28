@@ -19,15 +19,18 @@
         private readonly IDeletableEntityRepository<Quiz> quizesRepo;
         private readonly IDeletableEntityRepository<Category> categoriesRepo;
         private readonly IDeletableEntityRepository<Question> questionsRepo;
+        private readonly ITagsService tagsService;
 
         public QuizesService(
             IDeletableEntityRepository<Quiz> quizesRepo,
             IDeletableEntityRepository<Category> categoriesRepo,
-            IDeletableEntityRepository<Question> questionsRepo)
+            IDeletableEntityRepository<Question> questionsRepo,
+            ITagsService tagsService)
         {
             this.quizesRepo = quizesRepo;
             this.categoriesRepo = categoriesRepo;
             this.questionsRepo = questionsRepo;
+            this.tagsService = tagsService;
         }
 
         public async Task<string> CreateQuizAsync(QuizInputModel input)
@@ -55,18 +58,37 @@
                 TotalTimeToComplete = input.TotalTimeToComplete,
                 CategoryId = category.Id,
                 Trophies = GlobalConstants.InitialQuizTrophies,
-                Tag = new Tag() { CategoryId = category.Id, Title = input.TagTitle },
             };
 
+            quiz.QuizTags = await this.tagsService.CreateTags(input.Tags, quiz.Id, category.Id);
             await this.quizesRepo.AddAsync(quiz);
             await this.quizesRepo.SaveChangesAsync();
 
             return quiz.Id;
         }
 
-        public async Task<ICollection<QuizViewModel>> GetAllQuizesAsync()
+        public async Task<IList<QuizViewModel>> GetAllQuizesAsync()
              => await this.quizesRepo
             .All()
+            .To<QuizViewModel>()
+            .ToListAsync();
+
+        public async Task<IList<QuizViewModel>> GetAllQuizesWithTagAsync(string input)
+        {
+            var quizTags = await this.tagsService.GetAllWithTitle(input);
+            var a = quizTags.Select(x => x.Quiz);
+
+            return quizTags
+                .AsQueryable()
+                .Select(x => x.Quiz)
+                .To<QuizViewModel>()
+                .ToList();
+        }
+
+        public async Task<IList<QuizViewModel>> GetAllQuizesWithNameAsync(string input)
+             => await this.quizesRepo
+            .All()
+            .Where(x => x.Name.ToLower().Contains(input))
             .To<QuizViewModel>()
             .ToListAsync();
 
