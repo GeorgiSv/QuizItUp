@@ -212,14 +212,21 @@
 
         public async Task<IActionResult> SearchFor(string input)
         {
+            if (input == null)
+            {
+                return this.View(null);
+            }
+
+            var allQuizes = await this.quizService.GetAllQuizesWithNameAsync(input);
+            var tagsResult = await this.quizService.GetAllQuizesWithTagAsync(input);
+
+            var allTogother = tagsResult.ToList();
+            allTogother.AddRange(allQuizes);
+
             var quizViewModel = new IndexQuizViewModel()
             {
-                Quizes = await this.quizService.GetAllQuizesWithTagAsync(input),
+                Quizes = allTogother,
             };
-
-            quizViewModel.Quizes
-                .ToList()
-                .AddRange(await this.quizService.GetAllQuizesWithNameAsync(input));
 
             return this.View(quizViewModel);
         }

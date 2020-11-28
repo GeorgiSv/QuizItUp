@@ -13,7 +13,7 @@
         {
             this.Id = Guid.NewGuid().ToString();
             this.Questions = new HashSet<Question>();
-            this.QuizTags = new HashSet<QuizTag>();
+            this.QuizTag = new HashSet<QuizTag>();
         }
 
         [Required]
@@ -51,6 +51,6 @@
 
         public virtual ICollection<Question> Questions { get; set; }
 
-        public virtual ICollection<QuizTag> QuizTags { get; set; }
+        public virtual ICollection<QuizTag> QuizTag { get; set; }
     }
 }

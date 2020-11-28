@@ -60,7 +60,7 @@
                 Trophies = GlobalConstants.InitialQuizTrophies,
             };
 
-            quiz.QuizTags = await this.tagsService.CreateTags(input.Tags, quiz.Id, category.Id);
+            quiz.QuizTag = await this.tagsService.CreateTags(input.Tags, quiz.Id, category.Id, quiz);
             await this.quizesRepo.AddAsync(quiz);
             await this.quizesRepo.SaveChangesAsync();
 
@@ -76,6 +76,12 @@
         public async Task<IList<QuizViewModel>> GetAllQuizesWithTagAsync(string input)
         {
             var quizTags = await this.tagsService.GetAllWithTitle(input);
+            //var allQuizTags = await this.tagsService.GetAllQuizTags();
+            var allTags = await this.tagsService.GetAllTags();
+            var quiz = await this.quizesRepo
+                .All()
+                .ToListAsync();
+
             var a = quizTags.Select(x => x.Quiz);
 
             return quizTags

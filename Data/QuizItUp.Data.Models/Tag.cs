@@ -9,7 +9,7 @@
     {
         public Tag()
         {
-            this.QuizTags = new HashSet<QuizTag>();
+            this.QuizTag = new HashSet<QuizTag>();
         }
 
         [Required]
@@ -19,6 +19,6 @@
 
         public virtual Category Category { get; set; }
 
-        public ICollection<QuizTag> QuizTags { get; set; }
+        public virtual ICollection<QuizTag> QuizTag { get; set; }
     }
 }

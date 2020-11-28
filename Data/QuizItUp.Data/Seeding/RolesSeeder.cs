@@ -4,11 +4,10 @@
     using System.Linq;
     using System.Threading.Tasks;
 
-    using QuizItUp.Common;
-    using QuizItUp.Data.Models;
-
     using Microsoft.AspNetCore.Identity;
     using Microsoft.Extensions.DependencyInjection;
+    using QuizItUp.Common;
+    using QuizItUp.Data.Models;
 
     internal class RolesSeeder : ISeeder
     {

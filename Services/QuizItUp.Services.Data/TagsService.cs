@@ -21,7 +21,7 @@
             this.tagsRepo = tagsRepo;
         }
 
-        public async Task<ICollection<QuizTag>> CreateTags(string tags, string quizId, int categoryId)
+        public async Task<ICollection<QuizTag>> CreateTags(string tags, string quizId, int categoryId, Quiz quiz)
         {
             var tagsTitles = this.SplitTags(tags.ToLower());
             var listOfQuizTags = new List<QuizTag>();
@@ -43,6 +43,8 @@
                 listOfQuizTags.Add(new QuizTag
                 {
                     QuizId = quizId,
+                    Quiz = quiz,
+                    TagId = tag.Id,
                     Tag = tag,
                 });
             }
@@ -50,13 +52,19 @@
             return listOfQuizTags;
         }
 
+        public async Task<IList<QuizTag>> GetAllQuizTags()
+            => await this.quizTagRepo.All().ToListAsync();
+
+        public async Task<IList<Tag>> GetAllTags()
+            => await this.tagsRepo
+            .All()
+            .ToListAsync();
+
         public async Task<IList<QuizTag>> GetAllWithTitle(string input)
-        {
-            return await this.quizTagRepo
-                .All()
-                .Where(x => x.Tag.Title.Contains(input.ToLower()))
-                .ToListAsync();
-        }
+            => await this.quizTagRepo
+            .All()
+            .Where(x => x.Tag.Title.Contains(input.ToLower()))
+            .ToListAsync();
 
         private string[] SplitTags(string tags)
         {

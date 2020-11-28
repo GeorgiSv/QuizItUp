@@ -4,7 +4,38 @@
     this.ViewData["Title"] = "All";
 }
 
-@foreach (var quiz in Model.Quizes)
-{
-    <h1>@quiz.Name</h1>
-}
+<br />
+
+
+<div class="container">
+    <div class="row">
+
+        @if (Model?.Quizes == null)
+        {
+            <h1>No quizes for this keyword found! Check all quizes or all quizes per category instead.</h1>
+        }
+        else
+        {
+            var counterOfFailedPictures = 0;
+            @foreach (var quiz in Model.Quizes)
+            {
+                @if (quiz.Picture?.Url == null)
+                {
+                    counterOfFailedPictures++;
+                    continue;
+                }
+                <div class="col-md-4">
+                    <div class="card" style="width: 18rem;">
+                        <img src="@quiz.Picture.Url" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title">@quiz.Name</h5>
+                            @*<p class="card-text">@quiz.Description</p>*@
+                            <a asp-area="" asp-controller="Quizes" asp-action="Details" asp-route-id="@quiz.Id" class="btn btn-primary">Take Quiz</a>
+                        </div>
+                    </div>
+                </div>
+            }
+            @*<h1>@counterOfFailedPictures</h1>*@
+        }
+    </div>
+</div>

@@ -42,7 +42,7 @@
 
         public DbSet<Rank> Ranks { get; set; }
 
-        public DbSet<QuizTag> QuizTags { get; set; }
+        public DbSet<QuizTag> QuizTag { get; set; }
 
         public DbSet<ApplicationUserBadge> ApplicationUserBadges { get; set; }
 
@@ -65,6 +65,10 @@
             return base.SaveChangesAsync(acceptAllChangesOnSuccess, cancellationToken);
         }
 
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            base.OnConfiguring(optionsBuilder);
+        }
         protected override void OnModelCreating(ModelBuilder builder)
         {
             // Needed for Identity models configuration
@@ -103,7 +107,7 @@
                 .WithOne(c => c.Quiz)
                 .HasForeignKey<Badge>(x => x.Id);
 
-                entity.HasMany(x => x.QuizTags);
+              //  entity.HasMany(x => x.QuizTags);
             });
 
             builder.Entity<ApplicationUserBadge>(entity =>
@@ -121,7 +125,7 @@
         // Applies configurations
         private void ConfigureUserIdentityRelations(ModelBuilder builder)
              => builder.ApplyConfigurationsFromAssembly(this.GetType().Assembly);
-
+        
         private void ApplyAuditInfoRules()
         {
             var changedEntries = this.ChangeTracker

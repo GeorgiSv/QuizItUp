@@ -6,8 +6,12 @@
 
     public interface ITagsService
     {
-        Task<ICollection<QuizTag>> CreateTags(string tags, string quizId, int categoryId);
+        Task<ICollection<QuizTag>> CreateTags(string tags, string quizId, int categoryId, Quiz quiz);
 
         Task<IList<QuizTag>> GetAllWithTitle(string input);
+
+        Task<IList<QuizTag>> GetAllQuizTags();
+
+        Task<IList<Tag>> GetAllTags();
     }
 }
