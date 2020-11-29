@@ -23,6 +23,7 @@
     using Microsoft.Extensions.Hosting;
     using QuizItUp.Services.Data.Contracts;
     using CloudinaryDotNet;
+    using QuizItUp.Web.Infrastructure.Filters;
 
     public class Startup
     {
@@ -72,6 +73,7 @@
             services.AddTransient<IResultsService, ResultsService>();
             services.AddTransient<IRanksService, RanksService>();
             services.AddTransient<ITagsService, TagsService>();
+            services.AddTransient<UserValidationAttribute>();
 
             // SendGrid Setup
             //services.AddTransient<IEmailSender, SendGridEmailSender>(x => new SendGridEmailSender(this.configuration["SendGrid:APIKey"]));

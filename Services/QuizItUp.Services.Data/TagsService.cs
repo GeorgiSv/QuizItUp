@@ -9,6 +9,8 @@
     using QuizItUp.Data.Common.Repositories;
     using QuizItUp.Data.Models;
     using QuizItUp.Services.Data.Contracts;
+    using QuizItUp.Web.ViewModels.Quizes;
+    using QuizItUp.Services.Mapping;
 
     public class TagsService : ITagsService
     {
@@ -60,10 +62,12 @@
             .All()
             .ToListAsync();
 
-        public async Task<IList<QuizTag>> GetAllWithTitle(string input)
+        public async Task<IList<QuizViewModel>> GetAllWithTitle(string input)
             => await this.quizTagRepo
-            .All()
+            .AllAsNoTracking()
             .Where(x => x.Tag.Title.Contains(input.ToLower()))
+            .Select(x => x.Quiz)
+            .To<QuizViewModel>()
             .ToListAsync();
 
         private string[] SplitTags(string tags)

@@ -1,19 +1,24 @@
 ﻿@using QuizItUp.Common
 @model QuizItUp.Web.ViewModels.Quizes.QuizViewModel
+@using QuizItUp.Data.Models
+@using Microsoft.AspNetCore.Identity
+@inject UserManager<ApplicationUser> UserManager
+
 @{
     this.ViewData["Title"] = "Take quizes";
 }
-
-    <div class="container">
-        <div class="card mb-3">
-            <img src="@Model.Picture.Url" class="card-img-top" alt="...">
-            <div class="card-body">
-                <h5 class="card-title">@Model.Name</h5>
-                <p class="card-text">@Model.Description</p>
-                <p class="card-text"><small class="text-muted">Time to complete: @Model.TotalTimeToComplete minutes</small></p>
-            </div>
-            @*<a class="btn btn-primary btn-block" asp-controller="Quizes" asp-action="Start" asp-route-id="@Model.Id" type="submit" value="Start Quiz">Start</a>*@
-            <a class="btn btn-primary btn-block" asp-controller="Quizes" asp-action="Start" asp-route-id="@Model.Id" type="submit" value="Start Quiz">Start</a>
+<div class="container">
+    <div class="card mb-3">
+        <img src="@Model.Picture.Url" class="card-img-top" alt="...">
+        <div class="card-body">
+            <h5 class="card-title">@Model.Name</h5>
+            <p class="card-text">@Model.Description</p>
+            <p class="card-text"><small class="text-muted">Time to complete: @Model.TotalTimeToComplete minutes</small></p>
+        </div>
+        @*<a class="btn btn-primary btn-block" asp-controller="Quizes" asp-action="Start" asp-route-id="@Model.Id" type="submit" value="Start Quiz">Start</a>*@
+        <a class="btn btn-primary btn-block" asp-controller="Quizes" asp-action="Start" asp-route-id="@Model.Id" type="submit" value="Start Quiz">Start</a>
+        @if (Model.Creator.Id == this.UserManager.GetUserId(this.User))
+        {
             <a class="btn btn-primary btn-block" asp-controller="Quizes" asp-action="Edit" asp-route-id="@Model.Id" type="submit" value="">Edit</a>
             <a class="btn btn-primary btn-block" asp-controller="Quizes" asp-action="AllQuizInfo" asp-route-id="@Model.Id" type="submit" value="">All Quiz Info</a>
             @if (!Model.IsPublished)
@@ -24,5 +29,6 @@
             {
                 <a class="btn btn-primary btn-block" asp-controller="Quizes" asp-action="UnPublish" asp-route-id="@Model.Id" type="submit" value="">UnPublish</a>
             }
-        </div> 
+        }
     </div>
+</div>

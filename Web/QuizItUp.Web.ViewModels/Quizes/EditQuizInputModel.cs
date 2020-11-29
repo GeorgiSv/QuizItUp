@@ -5,24 +5,8 @@
     using System.ComponentModel.DataAnnotations;
     using System.Text;
 
-    public class EditQuizInputModel
+    public class EditQuizInputModel : BaseQuizInputModel
     {
-        [Required]
-        public string Name { get; set; }
-
-        [Required]
-        [MaxLength(500)]
-        [MinLength(2)]
-        public string Description { get; set; }
-
-        public int TimeToCompletePerQestion { get; set; }
-
-        /// <summary>
-        /// Time for completing the quiz  in seconds
-        /// </summary>
-        [Required]
-        [Range(1, 120)]
-        public int TotalTimeToComplete { get; set; }
-
+        public string CurrentUserId { get; set; }
     }
 }

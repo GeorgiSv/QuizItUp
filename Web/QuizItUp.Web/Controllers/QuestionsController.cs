@@ -8,6 +8,7 @@
     using Microsoft.AspNetCore.Mvc;
     using QuizItUp.Common;
     using QuizItUp.Services.Data.Contracts;
+    using QuizItUp.Web.Infrastructure.Filters;
     using QuizItUp.Web.ViewModels.Answers;
     using QuizItUp.Web.ViewModels.Questions;
     using QuizItUp.Web.ViewModels.Quizes;
@@ -23,6 +24,7 @@
             this.questionService = questionService;
         }
 
+        [ServiceFilter(typeof(UserValidationAttribute))]
         public async Task<IActionResult> Create(string id)
         {
             var indexQestionodel = new IndexQuestionViewModel
@@ -34,6 +36,7 @@
         }
 
         [HttpPost]
+        [ServiceFilter(typeof(UserValidationAttribute))]
         public async Task<IActionResult> Add(IndexQuestionViewModel input, string id)
         {
             if (!this.ModelState.IsValid)
@@ -61,14 +64,23 @@
             return this.RedirectToAction("Create", "Questions", new { id = id });
         }
 
+        //TODO: needs validation
         public async Task<IActionResult> Remove(string id)
         {
-           var quizId = await this.questionService.RemoveQuestionAsync(id);
-           await this.quizesService.UpdateQuizTrophiesAsync(quizId);
+            var question = await this.questionService.GetQuestionByIdAsync(id);
+            var creatorName = await this.quizesService.GetCreatorNameAsync(question.QuizId);
+            if (creatorName != this.User.Identity.Name)
+            {
+                return this.Redirect("/");
+            }
 
-           return this.RedirectToAction("AllQuizInfo", "Quizes", new { id = quizId });
+            var quizId = await this.questionService.RemoveQuestionAsync(id);
+            await this.quizesService.UpdateQuizTrophiesAsync(quizId);
+
+            return this.RedirectToAction("AllQuizInfo", "Quizes", new { id = quizId });
         }
 
+        [ServiceFilter(typeof(UserValidationAttribute))]
         public async Task<IActionResult> All(string id)
         {
             var indexQestionodel = new QuizViewModel();
@@ -77,6 +89,7 @@
             return this.View(indexQestionodel);
         }
 
+        //TODO: needs validation
         public async Task<IActionResult> Edit(string id)
         {
             var indexViewModel = new IndexQuestionViewModel()
@@ -85,15 +98,29 @@
             };
             indexViewModel.QuizViewModel = await this.quizesService.GetQuizByIdAsync(indexViewModel.QuestionViewModel.QuizId);
 
+            var creatorName = await this.quizesService.GetCreatorNameAsync(indexViewModel.QuestionViewModel.QuizId);
+            if (creatorName != this.User.Identity.Name)
+            {
+                return this.Redirect("/");
+            }
+
             return this.View(indexViewModel);
         }
 
+        //TODO: needs validation
         [HttpPost]
         public async Task<IActionResult> Edit(IndexQuestionViewModel input, string id)
         {
             if (!this.ModelState.IsValid)
             {
                 return this.RedirectToAction("Edit", "Questions", new { id = id });
+            }
+
+            var question = await this.questionService.GetQuestionByIdAsync(id);
+            var creatorName = await this.quizesService.GetCreatorNameAsync(question.QuizId);
+            if (creatorName != this.User.Identity.Name)
+            {
+                return this.Redirect("/");
             }
 
             var correctAnswersCount = input.AnswersInputModel.Where(x => x.IsCorrectAnswer == true).ToList().Count;

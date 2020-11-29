@@ -1,0 +1,20 @@
+﻿@model QuizItUp.Web.ViewModels.Quizes.IndexQuizViewModel
+
+
+    <div class="container">
+        <div class="row">
+            @foreach (var quiz in Model.Quizes)
+            {
+                <div class="col-md-4">
+                    <div class="card" style="width: 18rem;">
+                        <img src="@quiz.Picture.Url" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title">@quiz.Name</h5>
+                            @*<p class="card-text">@quiz.Description</p>*@
+                            <a asp-area="" asp-controller="Quizes" asp-action="Details" asp-route-id="@quiz.Id" class="btn btn-primary">Take Quiz</a>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>

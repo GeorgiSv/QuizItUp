@@ -17,6 +17,8 @@
 
         Task<IList<QuizViewModel>> GetAllQuizesWithNameAsync(string input);
 
+        Task<IList<QuizViewModel>> GetAllQuizesByUserId(string userId);
+
         Task<QuizViewModel> GetQuizByIdAsync(string quizId);
 
         Task<int> PublishAsync(string quizId);
@@ -28,5 +30,8 @@
         Task<string> UpdateQuizAsync(EditQuizInputModel input, string quizId);
 
         Task UpdateQuizTrophiesAsync(string quizId);
+
+        Task<string> GetCreatorNameAsync(string quizId);
+
     }
 }

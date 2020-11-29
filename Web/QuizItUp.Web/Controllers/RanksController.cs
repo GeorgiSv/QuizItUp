@@ -4,13 +4,14 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
-
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
     using QuizItUp.Data.Models;
     using QuizItUp.Services.Data.Contracts;
     using QuizItUp.Web.ViewModels.Ranks;
 
+    [Authorize]
     public class RanksController : Controller
     {
         private readonly UserManager<ApplicationUser> userManager;

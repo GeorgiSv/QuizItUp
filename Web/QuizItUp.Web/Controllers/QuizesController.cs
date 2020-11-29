@@ -15,6 +15,7 @@
     using QuizItUp.Data.Models;
     using QuizItUp.Services;
     using QuizItUp.Services.Data.Contracts;
+    using QuizItUp.Web.Infrastructure.Filters;
     using QuizItUp.Web.ViewModels.Quizes;
     using QuizItUp.Web.ViewModels.Results;
 
@@ -115,15 +116,22 @@
             return this.View(quiz);
         }
 
-        public async Task<IActionResult> Edit(string id)
+        [ServiceFilter(typeof(UserValidationAttribute))]
+        public async Task<IActionResult> Edit(string id, string creatorId)
         {
             var quiz = await this.quizService.GetQuizByIdAsync(id);
             return this.View(quiz);
         }
 
         [HttpPost]
+        [ServiceFilter(typeof(UserValidationAttribute))]
         public async Task<IActionResult> Edit(EditQuizInputModel input, string id)
         {
+            if (input.CreatorId != this.userManager.GetUserId(this.User))
+            {
+                this.Redirect("/Home/Index");
+            }
+
             if (!this.ModelState.IsValid)
             {
                 return this.RedirectToAction("Edit", "Quizes", new { id });
@@ -134,18 +142,21 @@
             return this.RedirectToAction("AllQuizInfo", "Quizes", new { id = quizId });
         }
 
+        [ServiceFilter(typeof(UserValidationAttribute))]
         public async Task<IActionResult> Remove(string id)
         {
             var quizId = await this.quizService.RemoveQuizAsync(id);
             return this.RedirectToAction("All", "Quizes");
         }
 
+        [ServiceFilter(typeof(UserValidationAttribute))]
         public async Task<IActionResult> Publish(string id)
         {
             var categoryId = await this.quizService.PublishAsync(id);
             return this.RedirectToAction("AllQuizesPerCategory", "Categories", new { id = categoryId });
         }
 
+        [ServiceFilter(typeof(UserValidationAttribute))]
         public async Task<IActionResult> UnPublish(string id)
         {
             var categoryId = await this.quizService.UnPublishAsync(id);
@@ -154,9 +165,16 @@
 
         public async Task<IActionResult> MyQuizes(string id)
         {
-            return this.RedirectToAction("AllQuizesPerCategory", "Categories", new { id = id });
+            var userId = this.userManager.GetUserId(this.User);
+            var quizViewModel = new IndexQuizViewModel()
+            {
+                Quizes = await this.quizService.GetAllQuizesByUserId(userId),
+            };
+
+            return this.View(quizViewModel);
         }
 
+        [ServiceFilter(typeof(UserValidationAttribute))]
         public async Task<IActionResult> AllQuizInfo(string id)
         {
             var model = await this.quizService.GetQuizByIdAsync(id);

@@ -13,9 +13,16 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.2.5" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.ViewFeatures" Version="2.2.0" />
     <PackageReference Include="StyleCop.Analyzers" Version="1.2.0-beta.205" PrivateAssets="all">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
     </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Services\QuizItUp.Services.Data\QuizItUp.Services.Data.csproj" />
+    <ProjectReference Include="..\QuizItUp.Web.ViewModels\QuizItUp.Web.ViewModels.csproj" />
   </ItemGroup>
 
 </Project>

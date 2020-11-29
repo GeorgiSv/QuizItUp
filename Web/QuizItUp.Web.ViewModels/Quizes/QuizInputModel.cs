@@ -8,29 +8,9 @@
     using QuizItUp.Data.Models;
     using QuizItUp.Web.ViewModels.Questions;
 
-    public class QuizInputModel
+    public class QuizInputModel : BaseQuizInputModel
     {
-        public string CreatorId { get; set; }
-
-        [Required]
-       // [Range(2, 40)]
-        public string Name { get; set; }
-
-        [Required]
-        [MaxLength(500)]
-        [MinLength(2)]
-        public string Description { get; set; }
-
         public int Trophies { get; set; }
-
-        public int TimeToCompletePerQestion { get; set; }
-
-        /// <summary>
-        /// Time for completing the quiz  in seconds
-        /// </summary>
-        [Required]
-        [Range(1, 120)]
-        public int TotalTimeToComplete { get; set; }
 
         public IFormFile Picture { get; set; }
 

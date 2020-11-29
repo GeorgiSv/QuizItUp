@@ -74,22 +74,7 @@
             .ToListAsync();
 
         public async Task<IList<QuizViewModel>> GetAllQuizesWithTagAsync(string input)
-        {
-            var quizTags = await this.tagsService.GetAllWithTitle(input);
-            //var allQuizTags = await this.tagsService.GetAllQuizTags();
-            var allTags = await this.tagsService.GetAllTags();
-            var quiz = await this.quizesRepo
-                .All()
-                .ToListAsync();
-
-            var a = quizTags.Select(x => x.Quiz);
-
-            return quizTags
-                .AsQueryable()
-                .Select(x => x.Quiz)
-                .To<QuizViewModel>()
-                .ToList();
-        }
+            => await this.tagsService.GetAllWithTitle(input);
 
         public async Task<IList<QuizViewModel>> GetAllQuizesWithNameAsync(string input)
              => await this.quizesRepo
@@ -185,6 +170,24 @@
                .All()
                .Where(x => x.Id == quizId)
                .FirstOrDefaultAsync();
+        }
+
+        public async Task<IList<QuizViewModel>> GetAllQuizesByUserId(string userId)
+            => await this.quizesRepo
+            .All()
+            .Where(x => x.CreatorId == userId)
+            .To<QuizViewModel>()
+            .ToListAsync();
+
+        public async Task<string> GetCreatorNameAsync(string quizId)
+        {
+            var creator = await this.quizesRepo
+                 .AllAsNoTracking()
+                 .Where(x => x.Id == quizId)
+                 .Select(x => x.Creator)
+                 .FirstOrDefaultAsync();
+
+            return creator.UserName;
         }
     }
 }
