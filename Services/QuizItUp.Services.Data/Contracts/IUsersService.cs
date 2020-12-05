@@ -18,6 +18,8 @@
 
         Task<Rank> GetUserRank(string userId);
 
-        Task<bool> UpdateUserAsync(string firstName, string lastName, string userId);
+        Task<bool> UpdateUserAsync(string firstName, string lastName, string userId, string picturePath);
+
+        Task<string> GetUserPicture(string userId);
     }
 }

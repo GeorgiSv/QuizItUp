@@ -85,7 +85,7 @@
             return rank;
         }
 
-        public async Task<bool> UpdateUserAsync(string firstName, string lastName, string userId)
+        public async Task<bool> UpdateUserAsync(string firstName, string lastName, string userId, string picturePath)
         {
             var user = this.usersRepo.All().FirstOrDefault(x => x.Id == userId);
 
@@ -94,12 +94,32 @@
                 return false;
             }
 
+            if (!string.IsNullOrEmpty(picturePath))
+            {
+                user.Picture.Url = picturePath;
+            }
+
             user.FirstName = firstName;
             user.LastName = lastName;
 
             this.usersRepo.Update(user);
             await this.usersRepo.SaveChangesAsync();
             return true;
+        }
+
+        public async Task<string> GetUserPicture(string userId)
+        {
+            var result = await this.usersRepo
+                .All()
+                .Where(x => x.Id == userId)
+                .Select(x => new ApplicationUser
+                {
+                    Picture = x.Picture,
+                    PictureId = x.PictureId,
+                })
+                .FirstOrDefaultAsync();
+
+            return result.Picture.Url;
         }
     }
 }
