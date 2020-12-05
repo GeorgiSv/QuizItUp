@@ -1,0 +1,55 @@
+﻿@using QuizItUp.Data.Models
+@using Microsoft.AspNetCore.Identity
+@model QuizItUp.Web.ViewModels.Ranks.UserRankingViewModel
+
+@inject UserManager<ApplicationUser> UserManager
+@{
+    this.ViewData["Title"] = "Ranking";
+}
+
+@await Html.PartialAsync("_MainHeaderPartial", ViewData["Title"])
+
+<a asp-action="All" asp-controller="Ranks" type="button" class="btn btn-outline-secondary btn-lg btn-block">See Ranks Road</a>
+
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th scope="col" style="text-align: center">#</th>
+            <th scope="col" style="text-align: center">Name</th>
+            <th scope="col" style="text-align: center">CurrentRank</th>
+            <th scope="col" style="text-align: center">Trophies</th>
+        </tr>
+    </thead>
+    <tbody>
+        @for (int i = 0; i < Model.Users.Count; i++)
+        {
+            var counter = i + 1;
+            var user = Model.Users[i];
+
+            <tr>
+                <th scope="row" style="text-align: center">@counter</th>
+                <td style="text-align: center">@user.FirstName @user.LastName</td>
+                <td style=" background-color: @user.Rank.Color; text-align: center">@user.Rank.Name</td>
+                <td class="d-flex justify-content-center">
+                    <h5>
+                        <span class="badge badge-secondary badge-warning"> @user.Trophies<img src="\trophy-shape.png" alt="icon" style="width: 30px" /></span>
+                    </h5>
+                </td>
+            </tr>
+
+        }
+    </tbody>
+</table>
+
+
+@*<tr>
+        <th scope="row">2</th>
+        <td>Jacob</td>
+        <td>Thornton</td>
+        <td>@fat</td>
+    </tr>
+    <tr>
+        <th scope="row">3</th>
+        <td colspan="2">Larry the Bird</td>
+        <td>@twitter</td>
+    </tr>*@

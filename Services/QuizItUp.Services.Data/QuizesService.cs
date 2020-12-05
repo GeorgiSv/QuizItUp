@@ -79,7 +79,7 @@
         public async Task<IList<QuizViewModel>> GetAllQuizesWithNameAsync(string input)
              => await this.quizesRepo
             .All()
-            .Where(x => x.Name.ToLower().Contains(input))
+            .Where(x => x.Name.ToLower().Contains(input) && x.IsPublished == true)
             .To<QuizViewModel>()
             .ToListAsync();
 

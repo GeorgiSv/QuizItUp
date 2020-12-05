@@ -230,7 +230,7 @@
 
         public async Task<IActionResult> SearchFor(string input)
         {
-            if (input == null)
+            if (string.IsNullOrEmpty(input) || string.IsNullOrWhiteSpace(input))
             {
                 return this.View(null);
             }

@@ -2,17 +2,7 @@
 {
     using System.Reflection;
 
-    using QuizItUp.Data;
-    using QuizItUp.Data.Common;
-    using QuizItUp.Data.Common.Repositories;
-    using QuizItUp.Data.Models;
-    using QuizItUp.Data.Repositories;
-    using QuizItUp.Data.Seeding;
-    using QuizItUp.Services.Data;
-    using QuizItUp.Services.Mapping;
-    using QuizItUp.Services.Messaging;
-    using QuizItUp.Web.ViewModels;
-
+    using CloudinaryDotNet;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Http;
@@ -21,9 +11,18 @@
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Hosting;
+    using QuizItUp.Data;
+    using QuizItUp.Data.Common;
+    using QuizItUp.Data.Common.Repositories;
+    using QuizItUp.Data.Models;
+    using QuizItUp.Data.Repositories;
+    using QuizItUp.Data.Seeding;
+    using QuizItUp.Services.Data;
     using QuizItUp.Services.Data.Contracts;
-    using CloudinaryDotNet;
+    using QuizItUp.Services.Mapping;
+    using QuizItUp.Services.Messaging;
     using QuizItUp.Web.Infrastructure.Filters;
+    using QuizItUp.Web.ViewModels;
 
     public class Startup
     {
@@ -73,6 +72,7 @@
             services.AddTransient<IResultsService, ResultsService>();
             services.AddTransient<IRanksService, RanksService>();
             services.AddTransient<ITagsService, TagsService>();
+            services.AddTransient<IUsersService, UsersService>();
             services.AddTransient<UserValidationAttribute>();
 
             // SendGrid Setup

@@ -7,5 +7,7 @@
 @await Html.PartialAsync("_MainHeaderPartial", ViewData["Title"])
 
 <br />
-
-@await Html.PartialAsync("_AllQuizesPartial", Model)
+@if (Model != null)
+{
+    @await Html.PartialAsync("_AllQuizesPartial", Model)
+}
