@@ -5,16 +5,17 @@
     this.ViewData["Title"] = "All Question";
 }
 
-<div class="container">
+@*<div class="container">
     <h1 class="alert-heading"> All Questioins</h1>
-</div>
+</div>*@
+@await Html.PartialAsync("_MainHeaderPartial", ViewData["Title"])
 
 @foreach (var question in Model.Questions)
 {
-<h1>@question.QuestionText</h1>
+    <h1>@question.QuestionText</h1>
 }
 
 @*
-  Add remove question button
-  Add go to Index quizButton
+    Add remove question button
+    Add go to Index quizButton
 *@

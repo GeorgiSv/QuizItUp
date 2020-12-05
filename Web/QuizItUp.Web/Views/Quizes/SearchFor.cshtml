@@ -1,8 +1,10 @@
 ﻿@using QuizItUp.Common
 @model QuizItUp.Web.ViewModels.Quizes.IndexQuizViewModel
 @{
-    this.ViewData["Title"] = "All";
+    this.ViewData["Title"] = "Results for your search ..";
 }
+
+@await Html.PartialAsync("_MainHeaderPartial", ViewData["Title"])
 
 <br />
 

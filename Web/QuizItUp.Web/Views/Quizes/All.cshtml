@@ -4,8 +4,8 @@
     this.ViewData["Title"] = "All quizes";
 }
 
+@await Html.PartialAsync("_MainHeaderPartial", ViewData["Title"])
 
-<h1>All quizes</h1>
-<hr />
 <br />
+
 @await Html.PartialAsync("_AllQuizesPartial", Model)

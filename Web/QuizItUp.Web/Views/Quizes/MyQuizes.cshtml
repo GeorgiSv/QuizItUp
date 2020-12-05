@@ -1,11 +1,11 @@
 ﻿@using QuizItUp.Common
 @model QuizItUp.Web.ViewModels.Quizes.IndexQuizViewModel
 @{
-    this.ViewData["Title"] = "All quizes";
+    this.ViewData["Title"] = "My quizes";
 }
 
-
-<h1 class="text-center">My quizes</h1>
-<hr />
+@await Html.PartialAsync("_MainHeaderPartial", ViewData["Title"])
+@*<h1 class="text-center">My quizes</h1>
+<hr />*@
 <br />
 @await Html.PartialAsync("_AllQuizesPartial", Model)

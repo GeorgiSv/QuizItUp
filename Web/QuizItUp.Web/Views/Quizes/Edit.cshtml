@@ -3,10 +3,10 @@
 @using QuizItUp.Web.ViewModels.Quizes
 
 @{
-    this.ViewData["Title"] = "Edit quiz";
+    this.ViewData["Title"] = "Edit quiz info";
 }
 
-
+@await Html.PartialAsync("_MainHeaderPartial", ViewData["Title"])
 <form asp-action="Edit" asp-controller="Quizes" method="post">
     <div asp-validation-summary="All" class="text-danger">   </div>
 

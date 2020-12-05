@@ -6,9 +6,10 @@
 }
 
 
+
 <div class="container">
 
-    @await Html.PartialAsync("_QuizHeader", Model.QuizViewModel)
+    @await Html.PartialAsync("_QuizHeaderPartial", Model.QuizViewModel)
 
     <form asp-action="Add" asp-controller="Questions" asp-route-id="@quizId" method="post">
 
@@ -35,7 +36,7 @@
                     <div class='input-group mb-3' id="A1">
                         <div class='input-group-prepend'>
                             <div class='input-group-text'>
-                                <input type='checkbox' value='true' name='AnswersInputModel[1].IsCorrectAnswer' asp-for="@Model.Answer.AnswerText" aria-label='Checkbox' id='checkBoxAnswer' value='true' >
+                                <input type='checkbox' value='true' name='AnswersInputModel[1].IsCorrectAnswer' asp-for="@Model.Answer.AnswerText" aria-label='Checkbox' id='checkBoxAnswer' value='true'>
                             </div>
                         </div>
                         <input type='text' class='form-control' aria-label='Text' placeholder='Answer ..' name='AnswersInputModel[1].AnswerText'>

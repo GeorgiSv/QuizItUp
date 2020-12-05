@@ -1,11 +1,12 @@
-﻿using QuizItUp.Web.ViewModels.Answers;
-using QuizItUp.Web.ViewModels.Quizes;
-using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace QuizItUp.Web.ViewModels.Questions
+﻿namespace QuizItUp.Web.ViewModels.Questions
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Text;
+
+    using QuizItUp.Web.ViewModels.Answers;
+    using QuizItUp.Web.ViewModels.Quizes;
+
     public class IndexQuestionViewModel
     {
         public QuizViewModel QuizViewModel { get; set; }

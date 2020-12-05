@@ -10,7 +10,7 @@
 
 <div class="container">
 
-    @await Html.PartialAsync("_QuizHeader", Model.QuizViewModel)
+    @await Html.PartialAsync("_QuizHeaderPartial", Model.QuizViewModel)
 
     <form asp-action="Edit" asp-controller="Questions" asp-route-id="@questionId" method="post">
         <div asp-validation-summary="All" class="text-danger">   </div>

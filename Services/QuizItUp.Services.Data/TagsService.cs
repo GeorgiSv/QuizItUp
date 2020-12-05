@@ -65,7 +65,7 @@
         public async Task<IList<QuizViewModel>> GetAllWithTitle(string input)
             => await this.quizTagRepo
             .AllAsNoTracking()
-            .Where(x => x.Tag.Title.Contains(input.ToLower()))
+            .Where(x => x.Tag.Title.Contains(input.ToLower()) && x.Quiz.IsPublished == true)
             .Select(x => x.Quiz)
             .To<QuizViewModel>()
             .ToListAsync();

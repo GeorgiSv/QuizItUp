@@ -1,14 +1,15 @@
 ﻿@using QuizItUp.Common
 
 @{
-    this.ViewData["Title"] = "Quiz index";
+    this.ViewData["Title"] = "Quiz Area";
 }
 
+@await Html.PartialAsync("_MainHeaderPartial", ViewData["Title"])
 <div class="container">
     @*<div class="row">
             <h2 style="text-align:center">Quizes</h2>
         </div>*@
-    <h1 class="d-flex justify-content-center">Quiz Area</h1>
+    @*<h1 class="d-flex justify-content-center">Quiz Area</h1>*@
     <div class="row row-cols-1 row-cols-md-2">
         <div class="col mb-4">
             <div class="card">
@@ -33,9 +34,9 @@
             </div>
         </div>
         @*<div class="row">
-            <a type="button" class="btn btn-secondary btn-lg btn-block" asp-controller="Quizes" asp-action="Create">Create quiz</a>
-            <a type="button" class="btn btn-secondary btn-lg btn-block" asp-controller="Quizes" asp-action="All">All quizes</a>
-        </div>*@
+                <a type="button" class="btn btn-secondary btn-lg btn-block" asp-controller="Quizes" asp-action="Create">Create quiz</a>
+                <a type="button" class="btn btn-secondary btn-lg btn-block" asp-controller="Quizes" asp-action="All">All quizes</a>
+            </div>*@
 
     </div>
 </div>

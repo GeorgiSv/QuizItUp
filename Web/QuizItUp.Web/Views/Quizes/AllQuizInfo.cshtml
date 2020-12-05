@@ -6,7 +6,7 @@
 
 <div class="container">
 
-    @await Html.PartialAsync("_QuizHeader", Model)
+    @await Html.PartialAsync("_QuizHeaderPartial", Model)
     @{
         int counter = 0;
         @foreach (var question in @Model.Questions)

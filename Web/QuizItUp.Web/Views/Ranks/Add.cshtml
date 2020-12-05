@@ -1,33 +1,35 @@
 ﻿@model QuizItUp.Web.ViewModels.Ranks.RankInputModel
 @using QuizItUp.Common
+@{
+    this.ViewData["Title"] = "Add rank";
+}
 
-    <div class="container">
+<div class="container">
+    @await Html.PartialAsync("_MainHeaderPartial", ViewData["Title"])
 
-        <h1>Add rank</h1>
+    <form action="" method="post">
+        <div class="form-group">
+            <label asp-for="Name">Rank Name</label>
+            <input class="form-control" placeholder="Rank name" asp-for="Name"></input>
+            <span asp-validation-for="Name" class="text-danger"></span>
+        </div>
 
-        <form action="" method="post">
-            <div class="form-group">
-                <label asp-for="Name">Rank Name</label>
-                <input class="form-control" placeholder="Rank name" asp-for="Name"></input>
-                <span asp-validation-for="Name" class="text-danger"></span>
-            </div>
+        <div class="form-group">
+            <label asp-for="TrophiesNeeded">Trophies Needed</label>
+            <input class="form-control" placeholder="Trophies Needed" asp-for="TrophiesNeeded">
+        </div>
 
-            <div class="form-group">
-                <label asp-for="TrophiesNeeded">Trophies Needed</label>
-                <input class="form-control" placeholder="Trophies Needed" asp-for="TrophiesNeeded">
-            </div>
+        <div class="form-group">
+            <label asp-for="Color">Color</label>
+            <input class="form-control-sm" placeholder="Rank color" asp-for="Color">
+            <a class="btn btn-primary btn-group-sm" href="@GlobalConstants.ColorMakerURL" target="_blank">Crate color</a>
+        </div>
 
-            <div class="form-group">
-                <label asp-for="Color">Color</label>
-                <input class="form-control-sm" placeholder="Rank color" asp-for="Color">
-                <a class="btn btn-primary btn-group-sm" href="@GlobalConstants.ColorMakerURL" target="_blank">Crate color</a>
-            </div>
+        <div class="form-group">
+            <input class="btn btn-primary btn-block" asp-controller="Ranks" asp-action="Add" type="submit" value="Add Rank" />
+        </div>
 
-            <div class="form-group">
-                <input class="btn btn-primary btn-block" asp-controller="Ranks" asp-action="Add" type="submit" value="Add Rank" />
-            </div>
+    </form>
+    <a class="btn btn-primary btn-block" asp-area="" asp-controller="Ranks" asp-action="All">All</a>
 
-        </form>
-        <a class="btn btn-primary btn-block" asp-area="" asp-controller="Ranks" asp-action="All">All</a>
-
-    </div>
+</div>
