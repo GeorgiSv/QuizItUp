@@ -17,5 +17,7 @@
         Task<bool> UpdateUsersRanksAsync();
 
         Task<Rank> GetUserRank(string userId);
+
+        Task<bool> UpdateUserAsync(string firstName, string lastName, string userId);
     }
 }

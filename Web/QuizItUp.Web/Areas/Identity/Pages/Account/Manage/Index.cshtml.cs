@@ -1,29 +1,36 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
-using QuizItUp.Data.Models;
-
-namespace QuizItUp.Web.Areas.Identity.Pages.Account.Manage
+﻿namespace QuizItUp.Web.Areas.Identity.Pages.Account.Manage
 {
+    using System;
+    using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
+    using System.Linq;
+    using System.Threading.Tasks;
+
+    using Microsoft.AspNetCore.Identity;
+    using Microsoft.AspNetCore.Mvc;
+    using Microsoft.AspNetCore.Mvc.RazorPages;
+    using QuizItUp.Data.Models;
+    using QuizItUp.Services.Data.Contracts;
+
     public partial class IndexModel : PageModel
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
+        private readonly IUsersService userService;
 
         public IndexModel(
             UserManager<ApplicationUser> userManager,
-            SignInManager<ApplicationUser> signInManager)
+            SignInManager<ApplicationUser> signInManager,
+            IUsersService userService)
         {
-            _userManager = userManager;
-            _signInManager = signInManager;
+            this._userManager = userManager;
+            this._signInManager = signInManager;
+            this.userService = userService;
         }
 
         public string Username { get; set; }
+
+        public string PictureUrl { get; set; }
 
         [TempData]
         public string StatusMessage { get; set; }
@@ -36,62 +43,76 @@ namespace QuizItUp.Web.Areas.Identity.Pages.Account.Manage
             [Phone]
             [Display(Name = "Phone number")]
             public string PhoneNumber { get; set; }
+
+            [Required]
+            [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 2)]
+            [Display(Name = "FirstName")]
+            public string FirstName { get; set; }
+
+            [Required]
+            [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 2)]
+            [Display(Name = "LastName")]
+            public string LastName { get; set; }
         }
 
         private async Task LoadAsync(ApplicationUser user)
         {
-            var userName = await _userManager.GetUserNameAsync(user);
-            var phoneNumber = await _userManager.GetPhoneNumberAsync(user);
+            var userName = await this._userManager.GetUserNameAsync(user);
+            var phoneNumber = await this._userManager.GetPhoneNumberAsync(user);
+            this.PictureUrl = user.Picture.Url;
 
-            Username = userName;
+            this.Username = userName;
 
-            Input = new InputModel
+            this.Input = new InputModel
             {
-                PhoneNumber = phoneNumber
+                PhoneNumber = phoneNumber,
+                FirstName = user.FirstName,
+                LastName = user.LastName,
             };
         }
 
         public async Task<IActionResult> OnGetAsync()
         {
-            var user = await _userManager.GetUserAsync(User);
+            var user = await this._userManager.GetUserAsync(this.User);
             if (user == null)
             {
-                return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
+                return this.NotFound($"Unable to load user with ID '{this._userManager.GetUserId(this.User)}'.");
             }
 
-            await LoadAsync(user);
-            return Page();
+            await this.LoadAsync(user);
+            return this.Page();
         }
 
         public async Task<IActionResult> OnPostAsync()
         {
-            var user = await _userManager.GetUserAsync(User);
+            var user = await this._userManager.GetUserAsync(User);
             if (user == null)
             {
-                return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
+                return this.NotFound($"Unable to load user with ID '{this._userManager.GetUserId(this.User)}'.");
             }
 
-            if (!ModelState.IsValid)
+            if (!this.ModelState.IsValid)
             {
-                await LoadAsync(user);
-                return Page();
+                await this.LoadAsync(user);
+                return this.Page();
             }
 
-            var phoneNumber = await _userManager.GetPhoneNumberAsync(user);
-            if (Input.PhoneNumber != phoneNumber)
+            var phoneNumber = await this._userManager.GetPhoneNumberAsync(user);
+            if (this.Input.PhoneNumber != phoneNumber)
             {
-                var setPhoneResult = await _userManager.SetPhoneNumberAsync(user, Input.PhoneNumber);
+                var setPhoneResult = await this._userManager.SetPhoneNumberAsync(user, this.Input.PhoneNumber);
                 if (!setPhoneResult.Succeeded)
                 {
-                    StatusMessage = "Unexpected error when trying to set phone number.";
-                    return RedirectToPage();
+                    this.StatusMessage = "Unexpected error when trying to set phone number.";
+                    return this.RedirectToPage();
                 }
             }
 
+            await this.userService.UpdateUserAsync(this.Input.FirstName, this.Input.LastName, user);
 
-            await _signInManager.RefreshSignInAsync(user);
-            StatusMessage = "Your profile has been updated";
-            return RedirectToPage();
+            await this._signInManager.RefreshSignInAsync(user);
+            this.StatusMessage = "Your profile has been updated";
+            return this.RedirectToPage();
         }
     }
 }

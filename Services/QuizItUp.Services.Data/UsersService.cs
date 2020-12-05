@@ -84,5 +84,22 @@
 
             return rank;
         }
+
+        public async Task<bool> UpdateUserAsync(string firstName, string lastName, string userId)
+        {
+            var user = this.usersRepo.All().FirstOrDefault(x => x.Id == userId);
+
+            if (user == null)
+            {
+                return false;
+            }
+
+            user.FirstName = firstName;
+            user.LastName = lastName;
+
+            this.usersRepo.Update(user);
+            await this.usersRepo.SaveChangesAsync();
+            return true;
+        }
     }
 }
