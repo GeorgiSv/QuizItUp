@@ -1,9 +1,7 @@
 ﻿namespace QuizItUp.Web.Areas.Administration.Controllers
 {
-    using QuizItUp.Services.Data;
-    using QuizItUp.Web.ViewModels.Administration.Dashboard;
-
     using Microsoft.AspNetCore.Mvc;
+    using QuizItUp.Web.ViewModels.Administration.Dashboard;
 
     public class DashboardController : AdministrationController
     {

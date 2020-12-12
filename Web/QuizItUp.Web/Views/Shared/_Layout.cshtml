@@ -7,12 +7,13 @@
     <title>@this.ViewData["Title"] - @GlobalConstants.SystemName</title>
     <link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" asp-append-version="true" />
     <link href="~/css/site.min.css" rel="stylesheet" asp-append-version="true" />
+    <link href="~/css/styles.css" rel="stylesheet" asp-append-version="true" />
 
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Russo+One&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div style="background-color: #f7f7f7">
+    <div class="mainColor">
         <header>
             <nav class="navbar navbar-expand-sm navbar-light  border-bottom box-shadow mb-3">
                 @*bg-white*@
@@ -32,8 +33,8 @@
                         </div>
                         <ul class="navbar-nav flex-grow-1">
                             @*<li class="nav-item">
-                                    <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                                </li>*@
+            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+        </li>*@
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Categories" asp-action="Category">Categories</a>
                             </li>
@@ -41,14 +42,21 @@
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Quizes" asp-action="Index">Quizes</a>
                             </li>
                             @*<li class="nav-item">
-                                    <a class="nav-link text-dark" asp-area="" asp-controller="Quizes" asp-action="Create">Create Quiz</a>
-                                </li>*@
+            <a class="nav-link text-dark" asp-area="" asp-controller="Quizes" asp-action="Create">Create Quiz</a>
+        </li>*@
                             @*<li class="nav-item">
-                                    <a class="nav-link text-dark" asp-area="" asp-controller="Quizes" asp-action="MyQuizes">MyQuizes</a>
-                                </li>*@
+            <a class="nav-link text-dark" asp-area="" asp-controller="Quizes" asp-action="MyQuizes">MyQuizes</a>
+        </li>*@
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Ranks" asp-action="Ranking">Ranks</a>
                             </li>
+
+                            @if (this.User.IsInRole(GlobalConstants.AdministratorRoleName))
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="Administration" asp-controller="Administration" asp-action="Items">Admin</a>
+                                </li>
+                            }
                         </ul>
 
                     </div>

@@ -39,6 +39,7 @@
             => await this.ranksRepo
             .All()
             .To<RankViewModel>()
+            .OrderByDescending(x => x.TrophiesNeeded)
             .ToListAsync();
 
         public async Task<string> RemoveAsync(string id)

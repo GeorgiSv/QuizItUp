@@ -26,18 +26,6 @@
             this.usersService = usersService;
         }
 
-        public IActionResult Add()
-        {
-            return this.View();
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> Add(RankInputModel input)
-        {
-            await this.ranksService.AddAsync(input);
-            return this.RedirectToAction(nameof(this.All));
-        }
-
         public async Task<IActionResult> All()
         {
             var allRanksViewModel = new AllRanksViewModel()
@@ -46,13 +34,6 @@
             };
 
             return this.View(allRanksViewModel);
-        }
-
-        public async Task<IActionResult> Remove(string id)
-        {
-            await this.ranksService.RemoveAsync(id);
-
-            return this.RedirectToAction(nameof(this.All));
         }
 
         public async Task<IActionResult> Ranking()

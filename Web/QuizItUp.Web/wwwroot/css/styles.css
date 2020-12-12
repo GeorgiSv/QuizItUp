@@ -114,3 +114,19 @@
 .iconCustom {
     width: 30px;
 }
+
+.mainColor {
+    background-color: #f7f7f7
+}
+
+.parallax {
+    /* The image used */
+    background-image: url("../pictures/shared/arrow.png");
+    /* Set a specific height */
+    height: 100px;
+    /* Create the parallax scrolling effect */
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}

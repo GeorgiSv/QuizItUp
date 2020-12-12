@@ -12,10 +12,6 @@
 
     @foreach (var rank in Model.Ranks.OrderBy(x => x.TrophiesNeeded))
     {
-        if (true)
-        {
-
-        }
         <div class="card text-center">
             <div class="card-header">
                 Trophies needed: @rank.TrophiesNeeded
@@ -34,28 +30,10 @@
                     </div>
                     <div class="col-5"></div>
                 </div>
-
             </div>
-
-            <style>
-                .parallax {
-                    /* The image used */
-                    background-image: url("https://png.pngitem.com/pimgs/s/402-4028806_arrow-down-down-download-bottom-arrow-image-free.png");
-                    /* Set a specific height */
-                    height: 100px;
-                    /* Create the parallax scrolling effect */
-                    background-attachment: fixed;
-                    background-position: center;
-                    background-repeat: no-repeat;
-                    background-size: cover;
-                }
-            </style>
 
             <!-- Container element -->
             <div class="parallax"></div>
-
-            @*<a class="btn btn-primary btn-block" asp-area="" asp-controller="Ranks" asp-action="Remove" asp-route-id="@rank.Id">Remove</a>*@
         </div>
     }
-    <a class="btn btn-primary btn-block" asp-area="" asp-controller="Ranks" asp-action="Add">Add rank</a>
 </div>
