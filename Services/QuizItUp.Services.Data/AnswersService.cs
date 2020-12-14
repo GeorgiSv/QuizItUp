@@ -1,20 +1,21 @@
 ﻿namespace QuizItUp.Services.Data
 {
-    using Microsoft.EntityFrameworkCore;
-    using QuizItUp.Data.Common.Repositories;
-    using QuizItUp.Data.Models;
-    using QuizItUp.Services.Data.Contracts;
-    using QuizItUp.Services.Mapping;
-    using QuizItUp.Web.ViewModels.Answers;
     using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Text;
     using System.Threading.Tasks;
 
+    using Microsoft.EntityFrameworkCore;
+    using QuizItUp.Data.Common.Repositories;
+    using QuizItUp.Data.Models;
+    using QuizItUp.Services.Data.Contracts;
+    using QuizItUp.Services.Mapping;
+    using QuizItUp.Web.ViewModels.Answers;
+
     public class AnswersService : IAnswersService
     {
-        IDeletableEntityRepository<Answer> answerRepo;
+        private readonly IDeletableEntityRepository<Answer> answerRepo;
 
         public AnswersService(IDeletableEntityRepository<Answer> answerRepo)
         {
