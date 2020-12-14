@@ -4,6 +4,7 @@
 
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.AspNetCore.Mvc.Filters;
+    using QuizItUp.Common;
     using QuizItUp.Services.Data.Contracts;
 
     public class UserValidationAttribute : IAsyncActionFilter
@@ -22,7 +23,7 @@
                 var quizId = context.ActionArguments["id"].ToString();
                 var quiz = await this.quizService.GetQuizByIdAsync(quizId);
 
-                if (context.HttpContext.User.Identity.Name != quiz.Creator.UserName)
+                if (context.HttpContext.User.Identity.Name != quiz.Creator.UserName && !context.HttpContext.User.IsInRole(GlobalConstants.AdministratorRoleName))
                 {
                     var controller = (Controller)context.Controller;
                     context.Result = controller.Redirect("/");

@@ -17,7 +17,7 @@
         </div>
         @*<a class="btn btn-primary btn-block" asp-controller="Quizes" asp-action="Start" asp-route-id="@Model.Id" type="submit" value="Start Quiz">Start</a>*@
         <a class="btn btn-primary btn-block" asp-controller="Quizes" asp-action="Start" asp-route-id="@Model.Id" type="submit" value="Start Quiz">Start</a>
-        @if (Model.Creator.Id == this.UserManager.GetUserId(this.User))
+        @if (Model.Creator.Id == this.UserManager.GetUserId(this.User) || this.User.IsInRole(GlobalConstants.AdministratorRoleName))
         {
             <a class="btn btn-primary btn-block" asp-controller="Quizes" asp-action="Edit" asp-route-id="@Model.Id" type="submit" value="">Edit</a>
             <a class="btn btn-primary btn-block" asp-controller="Quizes" asp-action="AllQuizInfo" asp-route-id="@Model.Id" type="submit" value="">All Quiz Info</a>

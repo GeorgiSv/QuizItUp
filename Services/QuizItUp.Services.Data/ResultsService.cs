@@ -5,6 +5,7 @@
     using System.Linq;
     using System.Text;
     using System.Threading.Tasks;
+
     using Microsoft.EntityFrameworkCore;
     using QuizItUp.Data.Common.Repositories;
     using QuizItUp.Data.Models;
@@ -108,5 +109,8 @@
             => this.resultRepo
             .All()
             .Any(x => x.ApplicationUserId == userId && x.QuizId == quizId && x.IsPassed == true);
+
+        public int GetResultsCount()
+                => this.resultRepo.AllAsNoTracking().Count();
     }
 }

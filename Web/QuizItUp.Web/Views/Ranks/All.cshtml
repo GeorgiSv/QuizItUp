@@ -4,15 +4,15 @@
 @inject UserManager<ApplicationUser> UserManager
 @{
     this.ViewData["Title"] = "Ranks Road";
+    int cocunter = 0;
 }
 
 @await Html.PartialAsync("_MainHeaderPartial", ViewData["Title"])
 <div class="container">
-    <h1></h1>
-
     @foreach (var rank in Model.Ranks.OrderBy(x => x.TrophiesNeeded))
     {
-        <div class="card text-center">
+        cocunter++;
+        <div href="#@cocunter" class="card text-center">
             <div class="card-header">
                 Trophies needed: @rank.TrophiesNeeded
             </div>
@@ -25,9 +25,6 @@
                         }
                     </div>
                     <h1 class="card-title"> @rank.Name</h1>
-                    <div class="col-5">
-                        Article
-                    </div>
                     <div class="col-5"></div>
                 </div>
             </div>
@@ -36,4 +33,7 @@
             <div class="parallax"></div>
         </div>
     }
+
+<script>
+</script>
 </div>

@@ -69,7 +69,7 @@
         {
             var question = await this.questionService.GetQuestionByIdAsync(id);
             var creatorName = await this.quizesService.GetCreatorNameAsync(question.QuizId);
-            if (creatorName != this.User.Identity.Name)
+            if (creatorName != this.User.Identity.Name && !this.User.IsInRole(GlobalConstants.AdministratorRoleName))
             {
                 return this.Redirect("/");
             }
@@ -99,7 +99,7 @@
             indexViewModel.QuizViewModel = await this.quizesService.GetQuizByIdAsync(indexViewModel.QuestionViewModel.QuizId);
 
             var creatorName = await this.quizesService.GetCreatorNameAsync(indexViewModel.QuestionViewModel.QuizId);
-            if (creatorName != this.User.Identity.Name)
+            if (creatorName != this.User.Identity.Name && !this.User.IsInRole(GlobalConstants.AdministratorRoleName))
             {
                 return this.Redirect("/");
             }
@@ -118,7 +118,7 @@
 
             var question = await this.questionService.GetQuestionByIdAsync(id);
             var creatorName = await this.quizesService.GetCreatorNameAsync(question.QuizId);
-            if (creatorName != this.User.Identity.Name)
+            if (creatorName != this.User.Identity.Name && !this.User.IsInRole(GlobalConstants.AdministratorRoleName))
             {
                 return this.Redirect("/");
             }

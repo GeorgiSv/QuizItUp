@@ -15,14 +15,10 @@
             this.ApplicationUsers = new HashSet<ApplicationUserBadge>();
         }
 
-        public string QuizId { get; set; }
-
-        public virtual Quiz Quiz { get; set; }
-
-        public string PictureId { get; set; }
-
         [Required]
         public string Title { get; set; }
+
+        public string PictureId { get; set; }
 
         public virtual Picture Picture { get; set; }
 

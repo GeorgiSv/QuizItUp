@@ -46,7 +46,7 @@
 
             if (input.PicturePath == null)
             {
-                picture.Url = GlobalConstants.DefaultPicturePath;
+                picture.Url = GlobalConstants.DefaultQuizPicturePath;
             }
 
             var quiz = new Quiz
@@ -189,5 +189,8 @@
 
             return creator.UserName;
         }
+
+        public int GetQuizesCount()
+            => this.quizesRepo.AllAsNoTracking().Count();
     }
 }

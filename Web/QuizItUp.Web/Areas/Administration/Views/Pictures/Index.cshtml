@@ -1,4 +1,4 @@
-﻿@model IEnumerable<QuizItUp.Data.Models.Badge>
+﻿@model IEnumerable<QuizItUp.Data.Models.Picture>
 
 @{
     ViewData["Title"] = "Index";
@@ -13,10 +13,7 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Title)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Picture)
+                @Html.DisplayNameFor(model => model.Id)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.CreatedOn)
@@ -24,6 +21,7 @@
             <th>
                 @Html.DisplayNameFor(model => model.ModifiedOn)
             </th>
+            <th></th>
         </tr>
     </thead>
     <tbody>
@@ -31,10 +29,7 @@
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Title)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Picture.Id)
+                    @Html.DisplayFor(modelItem => item.Id)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.CreatedOn)

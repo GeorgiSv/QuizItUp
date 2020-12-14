@@ -103,11 +103,6 @@
                 .WithMany(x => x.Quizes)
                 .HasForeignKey(x => x.CreatorId);
 
-                entity.HasOne(x => x.Badge)
-                .WithOne(c => c.Quiz)
-                .HasForeignKey<Badge>(x => x.Id);
-
-              //  entity.HasMany(x => x.QuizTags);
             });
 
             builder.Entity<ApplicationUserBadge>(entity =>

@@ -16,5 +16,7 @@
         Task<bool> AddTrphiesToUser(string quizId, int trophies, string userId);
 
         bool UserHasPassedQuizWithId(string quizId, string userId);
+
+        public int GetResultsCount();
     }
 }

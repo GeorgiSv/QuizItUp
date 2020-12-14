@@ -33,5 +33,6 @@
 
         Task<string> GetCreatorNameAsync(string quizId);
 
+        int GetQuizesCount();
     }
 }

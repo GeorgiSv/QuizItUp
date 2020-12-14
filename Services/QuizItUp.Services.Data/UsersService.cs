@@ -87,7 +87,7 @@
 
         public async Task<bool> UpdateUserAsync(string firstName, string lastName, string userId, string picturePath)
         {
-            var user = this.usersRepo.All().FirstOrDefault(x => x.Id == userId);
+            var user = this.usersRepo.All().Include(x => x.Picture).FirstOrDefault(x => x.Id == userId);
 
             if (user == null)
             {
@@ -121,5 +121,8 @@
 
             return result.Picture.Url;
         }
+
+        public int GetUsersCount()
+                 => this.usersRepo.AllAsNoTracking().Count();
     }
 }

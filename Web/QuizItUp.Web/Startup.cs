@@ -76,7 +76,7 @@
             services.AddTransient<UserValidationAttribute>();
 
             // SendGrid Setup
-            //services.AddTransient<IEmailSender, SendGridEmailSender>(x => new SendGridEmailSender(this.configuration["SendGrid:APIKey"]));
+           //services.AddTransient<IEmailSender, SendGridEmailSender>(x => new SendGridEmailSender(this.configuration["SendGrid:APIKey"]));
 
             // Cloudinary Setup
             var cloudinaryAccount = new Account(

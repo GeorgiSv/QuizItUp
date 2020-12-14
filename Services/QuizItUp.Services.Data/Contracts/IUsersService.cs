@@ -21,5 +21,7 @@
         Task<bool> UpdateUserAsync(string firstName, string lastName, string userId, string picturePath);
 
         Task<string> GetUserPicture(string userId);
+
+        public int GetUsersCount();
     }
 }

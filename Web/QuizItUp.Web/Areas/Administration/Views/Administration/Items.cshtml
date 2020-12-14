@@ -1,6 +1,68 @@
-﻿
+﻿@model QuizItUp.Web.ViewModels.Administration.Dashboard.IndexAdminViewModel
+@{
+    this.ViewData["Title"] = "Admin Area";
+}
+
+
 <div class="container">
-    <a class="btn-secondary btn-lg btn-block" asp-area="Administration" asp-controller="Categories" asp-action="Index">Categories Admin</a>
-    <a class="btn-secondary btn-lg btn-block" asp-area="Administration" asp-controller="Badges" asp-action="Index">Badges Admin</a>
-    <a class="btn-secondary btn-lg btn-block" asp-area="Administration" asp-controller="Ranks" asp-action="Index">Ranks Admin</a>
+    @await Html.PartialAsync("_MainHeaderPartial", ViewData["Title"])
+    <div class="row row-cols-1 row-cols-md-2 g-4">
+        <div class="col">
+            <div class="card">
+                <div class="card-body">
+                    <a class="btn-secondary btn-lg btn-block" asp-area="Administration" asp-controller="Categories" asp-action="Index">Categories</a>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card">
+                <div class="card-body">
+                    <a class="btn-secondary btn-lg btn-block" asp-area="Administration" asp-controller="Ranks" asp-action="Index">Ranks</a>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card">
+                <div class="card-body">
+                    <a class="btn-secondary btn-lg btn-block" asp-area="Administration" asp-controller="Badges" asp-action="Index">Badges</a>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card">
+                <div class="card-body">
+                    <a class="btn-secondary btn-lg btn-block" asp-area="Administration" asp-controller="Pictures" asp-action="Index">Pictures</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @*<table class="table">
+        <thead>
+            <tr>
+                <th>
+                   Users Count
+                </th>
+                <th>
+                   Quizes Count
+                </th>
+                <th>
+                   Played Games
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    @Model.UsersCount
+                </td>
+                <td>
+                    @Model.CreatedQuizesCount
+                </td>
+                <td>
+                    @Model.PlayedGamesCount
+                </td>
+            </tr>
+        </tbody>
+    </table>*@
 </div>

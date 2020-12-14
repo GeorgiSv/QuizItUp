@@ -19,12 +19,12 @@
     public class CategoriesController : AdministrationController
     {
         private readonly IDeletableEntityRepository<Category> cateogriesRepository;
-        private readonly Cloudinary cloudinary;
+        // private readonly Cloudinary cloudinary;Cloudinary cloudinary
 
-        public CategoriesController(IDeletableEntityRepository<Category> cateogriesRepository, Cloudinary cloudinary)
+        public CategoriesController(IDeletableEntityRepository<Category> cateogriesRepository)
         {
             this.cateogriesRepository = cateogriesRepository;
-            this.cloudinary = cloudinary;
+           // this.cloudinary = cloudinary;
         }
 
         // GET: Administration/Categories
@@ -85,8 +85,11 @@
                     this.ModelState.AddModelError("Picture", "Picture is too large - Max 10Mb");
                 }
 
-                var path = await CloudinaryService.UploadPicture(this.cloudinary, picture, "testPicName", "categories");
-                category.Picture = new Picture() { Url = path };
+                //var path = await CloudinaryService.UploadPicture(this.cloudinary, picture, "testPicName", "categories");
+                //if (path != null)
+                //{
+                //    category.Picture = new Picture() { Url = path };
+                //}
 
                 await this.cateogriesRepository.AddAsync(category);
                 await this.cateogriesRepository.SaveChangesAsync();
@@ -119,7 +122,7 @@
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Title,PictureId,IsDeleted,DeletedOn,Id,CreatedOn,ModifiedOn")] Category category, IFormFile picture)
+        public async Task<IActionResult> Edit(int id, [Bind("Title,PictureId,IsDeleted,DeletedOn,Id,CreatedOn,ModifiedOn")] Category category)
         {
             if (id != category.Id)
             {
@@ -130,36 +133,6 @@
             {
                 try
                 {
-                    if (picture != null)
-                    {
-                        if (!(picture.FileName.EndsWith(".png")
-                        || picture.FileName.EndsWith(".jpeg")
-                        || picture.FileName.EndsWith(".jpg")))
-                        {
-                            this.ModelState.AddModelError("Picture", "Picture must be file with extension jpeg, jpg png");
-                        }
-
-                        if (picture.Length > 10 * 102 * 1024)
-                        {
-                            this.ModelState.AddModelError("Picture", "Picture is too large - Max 10Mb");
-                        }
-
-                        var path = await CloudinaryService.UploadPicture(this.cloudinary, picture, this.User.Identity.Name, GlobalConstants.CloudinaryCategoriesFolder);
-                        if (path != null)
-                        {
-                            if (category.Picture == null)
-                            {
-                                var pic = new Picture() { Url = path };
-                                category.PictureId = pic.Id;
-                                category.Picture = pic;
-                            }
-                            else
-                            {
-                                category.Picture.Path = path;
-                            }
-                        }
-                    }
-
                     this.cateogriesRepository.Update(category);
                     await this.cateogriesRepository.SaveChangesAsync();
                 }

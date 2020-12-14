@@ -1,10 +1,10 @@
-﻿@import('https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.0/css/bootstrap.min.css') 
+﻿/*@import('https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.0/css/bootstrap.min.css') 
 
 .funkyradio div {
   clear: both;
   overflow: hidden;
 }
-
+*/
 .funkyradio label {
   width: 100%;
   border-radius: 3px;

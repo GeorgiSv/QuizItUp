@@ -14,20 +14,12 @@
                 <a asp-action="AllQuizesPerCategory" asp-controller="Categories" asp-route-id="@category.Id">
                     <div class="card rounded">
                         <div class="card-image">
-                            @*<span class="card-notify-badge">Price Reduced</span>
-                                <span class="card-notify-year">2018</span>*@
                             <img class="img-fluid" src="@category.Picture.Url" alt="Alternate Text" />
                         </div>
-                        @*<div class="card-image-overlay m-auto">
-                                <span class="card-detail-badge">Used</span>
-                                <span class="card-detail-badge">$22,000.00</span>
-                                <span class="card-detail-badge">8000 Kms</span>
-                            </div>*@
                         <div class="card-body text-center">
                             <div>
                                 <h5>@category.Title</h5>
                             </div>
-                            @*<a href="/Categories/Details?id=@category.Id">View</a>*@
                         </div>
                     </div>
                 </a>
@@ -35,8 +27,3 @@
         }
     </div>
 </div>
-
-
-<a class="createCategoryButton" href="/Categories/Add">
-    <div type="button" class="btn btn-secondary btn-lg btn-block">Create Category</div>
-</a>

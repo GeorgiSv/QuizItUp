@@ -1,4 +1,4 @@
-﻿@model QuizItUp.Data.Models.Badge
+﻿@model QuizItUp.Data.Models.Picture
 
 @{
     ViewData["Title"] = "Details";
@@ -7,20 +7,20 @@
 <h1>Details</h1>
 
 <div>
-    <h4>Badge</h4>
+    <h4>Picture</h4>
     <hr />
     <dl class="row">
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Title)
+            @Html.DisplayNameFor(model => model.Url)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Title)
+            @Html.DisplayFor(model => model.Url)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Picture)
+            @Html.DisplayNameFor(model => model.Path)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Picture.Id)
+            @Html.DisplayFor(model => model.Path)
         </dd>
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.IsDeleted)

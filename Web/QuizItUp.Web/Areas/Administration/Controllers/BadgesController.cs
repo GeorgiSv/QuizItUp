@@ -5,27 +5,31 @@
     using System.Linq;
     using System.Threading.Tasks;
 
+    using CloudinaryDotNet;
+    using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.AspNetCore.Mvc.Rendering;
     using Microsoft.EntityFrameworkCore;
     using QuizItUp.Data;
     using QuizItUp.Data.Common.Repositories;
     using QuizItUp.Data.Models;
+    using QuizItUp.Services;
 
-    [Area("Administration")]
-    public class BadgesController : Controller
+    public class BadgesController : AdministrationController
     {
         private readonly IDeletableEntityRepository<Badge> badgesRepository;
+        private readonly Cloudinary cloudinary;
 
-        public BadgesController(IDeletableEntityRepository<Badge> badgesRepository)
+        public BadgesController(IDeletableEntityRepository<Badge> badgesRepository, Cloudinary cloudinary)
         {
             this.badgesRepository = badgesRepository;
+            this.cloudinary = cloudinary;
         }
 
         // GET: Administration/Badges
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = this.badgesRepository.AllAsNoTracking().Include(b => b.Picture).Include(b => b.Quiz);
+            var applicationDbContext = this.badgesRepository.AllAsNoTracking().Include(b => b.Picture);
             return this.View(await applicationDbContext.OrderByDescending(x => x.CreatedOn).ToListAsync());
         }
 
@@ -39,7 +43,6 @@
 
             var badge = await this.badgesRepository.All()
                 .Include(b => b.Picture)
-                .Include(b => b.Quiz)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (badge == null)
             {
@@ -52,8 +55,6 @@
         // GET: Administration/Badges/Create
         public IActionResult Create()
         {
-            //this.ViewData["PictureId"] = new SelectList(this.badgesRepository.Pictures, "Id", "Id");
-            //this.ViewData["Id"] = new SelectList(this.badgesRepository.All().Select(x => x.Quizes), "Id", "Id");
             return this.View();
         }
 
@@ -62,10 +63,33 @@
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("QuizId,PictureId,Title,IsDeleted,DeletedOn,Id,CreatedOn,ModifiedOn")] Badge badge)
+        public async Task<IActionResult> Create([Bind("QuizId,PictureId,Title,IsDeleted,DeletedOn,Id,CreatedOn,ModifiedOn")] Badge badge, IFormFile picture)
         {
+            if (picture == null)
+            {
+                this.ModelState.AddModelError(nameof(badge.Picture), "Picture is required!");
+            }
+
             if (this.ModelState.IsValid)
             {
+                if (!(picture.FileName.EndsWith(".png")
+                || picture.FileName.EndsWith(".jpeg")
+                || picture.FileName.EndsWith(".jpg")))
+                {
+                    this.ModelState.AddModelError("Picture", "Picture must be file with extension jpeg, jpg png");
+                }
+
+                if (picture.Length > 10 * 102 * 1024)
+                {
+                    this.ModelState.AddModelError("Picture", "Picture is too large - Max 10Mb");
+                }
+
+                var path = await CloudinaryService.UploadPicture(this.cloudinary, picture, "testPicName", "categories");
+                if (path != null)
+                {
+                    badge.Picture = new Picture() { Url = path };
+                }
+
                 await this.badgesRepository.AddAsync(badge);
                 await this.badgesRepository.SaveChangesAsync();
                 return this.RedirectToAction(nameof(this.Index));
@@ -144,7 +168,6 @@
 
             var badge = await this.badgesRepository.All()
                 .Include(b => b.Picture)
-                .Include(b => b.Quiz)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (badge == null)
             {

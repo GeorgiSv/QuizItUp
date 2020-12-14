@@ -37,10 +37,6 @@
 
         public virtual ApplicationUser Creator { get; set; }
 
-        public string BadgeId { get; set; }
-
-        public virtual Badge Badge { get; set; }
-
         public string PictureId { get; set; }
 
         public virtual Picture Picture { get; set; }
