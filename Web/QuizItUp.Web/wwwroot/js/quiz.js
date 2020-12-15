@@ -39,7 +39,7 @@
 
             if (mins) {
                 $('#timerElement').show();
-                startTimer();
+                startTimer(mins);
             }
             $('#pagging').show();
             $('#submit').show();

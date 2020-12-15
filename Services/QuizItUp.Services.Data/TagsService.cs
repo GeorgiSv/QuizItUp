@@ -25,6 +25,11 @@
 
         public async Task<ICollection<QuizTag>> CreateTags(string tags, string quizId, int categoryId, Quiz quiz)
         {
+            if (string.IsNullOrEmpty(tags))
+            {
+                return new List<QuizTag>();
+            }
+
             var tagsTitles = this.SplitTags(tags.ToLower());
             var listOfQuizTags = new List<QuizTag>();
 
