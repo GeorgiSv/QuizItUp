@@ -8,6 +8,7 @@
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.DependencyInjection;
     using Moq;
+    using QuizItUp.Common;
     using QuizItUp.Data;
     using QuizItUp.Data.Common.Repositories;
     using QuizItUp.Data.Models;
@@ -22,8 +23,6 @@
 
         public QuizesServiceTests()
         {
-            this.DbContext.Categories.Add(new Category { Title = "Movies" });
-            //this.DbContext.SaveChangesAsync();
 
             this.quiz = new Quiz()
             {
@@ -33,17 +32,27 @@
                 CreatorId = "123",
             };
 
+            var quizTag = new QuizTag()
+            {
+                QuizId = this.quiz.Id,
+                Tag = new Tag()
+                {
+                    Title = "testing",
+                },
+            };
+
+            this.quiz.QuizTag.Add(quizTag);
+
+            this.DbContext.Categories.Add(new Category { Title = "Movies" });
             this.DbContext.Quizes.Add(this.quiz);
             this.DbContext.SaveChangesAsync();
         }
 
         private IQuizesService Service => this.ServiceProvider.GetRequiredService<IQuizesService>();
 
-
         [Fact]
         public async Task CreateQizShouldBeCorrectly()
         {
-
             var quizInput = CreateDummyQuiz();
 
             var result = await this.Service.CreateQuizAsync(quizInput);
@@ -53,6 +62,7 @@
             Assert.Equal(quizInput.Category.ToString(), quiz.Category.Title);
             Assert.Equal(quizInput.Description, quiz.Description);
             Assert.Equal(quizInput.TotalTimeToComplete, quiz.TotalTimeToComplete);
+            Assert.Equal(GlobalConstants.InitialQuizTrophies, quiz.Trophies);
             Assert.Equal(result, quiz.Id);
         }
 
@@ -86,27 +96,78 @@
         }
 
         [Fact]
-        public async Task GetAllQuizesShouldReturnAllQuizes()
+        public async Task GetQuizCountShoultReturnCorecQuizesCount()
         {
-            QuizInputModel quizInputModel = CreateDummyQuiz();
-            var input = quizInputModel;
-
-            var result = await this.Service.CreateQuizAsync(input);
-            var quizesCount = this.DbContext.Quizes.Count();
-
-            Assert.Equal(2, quizesCount);
+            var quizesCount = this.Service.GetQuizesCount();
+            Assert.Equal(1, quizesCount);
         }
 
         [Fact]
-        //public async Task GetAllQuizesShouldReturnAllQuizesWithCorrectValues()
-        //{
-        //    var result = await this.Service.GetAllQuizesAsync();
+        public async Task UpdateQuizTrophiesCorectly()
+        {
+            var question = new Question()
+            {
+                QuizId = this.quiz.Id,
+                QuestionText = "QuestionText",
+            };
 
-        //    Assert.Equal(this.quiz.Name, result[0].Name);
-        //    Assert.Equal(this.quiz.Description, result[0].Description);
-        //    Assert.Equal(this.quiz.TotalTimeToComplete, result[0].TotalTimeToComplete);
-        //    Assert.Equal(this.quiz.Id, result[0].Id);
-        //}
+            await this.DbContext.Questions.AddAsync(question);
+            await this.DbContext.SaveChangesAsync();
+
+            await this.Service.UpdateQuizTrophiesAsync(this.quiz.Id);
+            var result = await this.DbContext.Quizes.FirstOrDefaultAsync();
+
+            Assert.Equal(11, result.Trophies);
+        }
+
+        [Fact]
+        public async Task PublishShouldPublishCorrectly()
+        {
+            await this.Service.PublishAsync(this.quiz.Id);
+            var result = await this.DbContext.Quizes.FirstOrDefaultAsync();
+
+            Assert.True(result.IsPublished);
+        }
+
+        [Fact]
+        public async Task PublishShouldPublishOnlyUnpublishedQuizes()
+        {
+            await this.Service.PublishAsync(this.quiz.Id);
+            var secondPublishResult = await this.Service.PublishAsync(this.quiz.Id);
+            var result = await this.DbContext.Quizes.FirstOrDefaultAsync();
+
+            Assert.Equal(0, secondPublishResult);
+        }
+
+        [Fact]
+        public async Task UnPublishShouldUnPublishOnlyPublishedQuizes()
+        {
+            var unpublishResult = await this.Service.UnPublishAsync(this.quiz.Id);
+            var result = await this.DbContext.Quizes.FirstOrDefaultAsync();
+
+            Assert.Equal(0, unpublishResult);
+        }
+
+        [Fact]
+        public async Task UnPublishShouldUnpublishCorrectly()
+        {
+            await this.Service.PublishAsync(this.quiz.Id);
+            await this.Service.UnPublishAsync(this.quiz.Id);
+            var result = await this.DbContext.Quizes.FirstOrDefaultAsync();
+
+            Assert.False(result.IsPublished);
+        }
+
+        [Fact]
+        public async Task RemoveQuizShouldRemoveCorrectly()
+        {
+            var quizId = await this.Service.RemoveQuizAsync(this.quiz.Id);
+            var result = await this.DbContext.Quizes.FirstOrDefaultAsync();
+
+            Assert.Equal(this.quiz.Id, quizId);
+        }
+
+        // public async Task<string> RemoveQuizAsync(string quizId)
 
         private static QuizInputModel CreateDummyQuiz()
         {

@@ -13,6 +13,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.1.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="3.1.9" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.7.1" />
     <PackageReference Include="Moq" Version="4.14.7" />
@@ -29,6 +30,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\Data\QuizItUp.Data\QuizItUp.Data.csproj" />
     <ProjectReference Include="..\..\Services\QuizItUp.Services.Data\QuizItUp.Services.Data.csproj" />
+    <ProjectReference Include="..\..\Web\QuizItUp.Web\QuizItUp.Web.csproj" />
   </ItemGroup>
 
 </Project>

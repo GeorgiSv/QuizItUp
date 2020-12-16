@@ -31,27 +31,27 @@
             return this.View(categoryViewModel);
         }
 
-        [Authorize]
-        public IActionResult Details(int id)
-        {
-            var res = this.categoriesService.GetById(id);
-            return this.View(res);
-        }
+        //[Authorize]
+        //public IActionResult Details(int id)
+        //{
+        //    var res = this.categoriesService.GetById(id);
+        //    return this.View(res);
+        //}
 
-        [Authorize(Roles = "Administrator")]
-        public IActionResult Add()
-        {
-            return this.View();
-        }
+        //[Authorize(Roles = "Administrator")]
+        //public IActionResult Add()
+        //{
+        //    return this.View();
+        //}
 
-        [HttpPost]
-        [Authorize(Roles = "Administrator")]
-        public async Task<IActionResult> Add(string title, string picture)
-        {
-            await this.categoriesService.Add(title, picture);
+        //[HttpPost]
+        //[Authorize(Roles = "Administrator")]
+        //public async Task<IActionResult> Add(string title, string picture)
+        //{
+        //    await this.categoriesService.Add(title, picture);
 
-            return this.Redirect("/Categories/Category");
-        }
+        //    return this.Redirect("/Categories/Category");
+        //}
 
         public async Task<IActionResult> AllQuizesPerCategory(int id)
         {

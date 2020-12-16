@@ -110,6 +110,11 @@
                 .Where(x => x.Id == quizId)
                 .FirstOrDefaultAsync();
 
+            if (quiz.IsPublished)
+            {
+                return 0;
+            }
+
             quiz.IsPublished = true;
 
             this.quizesRepo.Update(quiz);
@@ -124,6 +129,11 @@
                 .All()
                 .Where(x => x.Id == quizId)
                 .FirstOrDefaultAsync();
+
+            if (!quiz.IsPublished)
+            {
+                return 0;
+            }
 
             quiz.IsPublished = false;
 

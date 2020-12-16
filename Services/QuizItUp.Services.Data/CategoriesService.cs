@@ -26,25 +26,25 @@
             this.quizRepo = quizDb;
         }
 
-        public async Task Add(string title, string picture)
-        {
-            var newPicture = new Picture()
-            {
-                Url = picture,
-            };
+        //public async Task Add(string title, string picture)
+        //{
+        //    var newPicture = new Picture()
+        //    {
+        //        Url = picture,
+        //    };
 
-            var category = new Category()
-            {
-                Title = title,
-                PictureId = newPicture.Id,
-            };
+        //    var category = new Category()
+        //    {
+        //        Title = title,
+        //        PictureId = newPicture.Id,
+        //    };
 
-            await this.pictureRepo.AddAsync(newPicture);
-            await this.pictureRepo.SaveChangesAsync();
+        //    await this.pictureRepo.AddAsync(newPicture);
+        //    await this.pictureRepo.SaveChangesAsync();
 
-            await this.categoryRepo.AddAsync(category);
-            await this.categoryRepo.SaveChangesAsync();
-        }
+        //    await this.categoryRepo.AddAsync(category);
+        //    await this.categoryRepo.SaveChangesAsync();
+        //}
 
         public List<CategoryViewModel> GetAll()
         {

@@ -22,11 +22,6 @@
             this.answerRepo = answerRepo;
         }
 
-        public Task<string> AddAnswerToQuestion(AnswerInputModel input)
-        {
-            throw new NotImplementedException();
-        }
-
         public ICollection<Answer> AnswerInputsToModels(IEnumerable<AnswerInputModel> input, string questionId)
         {
             var answerList = new List<Answer>();
@@ -53,11 +48,6 @@
                 .ToListAsync();
 
             return answers;
-        }
-
-        public AnswerViewModel GetAnswerById(string id)
-        {
-            throw new NotImplementedException();
         }
 
         public async Task UpdateAnswers(List<AnswerInputModel> input, string questionId)

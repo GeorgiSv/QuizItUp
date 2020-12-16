@@ -2,14 +2,19 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Reflection;
     using System.Text;
 
+    using AutoMapper;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.DependencyInjection;
     using QuizItUp.Data;
     using QuizItUp.Data.Common.Repositories;
     using QuizItUp.Data.Repositories;
     using QuizItUp.Services.Data.Contracts;
+    using QuizItUp.Services.Mapping;
+    using QuizItUp.Web;
+    using QuizItUp.Web.ViewModels;
 
     public abstract class BaseBLTests
     {
@@ -34,6 +39,7 @@
         {
             var services = new ServiceCollection();
 
+            //services.AddAutoMapper(typeof(Startup));
             services.AddDbContext<ApplicationDbContext>(
                 options => options.UseInMemoryDatabase(Guid.NewGuid().ToString()));
 
@@ -49,8 +55,7 @@
             services.AddTransient<IRanksService, RanksService>();
             services.AddTransient<IUsersService, UsersService>();
 
-            //var context = new DefaultHttpContext();
-            //services.AddSingleton<IHttpContextAccessor>(new HttpContextAccessor { HttpContext = context });
+            AutoMapperConfig.RegisterMappings(typeof(ErrorViewModel).GetTypeInfo().Assembly);
 
             return services;
         }

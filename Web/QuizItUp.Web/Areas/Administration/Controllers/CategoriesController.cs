@@ -19,12 +19,12 @@
     public class CategoriesController : AdministrationController
     {
         private readonly IDeletableEntityRepository<Category> cateogriesRepository;
-        // private readonly Cloudinary cloudinary;Cloudinary cloudinary
+        private readonly Cloudinary cloudinary;
 
-        public CategoriesController(IDeletableEntityRepository<Category> cateogriesRepository)
+        public CategoriesController(IDeletableEntityRepository<Category> cateogriesRepository, Cloudinary cloudinary)
         {
             this.cateogriesRepository = cateogriesRepository;
-           // this.cloudinary = cloudinary;
+            this.cloudinary = cloudinary;
         }
 
         // GET: Administration/Categories
@@ -69,6 +69,7 @@
             if (picture == null)
             {
                 this.ModelState.AddModelError(nameof(category.Picture), "Picture is required!");
+                return this.View();
             }
 
             if (this.ModelState.IsValid)
@@ -85,11 +86,11 @@
                     this.ModelState.AddModelError("Picture", "Picture is too large - Max 10Mb");
                 }
 
-                //var path = await CloudinaryService.UploadPicture(this.cloudinary, picture, "testPicName", "categories");
-                //if (path != null)
-                //{
-                //    category.Picture = new Picture() { Url = path };
-                //}
+                var path = await CloudinaryService.UploadPicture(this.cloudinary, picture, "testPicName", "categories");
+                if (path != null)
+                {
+                    category.Picture = new Picture() { Url = path };
+                }
 
                 await this.cateogriesRepository.AddAsync(category);
                 await this.cateogriesRepository.SaveChangesAsync();

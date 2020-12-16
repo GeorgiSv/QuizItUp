@@ -11,7 +11,7 @@
 
         Task<CategoryViewModel> GetById(int id);
 
-        Task Add(string title, string picture);
+        //Task Add(string title, string picture);
 
         Task<IList<QuizViewModel>> GetQuizesPerCategoryId(int categoryId);
 
