@@ -24,6 +24,7 @@
                         <p>@Model.Name  <span class="badge badge-secondary badge-warning">@Model.Trophies <img src="\trophy-shape.png" alt="icon" style="width: 30px" /></span></p>
                     </div>
                     <div class="card-body pt-1">
+                        <input id="quizId" type="hidden" asp-for="@Model.Id" value="@Model.Id" />
                         <input type="hidden" asp-for="@Model.Name" value="@Model.Name" />
                         <img src="@Model.Picture.Url" alt="Alternate Text" class="card-img" style=" width: 30%; " />
 
@@ -114,7 +115,6 @@
                     </div>
                 </div>}
 
-            <input id="quizId" type="hidden" asp-for="@Model.Id" value="@Model.Id" />
             <button id="submit" type="button" class="btn btn-primary col-md-5 offset-md-3" data-toggle="modal" data-target="#btn" style="display:none">
                 Submit Quiz
             </button>
