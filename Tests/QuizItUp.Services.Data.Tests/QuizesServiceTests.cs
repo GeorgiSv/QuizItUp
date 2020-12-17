@@ -1,18 +1,12 @@
 ﻿namespace QuizItUp.Services.Data.Tests
 {
     using System;
-    using System.Collections.Generic;
-    using System.Linq;
     using System.Threading.Tasks;
 
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.DependencyInjection;
-    using Moq;
     using QuizItUp.Common;
-    using QuizItUp.Data;
-    using QuizItUp.Data.Common.Repositories;
     using QuizItUp.Data.Models;
-    using QuizItUp.Data.Repositories;
     using QuizItUp.Services.Data.Contracts;
     using QuizItUp.Web.ViewModels.Quizes;
     using Xunit;
@@ -63,6 +57,7 @@
             Assert.Equal(quizInput.Description, quiz.Description);
             Assert.Equal(quizInput.TotalTimeToComplete, quiz.TotalTimeToComplete);
             Assert.Equal(GlobalConstants.InitialQuizTrophies, quiz.Trophies);
+            Assert.Equal(2, quiz.QuizTag.Count);
             Assert.Equal(result, quiz.Id);
         }
 
@@ -72,8 +67,8 @@
             var input = CreateDummyQuiz();
             input.Category = Categories.Games;
 
-            var ex = Assert.ThrowsAsync<Exception>(() => this.Service.CreateQuizAsync(input));
-            Assert.Equal("Category does not exist!", ex.Result.Message);
+            var ex = await Assert.ThrowsAsync<Exception>(() => this.Service.CreateQuizAsync(input));
+            Assert.Equal("Category does not exist!", ex.Message);
         }
 
         [Fact]
@@ -96,7 +91,7 @@
         }
 
         [Fact]
-        public async Task GetQuizCountShoultReturnCorecQuizesCount()
+        public void GetQuizCountShoultReturnCorecQuizesCount()
         {
             var quizesCount = this.Service.GetQuizesCount();
             Assert.Equal(1, quizesCount);
@@ -134,7 +129,6 @@
         {
             await this.Service.PublishAsync(this.quiz.Id);
             var secondPublishResult = await this.Service.PublishAsync(this.quiz.Id);
-            var result = await this.DbContext.Quizes.FirstOrDefaultAsync();
 
             Assert.Equal(0, secondPublishResult);
         }
@@ -167,8 +161,6 @@
             Assert.Equal(this.quiz.Id, quizId);
         }
 
-        // public async Task<string> RemoveQuizAsync(string quizId)
-
         private static QuizInputModel CreateDummyQuiz()
         {
             return new QuizInputModel()
@@ -178,6 +170,7 @@
                 Description = "Dummy",
                 TotalTimeToComplete = 1,
                 CreatorId = "123",
+                Tags = "tag, ta",
             };
         }
     }

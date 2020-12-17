@@ -7,12 +7,12 @@
 
     public interface ITagsService
     {
-        Task<ICollection<QuizTag>> CreateTags(string tags, string quizId, int categoryId, Quiz quiz);
+        Task<ICollection<QuizTag>> CreateTagsAsync(string tags, string quizId, int categoryId, Quiz quiz);
 
-        Task<IList<QuizViewModel>> GetAllWithTitle(string input);
+        Task<IList<QuizViewModel>> GetAllWithTitleAsync(string input);
 
-        Task<IList<QuizTag>> GetAllQuizTags();
+        Task<IList<QuizTag>> GetAllQuizTagsAsync();
 
-        Task<IList<Tag>> GetAllTags();
+        Task<IList<Tag>> GetAllTagsAsync();
     }
 }

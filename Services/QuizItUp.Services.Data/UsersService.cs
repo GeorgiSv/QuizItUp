@@ -26,11 +26,6 @@
             this.ranksRepo = ranksRepo;
         }
 
-        public int GetUsersCountAsync()
-            => this.usersRepo
-                 .All()
-                 .Count();
-
         public async Task<IList<UserViewModel>> GetTopPlayers()
         {
             var resultMap = await this.usersRepo
@@ -51,7 +46,7 @@
 
                 foreach (var user in allUsers)
                 {
-                    user.Rank = await this.GetUserRank(user.Id);
+                    user.Rank = await this.GetUserRankAsync(user.Id);
 
                     this.usersRepo.Update(user);
                 }
@@ -66,7 +61,7 @@
             return true;
         }
 
-        public async Task<Rank> GetUserRank(string userId)
+        public async Task<Rank> GetUserRankAsync(string userId)
         {
             var user = await this.usersRepo.All().FirstOrDefaultAsync(x => x.Id == userId);
 

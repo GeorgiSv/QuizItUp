@@ -10,18 +10,16 @@
 
     public interface IUsersService
     {
-        int GetUsersCountAsync();
+        int GetUsersCount();
 
         Task<IList<UserViewModel>> GetTopPlayers();
 
         Task<bool> UpdateUsersRanksAsync();
 
-        Task<Rank> GetUserRank(string userId);
+        Task<Rank> GetUserRankAsync(string userId);
 
         Task<bool> UpdateUserAsync(string firstName, string lastName, string userId, string picturePath);
 
         Task<string> GetUserPicture(string userId);
-
-        public int GetUsersCount();
     }
 }

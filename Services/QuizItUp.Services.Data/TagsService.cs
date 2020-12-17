@@ -23,7 +23,7 @@
             this.tagsRepo = tagsRepo;
         }
 
-        public async Task<ICollection<QuizTag>> CreateTags(string tags, string quizId, int categoryId, Quiz quiz)
+        public async Task<ICollection<QuizTag>> CreateTagsAsync(string tags, string quizId, int categoryId, Quiz quiz)
         {
             if (string.IsNullOrEmpty(tags))
             {
@@ -59,15 +59,15 @@
             return listOfQuizTags;
         }
 
-        public async Task<IList<QuizTag>> GetAllQuizTags()
+        public async Task<IList<QuizTag>> GetAllQuizTagsAsync()
             => await this.quizTagRepo.All().ToListAsync();
 
-        public async Task<IList<Tag>> GetAllTags()
+        public async Task<IList<Tag>> GetAllTagsAsync()
             => await this.tagsRepo
             .All()
             .ToListAsync();
 
-        public async Task<IList<QuizViewModel>> GetAllWithTitle(string input)
+        public async Task<IList<QuizViewModel>> GetAllWithTitleAsync(string input)
             => await this.quizTagRepo
             .AllAsNoTracking()
             .Where(x => x.Tag.Title.Contains(input.ToLower()) && x.Quiz.IsPublished == true)

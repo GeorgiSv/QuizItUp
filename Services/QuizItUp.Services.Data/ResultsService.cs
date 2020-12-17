@@ -62,6 +62,11 @@
             .Where(x => x.Id == userId)
             .FirstOrDefaultAsync();
 
+            if (user == null)
+            {
+                return false;
+            }
+
             user.Trophies += trophies;
 
             this.usersRepo.Update(user);
