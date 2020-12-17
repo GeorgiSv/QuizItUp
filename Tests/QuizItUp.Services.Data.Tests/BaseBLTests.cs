@@ -39,7 +39,6 @@
         {
             var services = new ServiceCollection();
 
-            //services.AddAutoMapper(typeof(Startup));
             services.AddDbContext<ApplicationDbContext>(
                 options => options.UseInMemoryDatabase(Guid.NewGuid().ToString()));
 

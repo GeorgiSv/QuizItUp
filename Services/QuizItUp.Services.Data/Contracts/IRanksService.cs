@@ -9,14 +9,14 @@
 
     public interface IRanksService
     {
-        Task AddAsync(RankInputModel input);
+        //Task AddAsync(RankInputModel input);
 
-        Task<string> RemoveAsync(string id);
+        //Task<string> RemoveAsync(string id);
 
         Task<IList<RankViewModel>> GetAllRanksAsync();
 
-        Task<string> Publish(string id);
+       // Task<string> Publish(string id);
 
-        Task<string> UnPublish(string id);
+      //  Task<string> UnPublish(string id);
     }
 }

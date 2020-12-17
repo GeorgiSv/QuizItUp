@@ -1,19 +1,20 @@
 ﻿namespace QuizItUp.Services.Data.Contracts
 {
-    using QuizItUp.Web.ViewModels.Categories;
-    using QuizItUp.Web.ViewModels.Quizes;
     using System.Collections.Generic;
     using System.Threading.Tasks;
 
+    using QuizItUp.Web.ViewModels.Categories;
+    using QuizItUp.Web.ViewModels.Quizes;
+
     public interface ICategoriesService
     {
-        List<CategoryViewModel> GetAll();
+        Task<List<CategoryViewModel>> GetAllAsync();
 
-        Task<CategoryViewModel> GetById(int id);
+        Task<CategoryViewModel> GetByIdAsync(int id);
 
         //Task Add(string title, string picture);
 
-        Task<IList<QuizViewModel>> GetQuizesPerCategoryId(int categoryId);
+        Task<IList<QuizViewModel>> GetQuizesPerCategoryIdAsync(int categoryId);
 
     }
 }

@@ -9,7 +9,6 @@
     using QuizItUp.Data.Models;
     using QuizItUp.Services.Data.Contracts;
     using QuizItUp.Services.Mapping;
-    using QuizItUp.Web.ViewModels;
     using QuizItUp.Web.ViewModels.Categories;
     using QuizItUp.Web.ViewModels.Quizes;
 
@@ -46,29 +45,21 @@
         //    await this.categoryRepo.SaveChangesAsync();
         //}
 
-        public List<CategoryViewModel> GetAll()
-        {
-            return this.categoryRepo.All()
+        public async Task<List<CategoryViewModel>> GetAllAsync()
+            => await this.categoryRepo.All()
                 .To<CategoryViewModel>()
-                .ToList();
-        }
+                .ToListAsync();
 
-        public async Task<CategoryViewModel> GetById(int id)
-        {
-            return await this.categoryRepo.All()
+        public async Task<CategoryViewModel> GetByIdAsync(int id)
+            => await this.categoryRepo.All()
                 .Where(x => x.Id == id)
                 .To<CategoryViewModel>()
                 .FirstOrDefaultAsync();
-        }
 
-        public async Task<IList<QuizViewModel>> GetQuizesPerCategoryId(int categoryId)
-        {
-            var quizes = await this.quizRepo.All()
-                .Where(x => x.CategoryId == categoryId && x.IsPublished == true)
-                .To<QuizViewModel>()
-                .ToListAsync();
-
-            return quizes;
-        }
+        public async Task<IList<QuizViewModel>> GetQuizesPerCategoryIdAsync(int categoryId)
+            => await this.quizRepo.All()
+                  .Where(x => x.CategoryId == categoryId && x.IsPublished == true)
+                  .To<QuizViewModel>()
+                  .ToListAsync();
     }
 }

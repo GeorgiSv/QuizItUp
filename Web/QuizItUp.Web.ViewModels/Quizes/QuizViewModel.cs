@@ -1,9 +1,10 @@
 ﻿namespace QuizItUp.Web.ViewModels.Quizes
 {
+    using System.Collections.Generic;
+
     using QuizItUp.Data.Models;
     using QuizItUp.Services.Mapping;
     using QuizItUp.Web.ViewModels.Questions;
-    using System.Collections.Generic;
 
     public class QuizViewModel : IMapFrom<Quiz>
     {

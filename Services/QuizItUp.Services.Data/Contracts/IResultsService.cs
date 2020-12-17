@@ -11,7 +11,7 @@
 
         Task<ResultViewModel> GetResultById(string id);
 
-        Task<string> AddResult(bool isPassed, string quizId, int trophies, string userId, int correctAnswers);
+        Task<string> AddResultAsync(bool isPassed, string quizId, int trophies, string userId, int correctAnswers);
 
         Task<bool> AddTrphiesToUser(string quizId, int trophies, string userId);
 

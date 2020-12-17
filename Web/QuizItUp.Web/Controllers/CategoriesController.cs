@@ -21,11 +21,11 @@
             this.categoriesService = categoriesService;
         }
 
-        public IActionResult Category()
+        public async Task<IActionResult> Category()
         {
             var categoryViewModel = new IndexCategoryViewModel()
             {
-                Categories = this.categoriesService.GetAll(),
+                Categories = await this.categoriesService.GetAllAsync(),
             };
 
             return this.View(categoryViewModel);
@@ -57,7 +57,7 @@
         {
             var indexQuizModel = new IndexQuizViewModel()
             {
-                Quizes = await this.categoriesService.GetQuizesPerCategoryId(id),
+                Quizes = await this.categoriesService.GetQuizesPerCategoryIdAsync(id),
             };
 
             return this.View(indexQuizModel);

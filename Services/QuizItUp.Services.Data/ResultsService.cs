@@ -25,7 +25,7 @@
             this.usersRepo = usersRepo;
         }
 
-        public async Task<string> AddResult(bool isPassed, string quizId, int trophies, string userId, int correctAnswers)
+        public async Task<string> AddResultAsync(bool isPassed, string quizId, int trophies, string userId, int correctAnswers)
         {
             if (trophies >= 0)
             {

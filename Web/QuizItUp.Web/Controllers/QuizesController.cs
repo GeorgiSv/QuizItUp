@@ -195,7 +195,7 @@
                 quizFromDb.Trophies = -1;
             }
 
-            var resultId = await this.resultsService.AddResult(result.Item1, quizFromDb.Id, quizFromDb.Trophies, userId, result.Item2);
+            var resultId = await this.resultsService.AddResultAsync(result.Item1, quizFromDb.Id, quizFromDb.Trophies, userId, result.Item2);
 
             return this.RedirectToAction("QuizResult", "Quizes", new { resultId });
         }

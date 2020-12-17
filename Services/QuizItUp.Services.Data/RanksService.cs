@@ -22,64 +22,65 @@
             this.ranksRepo = ranksRepo;
         }
 
-        public async Task AddAsync(RankInputModel input)
-        {
-            var rank = new Rank()
-            {
-                Name = input.Name,
-                TrophiesNeeded = input.TrophiesNeeded,
-                Color = input.Color,
-            };
+        //public async Task AddAsync(RankInputModel input)
+        //{
+        //    var rank = new Rank()
+        //    {
+        //        Name = input.Name,
+        //        TrophiesNeeded = input.TrophiesNeeded,
+        //        Color = input.Color,
+        //    };
 
-            await this.ranksRepo.AddAsync(rank);
-            await this.ranksRepo.SaveChangesAsync();
-        }
+        //    await this.ranksRepo.AddAsync(rank);
+        //    await this.ranksRepo.SaveChangesAsync();
+        //}
 
         public async Task<IList<RankViewModel>> GetAllRanksAsync()
             => await this.ranksRepo
             .All()
+            .Where(x => x.IsPublished)
             .To<RankViewModel>()
             .OrderByDescending(x => x.TrophiesNeeded)
             .ToListAsync();
 
-        public async Task<string> RemoveAsync(string id)
-        {
-            var rank = await this.ranksRepo
-                .All()
-                .FirstOrDefaultAsync(x => x.Id == id);
+        //public async Task<string> RemoveAsync(string id)
+        //{
+        //    var rank = await this.ranksRepo
+        //        .All()
+        //        .FirstOrDefaultAsync(x => x.Id == id);
 
-            this.ranksRepo.Delete(rank);
-            await this.ranksRepo.SaveChangesAsync();
+        //    this.ranksRepo.Delete(rank);
+        //    await this.ranksRepo.SaveChangesAsync();
 
-            return rank.Id;
-        }
+        //    return rank.Id;
+        //}
 
-        public async Task<string> Publish(string id)
-        {
-            var rank = await this.ranksRepo
-                .All()
-                .FirstOrDefaultAsync(x => x.Id == id);
+        //public async Task<string> Publish(string id)
+        //{
+        //    var rank = await this.ranksRepo
+        //        .All()
+        //        .FirstOrDefaultAsync(x => x.Id == id);
 
-            rank.IsPublished = true;
+        //    rank.IsPublished = true;
 
-            this.ranksRepo.Update(rank);
-            await this.ranksRepo.SaveChangesAsync();
+        //    this.ranksRepo.Update(rank);
+        //    await this.ranksRepo.SaveChangesAsync();
 
-            return rank.Id;
-        }
+        //    return rank.Id;
+        //}
 
-        public async Task<string> UnPublish(string id)
-        {
-            var rank = await this.ranksRepo
-                .All()
-                .FirstOrDefaultAsync(x => x.Id == id);
+        //public async Task<string> UnPublish(string id)
+        //{
+        //    var rank = await this.ranksRepo
+        //        .All()
+        //        .FirstOrDefaultAsync(x => x.Id == id);
 
-            rank.IsPublished = false;
+        //    rank.IsPublished = false;
 
-            this.ranksRepo.Update(rank);
-            await this.ranksRepo.SaveChangesAsync();
+        //    this.ranksRepo.Update(rank);
+        //    await this.ranksRepo.SaveChangesAsync();
 
-            return rank.Id;
-        }
+        //    return rank.Id;
+        //}
     }
 }
