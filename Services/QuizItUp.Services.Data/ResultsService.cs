@@ -18,11 +18,16 @@
     {
         private readonly IDeletableEntityRepository<Result> resultRepo;
         private readonly IDeletableEntityRepository<ApplicationUser> usersRepo;
+        private readonly IUsersService usersService;
 
-        public ResultsService(IDeletableEntityRepository<Result> resultRepo, IDeletableEntityRepository<ApplicationUser> usersRepo)
+        public ResultsService(
+            IDeletableEntityRepository<Result> resultRepo,
+            IDeletableEntityRepository<ApplicationUser> usersRepo,
+            IUsersService usersService)
         {
             this.resultRepo = resultRepo;
             this.usersRepo = usersRepo;
+            this.usersService = usersService;
         }
 
         public async Task<string> AddResultAsync(bool isPassed, string quizId, int trophies, string userId, int correctAnswers)
@@ -32,6 +37,7 @@
                 if (isPassed)
                 {
                     await this.AddTrphiesToUser(quizId, trophies, userId);
+                    await this.usersService.UpdateUsersRanksAsync(userId);
                 }
                 else
                 {

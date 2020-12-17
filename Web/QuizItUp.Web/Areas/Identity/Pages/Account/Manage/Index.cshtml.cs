@@ -96,6 +96,27 @@
 
         public async Task<IActionResult> OnPostAsync()
         {
+            if (this.Input.Picture != null)
+            {
+                if (!(this.Input.Picture.FileName.EndsWith(".png")
+                || this.Input.Picture.FileName.EndsWith(".jpeg")
+                || this.Input.Picture.FileName.EndsWith(".jpg")))
+                {
+                    this.ModelState.AddModelError("Picture", "Picture must be file with extension jpeg, jpg png");
+                }
+
+                if (this.Input.Picture.Length > 10 * 102 * 1024)
+                {
+                    this.ModelState.AddModelError("Picture", "Picture is too large - Max 10Mb");
+                }
+
+                if (!this.ModelState.IsValid)
+                {
+                    this.StatusMessage = "Ivalid picture";
+                    return this.Page();
+                }
+            }
+
             var user = await this._userManager.GetUserAsync(this.User);
             if (user == null)
             {
@@ -119,30 +140,8 @@
                 }
             }
 
-            var picturePath = string.Empty;
-
-            if (this.Input.Picture != null)
-            {
-                if (!(this.Input.Picture.FileName.EndsWith(".png")
-                || this.Input.Picture.FileName.EndsWith(".jpeg")
-                || this.Input.Picture.FileName.EndsWith(".jpg")))
-                {
-                    this.ModelState.AddModelError("Picture", "Picture must be file with extension jpeg, jpg png");
-                }
-
-                if (this.Input.Picture.Length > 10 * 102 * 1024)
-                {
-                    this.ModelState.AddModelError("Picture", "Picture is too large - Max 10Mb");
-                }
-
-                if (!this.ModelState.IsValid)
-                {
-                    return this.Page();
-                }
-
-                picturePath = await CloudinaryService
-                    .UploadPicture(this.cloudinary, this.Input.Picture, user.Email, GlobalConstants.CloudinaryUsersFolder);
-            }
+            var picturePath = await CloudinaryService
+                .UploadPicture(this.cloudinary, this.Input.Picture, user.Email, GlobalConstants.CloudinaryUsersFolder);
 
             await this.userService.UpdateUserAsync(this.Input.FirstName, this.Input.LastName, user.Id, picturePath);
 

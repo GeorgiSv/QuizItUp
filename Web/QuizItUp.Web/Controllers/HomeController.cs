@@ -2,21 +2,13 @@
 {
     using System.Diagnostics;
 
-    using QuizItUp.Web.ViewModels;
-
     using Microsoft.AspNetCore.Mvc;
     using QuizItUp.Data.Common.Repositories;
     using QuizItUp.Data.Models;
+    using QuizItUp.Web.ViewModels;
 
     public class HomeController : BaseController
     {
-        private readonly IDeletableEntityRepository<Category> db;
-
-        public HomeController(IDeletableEntityRepository<Category> db)
-        {
-            this.db = db;
-        }
-
         public IActionResult Index()
         {
             return this.View();

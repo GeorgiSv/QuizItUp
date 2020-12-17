@@ -1,6 +1,10 @@
 ﻿@model QuizItUp.Web.ViewModels.Quizes.QuizViewModel
 
 @{ ViewData["Title"] = "Take Quiz"; }
+@using QuizItUp.Common
+@using QuizItUp.Data.Models
+@using Microsoft.AspNetCore.Identity
+@inject UserManager<ApplicationUser> UserManager
 
 
 <div class="container">
@@ -14,24 +18,39 @@
     <div>
         <form id="@(Model.Questions.Count.ToString())f" method="post">
             <div id="details" class="component pt-2">
-
+                @*Quzi details...*@
                 <div class="card text-center">
                     <div class="card-header" style="font-size: xx-large">
-                        @*<i class="far fa-list-alt"></i> class="col-11 ml-4 mb-5"  *@
-                        <p>Quiz</p>
+                        <p>@Model.Name  <span class="badge badge-secondary badge-warning">@Model.Trophies <img src="\trophy-shape.png" alt="icon" style="width: 30px" /></span></p>
                     </div>
                     <div class="card-body pt-1">
-                        <h4 class="card-title">@Model.Name</h4>
                         <input type="hidden" asp-for="@Model.Name" value="@Model.Name" />
                         <img src="@Model.Picture.Url" alt="Alternate Text" class="card-img" style=" width: 30%; " />
+
+                        <div class="card-body">
+                            <p class="card-text">@Model.Description</p>
+                            <p class="card-text">Time to complete: @Model.TotalTimeToComplete minutes</p>
+                            <p class="card-text">Questions: @Model.Questions.Count</p>
+                            <small class="text-muted">Creator: @Model.Creator.UserName.Split("@")[0] | CreatedOn: @Model.CreatedOn</small>
+                        </div>
                     </div>
                     <div class="card-footer py-3">
-                        @*<div class="input-group">
-                            </div>*@
+                        @if (Model.Creator.Id == this.UserManager.GetUserId(this.User) || this.User.IsInRole(GlobalConstants.AdministratorRoleName))
+                        {
+                            <a class="btn btn-secondary btn-block" asp-controller="Quizes" asp-action="Edit" asp-route-id="@Model.Id" type="submit" value="">Edit</a>
+                            <a class="btn btn-secondary btn-block" asp-controller="Quizes" asp-action="AllQuizInfo" asp-route-id="@Model.Id" type="submit" value="">All Quiz Info</a>
+                            @if (!Model.IsPublished)
+                            {
+                                <a class="btn btn-secondary btn-block" asp-controller="Quizes" asp-action="Publish" asp-route-id="@Model.Id" type="submit" value="">Publish</a>
+                            }
+                            else
+                            {
+                                <a class="btn btn-secondary btn-block" asp-controller="Quizes" asp-action="UnPublish" asp-route-id="@Model.Id" type="submit" value="">UnPublish</a>
+                            }
+                        }
                         <div class="row mx-1 text-white">
                             <a id="start" class="btn btn-success col-md-4 mt-5 offset-md-1">Start</a>
                             <a class="btn btn-danger col-md-4 mt-md-5 mt-2 offset-md-2"
-                               @*asp-area="@area"*@
                                href="/">
                                 Cancel
                             </a>
@@ -40,22 +59,24 @@
                 </div>
             </div>
 
+            @*Quzi details...*@
+
             @if (Model.Questions.Count > 1)
             {
-<div id="pagging" class="text-center my-1" style="display:none">
-    <ul class="pagination justify-content-center">
-        @for (int i = 1; i <= Model.Questions.Count; i++)
-        {
-<li class="page-item number @i"><a class="page-link">@i</a></li>
-}
-    </ul>
-</div>}
+                <div id="pagging" class="text-center my-1" style="display:none">
+                    <ul class="pagination justify-content-center">
+                        @for (int i = 1; i <= Model.Questions.Count; i++)
+                        {
+                            <li class="page-item number @i"><a class="page-link">@i</a></li>
+                        }
+                    </ul>
+                </div>
+            }
 
-            @{
-                            @for (int i = 0; i < Model.Questions.Count; i++)
-                            {
-                                var questionCounter = 1 + i;
-                                var question = Model.Questions[i];
+            @for (int i = 0; i < Model.Questions.Count; i++)
+            {
+                var questionCounter = 1 + i;
+                var question = Model.Questions[i];
 
                 <div id="@questionCounter" class="component" style="display:none">
                     <div class="card mb-3">
@@ -74,15 +95,15 @@
                             @for (int j = 0; j < question.Answers.Count; j++)
                             {
                                 var answer = question.Answers[j];
-            <div class="form-group mb-0">
-                <div>
-                    @Html.CheckBoxFor(x => x.Questions[i].Answers[j].IsCorrectAnswer)
-                    <h6 class="d-inline-block mt-0 ml-1">@answer.AnswerText</h6>
-                    @Html.HiddenFor(model => model.Questions[i].Answers[j].Id)
-                    @Html.HiddenFor(model => model.Questions[i].Answers[j].AnswerText)
+                                <div class="form-group mb-0">
+                                    <div>
+                                        @Html.CheckBoxFor(x => x.Questions[i].Answers[j].IsCorrectAnswer)
+                                        <h6 class="d-inline-block mt-0 ml-1">@answer.AnswerText</h6>
+                                        @Html.HiddenFor(model => model.Questions[i].Answers[j].Id)
+                                        @Html.HiddenFor(model => model.Questions[i].Answers[j].AnswerText)
 
-                </div>
-            </div>}
+                                    </div>
+                                </div>}
                         </div>
                         <div class="card-footer text-muted">
                             <div class="row mx-1 text-white">
@@ -91,7 +112,7 @@
                             </div>
                         </div>
                     </div>
-                </div>} }
+                </div>}
 
             <input id="quizId" type="hidden" asp-for="@Model.Id" value="@Model.Id" />
             <button id="submit" type="button" class="btn btn-primary col-md-5 offset-md-3" data-toggle="modal" data-target="#btn" style="display:none">

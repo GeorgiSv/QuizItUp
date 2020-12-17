@@ -1,4 +1,4 @@
-﻿@using QuizItUp.Common
+﻿@*@using QuizItUp.Common
 @model QuizItUp.Web.ViewModels.Quizes.QuizViewModel
 @using QuizItUp.Data.Models
 @using Microsoft.AspNetCore.Identity
@@ -15,7 +15,6 @@
             <p class="card-text">@Model.Description</p>
             <p class="card-text"><small class="text-muted">Time to complete: @Model.TotalTimeToComplete minutes</small></p>
         </div>
-        @*<a class="btn btn-primary btn-block" asp-controller="Quizes" asp-action="Start" asp-route-id="@Model.Id" type="submit" value="Start Quiz">Start</a>*@
         <a class="btn btn-primary btn-block" asp-controller="Quizes" asp-action="Start" asp-route-id="@Model.Id" type="submit" value="Start Quiz">Start</a>
         @if (Model.Creator.Id == this.UserManager.GetUserId(this.User) || this.User.IsInRole(GlobalConstants.AdministratorRoleName))
         {
@@ -31,4 +30,4 @@
             }
         }
     </div>
-</div>
+</div>*@

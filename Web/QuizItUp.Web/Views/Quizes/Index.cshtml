@@ -6,15 +6,11 @@
 
 @await Html.PartialAsync("_MainHeaderPartial", ViewData["Title"])
 <div class="container">
-    @*<div class="row">
-            <h2 style="text-align:center">Quizes</h2>
-        </div>*@
-    @*<h1 class="d-flex justify-content-center">Quiz Area</h1>*@
     <div class="row row-cols-1 row-cols-md-2">
-        <div class="col mb-4">
+        <div class="col mb-4 text-center">
             <div class="card">
                 <a asp-area="" asp-controller="Quizes" asp-action="Create">
-                    <img src="https://image.freepik.com/free-vector/quiz-neon-sign_1262-19629.jpg" class="card-img-top" alt="...">
+                    <img src="https://image.freepik.com/free-vector/quiz-neon-sign_1262-19629.jpg" class="card-img-top" alt="Create Quiz">
                 </a>
                 <div class="card-body">
                     <h5 class="card-title">Create Quiz</h5>
@@ -22,10 +18,10 @@
                 </div>
             </div>
         </div>
-        <div class="col mb-4">
+        <div class="col mb-4 text-center">
             <div class="card">
                 <a asp-area="" asp-controller="Quizes" asp-action="All">
-                    <img src="https://res.cloudinary.com/dlely3oct/image/upload/v1606170831/pics/allQuiz1_pb9zk3.png" class="card-img-top" alt="...">
+                    <img src="https://res.cloudinary.com/dlely3oct/image/upload/v1606170831/pics/allQuiz1_pb9zk3.png" class="card-img-top" alt="All Quizes">
                 </a>
                 <div class="card-body">
                     <h5 class="card-title">Check all quizes</h5>
@@ -33,10 +29,13 @@
                 </div>
             </div>
         </div>
-        @*<div class="row">
-                <a type="button" class="btn btn-secondary btn-lg btn-block" asp-controller="Quizes" asp-action="Create">Create quiz</a>
-                <a type="button" class="btn btn-secondary btn-lg btn-block" asp-controller="Quizes" asp-action="All">All quizes</a>
-            </div>*@
+    </div>
 
+    <div class="card mb-3 text-center" >
+        <img src="https://res.cloudinary.com/dlely3oct/image/upload/v1608220986/pics/LiveQuizesComingSoon_ex7mts.png" class="card-img-top" alt="...">
+        <div class="card-body">
+            <p class="card-text">The time for live challenges is close..</p>
+            @*<p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>*@
+        </div>
     </div>
 </div>

@@ -130,3 +130,11 @@
     background-repeat: no-repeat;
     background-size: cover;
 }
+
+.homeFont {
+    font-size: 10vw;
+}
+
+.homeAtributes {
+    background-image: url("https://res.cloudinary.com/dlely3oct/image/upload/v1608214827/pics/quiz_xcv7al.svg");
+}

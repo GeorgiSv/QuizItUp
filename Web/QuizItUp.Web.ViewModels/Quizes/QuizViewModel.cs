@@ -1,5 +1,6 @@
 ﻿namespace QuizItUp.Web.ViewModels.Quizes
 {
+    using System;
     using System.Collections.Generic;
 
     using QuizItUp.Data.Models;
@@ -21,6 +22,8 @@
         public int Trophies { get; set; }
 
         public bool IsPublished { get; set; }
+
+        public DateTime CreatedOn { get; set; }
 
         public ApplicationUser Creator { get; set; }
 

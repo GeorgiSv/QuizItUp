@@ -40,7 +40,6 @@
             this.userManager = userManager;
             this.cloudinary = cloudinary;
             this.webHostEnvironment = webHostEnvironment;
-
         }
 
         [AllowAnonymous]

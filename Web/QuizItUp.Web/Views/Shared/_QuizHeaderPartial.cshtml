@@ -6,7 +6,7 @@
         <div class="row">
             <div class="card w-75">
                 <div class="card-body">
-                    <h5 class="card-title"><a href="/Quizes/Details/@Model.Id">@Model.Name</a></h5>
+                    <h5 class="card-title"><a asp-action="Start" asp-controller="Quizes" asp-route-id="@Model.Id">@Model.Name</a></h5>
                     <p class="card-text">Questions in quiz: @Model.Questions.Count()</p>
                     <p class="card-text">Time to complete: @Model.TotalTimeToComplete minutes</p>
                     <p class="card-text">

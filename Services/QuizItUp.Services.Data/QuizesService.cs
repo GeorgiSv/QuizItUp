@@ -71,6 +71,7 @@
              => await this.quizesRepo
             .All()
             .To<QuizViewModel>()
+            .OrderByDescending(x => x.CreatedOn)
             .ToListAsync();
 
         public async Task<IList<QuizViewModel>> GetAllQuizesWithTagAsync(string input)
@@ -173,14 +174,6 @@
             this.quizesRepo.Update(quiz);
             await this.quizesRepo.SaveChangesAsync();
         }
-
-        //public async Task Random(string quizId)
-        //{
-        //    var quiz = await this.quizesRepo
-        //       .All()
-        //       .Where(x => x.Id == quizId)
-        //       .FirstOrDefaultAsync();
-        //}
 
         public async Task<IList<QuizViewModel>> GetAllQuizesByUserId(string userId)
             => await this.quizesRepo

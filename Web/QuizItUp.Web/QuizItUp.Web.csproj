@@ -43,7 +43,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="wwwroot\pictures\shared\" />
     <Folder Include="wwwroot\pictures\quizes\" />
   </ItemGroup>
 </Project>

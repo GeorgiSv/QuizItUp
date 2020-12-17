@@ -46,16 +46,16 @@
             return this.View(model);
         }
 
-        public async Task<IActionResult> UpdateUsersRanks()
-        {
-            var result = await this.usersService.UpdateUsersRanksAsync();
+        //public async Task<IActionResult> UpdateUsersRanks()
+        //{
+        //    var result = await this.usersService.UpdateUsersRanksAsync(this.userManager.GetUserId(this.User));
 
-            if (!result)
-            {
-                return this.View();
-            }
+        //    if (!result)
+        //    {
+        //        return this.View();
+        //    }
 
-            return this.Redirect("/");
-        }
+        //    return this.Redirect("/");
+        //}
     }
 }

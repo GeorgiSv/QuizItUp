@@ -43,6 +43,45 @@
             {
                 Name = "Pro",
                 TrophiesNeeded = 60,
+                IsPublished = true,
+            };
+            var secondRank = new Rank()
+            {
+                Name = "Begginer",
+                TrophiesNeeded = 10,
+                IsPublished = true,
+            };
+
+            this.DbContext.Users.Add(user);
+            this.DbContext.Ranks.Add(firstRank);
+            this.DbContext.Ranks.Add(secondRank);
+            await this.DbContext.SaveChangesAsync();
+
+            var rank = await this.Service.GetUserRankAsync(user.Trophies);
+
+            Assert.Equal(secondRank.Name, rank.Name);
+            Assert.Equal(secondRank.TrophiesNeeded, rank.TrophiesNeeded);
+        }
+
+        [Fact]
+        public async Task UpdateUserRankShouldReturnFalseIfUserIsNotFound()
+        {
+            var rank = await this.Service.UpdateUsersRanksAsync("123");
+            Assert.False(rank);
+        }
+
+        [Fact]
+        public async Task UpdateUserRankShouldReturnTrueIfUserIsFoundAndTrophiesAreUpdated()
+        {
+            var user = new ApplicationUser()
+            {
+                UserName = "TestUserName",
+                Trophies = 50,
+            };
+            var firstRank = new Rank()
+            {
+                Name = "Pro",
+                TrophiesNeeded = 60,
             };
             var secondRank = new Rank()
             {
@@ -55,18 +94,9 @@
             this.DbContext.Ranks.Add(secondRank);
             await this.DbContext.SaveChangesAsync();
 
-            var rank = await this.Service.GetUserRankAsync(user.Id);
+            var isSuccessfull = await this.Service.UpdateUsersRanksAsync(user.Id);
 
-            Assert.Equal(secondRank.Name, rank.Name);
-            Assert.Equal(secondRank.TrophiesNeeded, rank.TrophiesNeeded);
-        }
-
-        [Fact]
-        public async Task GetUserRankShouldReturnNUllIfUserIsNotFound()
-        {
-            var rank = await this.Service.GetUserRankAsync("123");
-
-            Assert.Null(rank);
+            Assert.True(isSuccessfull);
         }
 
         [Fact]

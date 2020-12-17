@@ -38,40 +38,28 @@
             return resultMap;
         }
 
-        public async Task<bool> UpdateUsersRanksAsync()
+        public async Task<bool> UpdateUsersRanksAsync(string userId)
         {
-            try
-            {
-                var allUsers = await this.usersRepo.All().ToListAsync();
+            var user = this.usersRepo.All().FirstOrDefault(x => x.Id == userId);
 
-                foreach (var user in allUsers)
-                {
-                    user.Rank = await this.GetUserRankAsync(user.Id);
-
-                    this.usersRepo.Update(user);
-                }
-
-                await this.usersRepo.SaveChangesAsync();
-            }
-            catch (Exception e)
+            if (user == null)
             {
                 return false;
             }
 
+            user.Rank = await this.GetUserRankAsync(user.Trophies);
+
+            this.usersRepo.Update(user);
+            await this.usersRepo.SaveChangesAsync();
+
             return true;
         }
 
-        public async Task<Rank> GetUserRankAsync(string userId)
+        public async Task<Rank> GetUserRankAsync(int trohpies)
         {
-            var user = await this.usersRepo.All().FirstOrDefaultAsync(x => x.Id == userId);
-
-            if (user == null)
-            {
-                return null;
-            }
 
             var ranks = await this.ranksRepo.All()
-                .Where(x => x.TrophiesNeeded <= user.Trophies)
+                .Where(x => x.TrophiesNeeded <= trohpies && x.IsPublished)
                 .OrderByDescending(x => x.TrophiesNeeded)
                 .ToListAsync();
 
@@ -121,3 +109,20 @@
                  => this.usersRepo.AllAsNoTracking().Count();
     }
 }
+//try
+//{
+//    var allUsers = await this.usersRepo.All().ToListAsync();
+
+//    foreach (var user in allUsers)
+//    {
+//        user.Rank = await this.GetUserRankAsync(user.Id);
+
+//        this.usersRepo.Update(user);
+//    }
+
+//    await this.usersRepo.SaveChangesAsync();
+//}
+//catch (Exception e)
+//{
+//    return false;
+//}

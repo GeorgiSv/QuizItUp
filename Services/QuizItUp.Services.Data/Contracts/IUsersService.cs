@@ -14,9 +14,9 @@
 
         Task<IList<UserViewModel>> GetTopPlayers();
 
-        Task<bool> UpdateUsersRanksAsync();
+        Task<bool> UpdateUsersRanksAsync(string userId);
 
-        Task<Rank> GetUserRankAsync(string userId);
+        Task<Rank> GetUserRankAsync(int trophies);
 
         Task<bool> UpdateUserAsync(string firstName, string lastName, string userId, string picturePath);
 

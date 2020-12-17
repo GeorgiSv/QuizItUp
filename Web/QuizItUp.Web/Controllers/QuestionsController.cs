@@ -1,7 +1,5 @@
 ﻿namespace QuizItUp.Web.Controllers
 {
-    using System;
-    using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
 
@@ -9,7 +7,6 @@
     using QuizItUp.Common;
     using QuizItUp.Services.Data.Contracts;
     using QuizItUp.Web.Infrastructure.Filters;
-    using QuizItUp.Web.ViewModels.Answers;
     using QuizItUp.Web.ViewModels.Questions;
     using QuizItUp.Web.ViewModels.Quizes;
 
@@ -113,7 +110,7 @@
         {
             if (!this.ModelState.IsValid)
             {
-                return this.RedirectToAction("Edit", "Questions", new { id = id });
+                return this.View(id);
             }
 
             var question = await this.questionService.GetQuestionByIdAsync(id);
