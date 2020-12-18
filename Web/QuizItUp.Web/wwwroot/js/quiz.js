@@ -1,18 +1,10 @@
 ﻿$(document).ready(function () {
     var startBtn = document.getElementById('start');
 
-    var questionsCount = 0;
+    var questionsCount = Number(document.getElementById('questionsCount').value);
     var counter = 1;
 
     if (startBtn) {
-        var forms = document.getElementsByTagName('form');
-        var form;
-        if (forms.length > 1) {
-            form = forms[1]
-        } else {
-            form = forms[0]
-        }
-        questionsCount = parseInt(form.id);
         var nextBtns = Array.from(document.getElementsByTagName('a')).filter(x => x.id.includes('next'));
         var prevBtns = Array.from(document.getElementsByTagName('a')).filter(x => x.id.includes('prev'));
         $(nextBtns).click(loadNextQuestion);

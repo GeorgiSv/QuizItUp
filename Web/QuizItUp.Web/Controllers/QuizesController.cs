@@ -11,6 +11,7 @@
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
+    using Microsoft.AspNetCore.Mvc.RazorPages;
     using QuizItUp.Common;
     using QuizItUp.Data.Models;
     using QuizItUp.Services;
@@ -152,6 +153,12 @@
         public async Task<IActionResult> Publish(string id)
         {
             var categoryId = await this.quizService.PublishAsync(id);
+
+            if (categoryId == 0)
+            {
+                return this.Redirect("/Home/Error");
+            }
+
             return this.RedirectToAction("AllQuizesPerCategory", "Categories", new { id = categoryId });
         }
 

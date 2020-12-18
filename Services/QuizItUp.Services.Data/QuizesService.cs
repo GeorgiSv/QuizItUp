@@ -116,6 +116,11 @@
                 return 0;
             }
 
+            if (quiz.Questions.Count == 0)
+            {
+                return 0;
+            }
+
             quiz.IsPublished = true;
 
             this.quizesRepo.Update(quiz);

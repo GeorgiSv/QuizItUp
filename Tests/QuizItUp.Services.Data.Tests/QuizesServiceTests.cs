@@ -118,10 +118,21 @@
         [Fact]
         public async Task PublishShouldPublishCorrectly()
         {
+            this.quiz.Questions.Add(new Question());
+
             await this.Service.PublishAsync(this.quiz.Id);
             var result = await this.DbContext.Quizes.FirstOrDefaultAsync();
 
             Assert.True(result.IsPublished);
+        }
+
+        [Fact]
+        public async Task PublishShouldPublishOnlyQuziesWithQuestionsCorrectly()
+        {
+            await this.Service.PublishAsync(this.quiz.Id);
+            var result = await this.DbContext.Quizes.FirstOrDefaultAsync();
+
+            Assert.False(result.IsPublished);
         }
 
         [Fact]

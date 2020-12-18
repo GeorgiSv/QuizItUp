@@ -54,7 +54,6 @@ function validateQuestion() {
         alert("Please select one correct asnwer!")
         return false;
     }
-    
 
     return true;
 }

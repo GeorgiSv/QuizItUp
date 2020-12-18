@@ -1,19 +1,4 @@
-﻿//var startBtn = document.getElementById('start');
-
-//if (startBtn) {
-//    var mins = null;
-
-//    if (minsInput) {
-//        mins = minsInput.value;
-//    }
-
-//    if (mins) {
-//        $('#timerElement').show();
-//        startTimer(mins);
-//    }
-//}
-
-$("#start").click(function () {
+﻿$("#start").click(function () {
     var minsInput = document.getElementById("minutes");
 
     var mins = null;

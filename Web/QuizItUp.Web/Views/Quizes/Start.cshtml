@@ -16,7 +16,9 @@
     </div>
 
     <div>
-        <form id="@(Model.Questions.Count.ToString())f" method="post">
+        <input type="hidden" id="questionsCount" value="@Model.Questions.Count.ToString()"  />
+
+        <form i method="post">
             <div id="details" class="component pt-2">
                 @*Quzi details...*@
                 <div class="card text-center">
@@ -60,7 +62,7 @@
                 </div>
             </div>
 
-            @*Quzi details...*@
+            @* // Quzi details...*@
 
             @if (Model.Questions.Count > 1)
             {
@@ -82,10 +84,8 @@
                 <div id="@questionCounter" class="component" style="display:none">
                     <div class="card mb-3">
                         <div class="card-header text-center">
-                            @*<i class="fas fa-question-circle"></i>*@
                             @Html.HiddenFor(model => model.Questions[i].Id)
                             @Html.HiddenFor(model => model.Questions[i].QuestionText)
-                            <span class="text">Question @questionCounter</span>
                         </div>
                         <br />
                         <div class="card-title text-center">
@@ -108,20 +108,18 @@
                         </div>
                         <div class="card-footer text-muted">
                             <div class="row mx-1 text-white">
-                                <a id="prev" class="btn btn-primary col-md-5 mt-2">Previous</a>
-                                <a id="@(i)next" class="btn btn-primary col-md-5 mt-2 offset-md-2 d-inline-block">Next</a>
+                                <a id="prev" class="btn btn-secondary col-md-5 mt-2">Previous</a>
+                                <a id="@(i)next" class="btn btn-secondary col-md-5 mt-2 offset-md-2 d-inline-block">Next</a>
                             </div>
                         </div>
                     </div>
                 </div>}
 
-            <button id="submit" type="button" class="btn btn-primary col-md-5 offset-md-3" data-toggle="modal" data-target="#btn" style="display:none">
+            <button id="submit" type="button" class="btn btn-secondary col-md-5 offset-md-3" data-toggle="modal" data-target="#btn" style="display:none">
                 Submit Quiz
             </button>
 
-
             <!-- Finish dialog -->
-
             <div class="modal fade" id="btn" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered" role="document">
                     <div class="modal-content">
