@@ -30,17 +30,40 @@
                             <p class="card-text">@answer.AnswerText  <span class="badge badge-danger">False</span></p>
                         }
                     }
-                    <a asp-action="Edit" asp-controller="Questions" asp-route-id="@question.Id" class="btn btn-primary">Edit</a>
-                    <a asp-action="Remove" asp-controller="Questions" asp-route-id="@question.Id" class="btn btn-danger">Remove</a>
+                    <a asp-action="Edit" asp-controller="Questions" asp-route-id="@question.Id" class="btn btn-secondary">Edit</a>
+                    <a asp-action="Remove" asp-controller="Questions" asp-route-id="@question.Id" class="btn btn-danger" data-toggle="modal" data-target="#delQ">Remove</a>
+
                 </div>
                 <div class="card-footer text-muted">
                     @counter
                 </div>
             </div>
+
+            <!-- Finish dialog -->
+
+            @*<div class="modal fade" id="delQ" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title text-center" id="exampleModalLabel">Warning!</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            </button>
+                        </div>
+                        <div class="modal-body text-center">
+                            <h5>Are you sure you want to remove this question?</h5>
+                        </div>
+                        <div class="modal-footer">
+                            <button class="btn btn-danger" type="submit" asp-action="Remove" asp-controller="Questions" asp-route-id="@question.Id">
+                                Remove
+                            </button>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel!</button>
+                        </div>
+                    </div>
+                </div>
+            </div>*@
         }
     }
 
-    <a class="btn btn-primary btn-block" asp-controller="Questions" asp-action="Create" asp-route-id="@quizId" type="submit" value="">Add Question</a>
-    <a class="btn btn-primary btn-block" asp-controller="Quizes" asp-action="Edit" asp-route-id="@Model.Id" type="submit" value="">Edit Quiz</a>
-
+    <a class="btn btn-secondary btn-block" asp-controller="Questions" asp-action="Create" asp-route-id="@quizId" type="submit" value="">Add Question</a>
+    <a class="btn btn-secondary btn-block" asp-controller="Quizes" asp-action="Edit" asp-route-id="@Model.Id" type="submit" value="">Edit Quiz</a>
 </div>
