@@ -76,7 +76,7 @@
             services.AddTransient<UserValidationAttribute>();
 
             // SendGrid Setup
-           //services.AddTransient<IEmailSender, SendGridEmailSender>(x => new SendGridEmailSender(this.configuration["SendGrid:APIKey"]));
+            //services.AddTransient<IEmailSender, SendGridEmailSender>(x => new SendGridEmailSender(this.configuration["SendGrid:APIKey"]));
 
             // Cloudinary Setup
             var cloudinaryAccount = new Account(
@@ -101,14 +101,15 @@
                 new ApplicationDbContextSeeder().SeedAsync(dbContext, serviceScope.ServiceProvider).GetAwaiter().GetResult();
             }
 
-            if (env.IsDevelopment())
+            //if (env.IsDevelopment())
+            //{
+            //}
+
+            //else
             {
                 app.UseDeveloperExceptionPage();
                 app.UseDatabaseErrorPage();
-            }
-            else
-            {
-                app.UseExceptionHandler("/Home/Error");
+                //app.UseExceptionHandler("/Home/Error");
                 app.UseHsts();
             }
 

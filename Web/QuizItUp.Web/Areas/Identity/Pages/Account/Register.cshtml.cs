@@ -18,11 +18,13 @@
     using Microsoft.Extensions.Logging;
     using QuizItUp.Data.Models;
     using QuizItUp.Common;
+    using QuizItUp.Data.Common.Repositories;
 
     [AllowAnonymous]
     public class RegisterModel : PageModel
     {
         private readonly SignInManager<ApplicationUser> _signInManager;
+        private readonly IDeletableEntityRepository<Rank> _ranksRepo;
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly ILogger<RegisterModel> _logger;
         private readonly IEmailSender _emailSender;
@@ -30,11 +32,13 @@
         public RegisterModel(
             UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager,
+            IDeletableEntityRepository<Rank> ranksRepo,
             ILogger<RegisterModel> logger,
             IEmailSender emailSender)
         {
             this._userManager = userManager;
             this._signInManager = signInManager;
+            this._ranksRepo = ranksRepo;
             this._logger = logger;
             this._emailSender = emailSender;
         }
@@ -94,7 +98,7 @@
                     FirstName = this.Input.FirstName,
                     LastName = this.Input.LastName,
                     Picture = new Picture() { Url = GlobalConstants.UserDeafultProfilePicturePath },
-                    RankId = GlobalConstants.StartingRankId,
+                    Rank = this._ranksRepo.All().OrderBy(x => x.TrophiesNeeded).FirstOrDefault(),
                 };
 
                 var result = await this._userManager.CreateAsync(user, this.Input.Password);

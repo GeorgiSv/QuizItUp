@@ -5,7 +5,6 @@
 }
 
 <div class="container">
-
     @await Html.PartialAsync("_QuizHeaderPartial", Model)
     @{
         int counter = 0;
@@ -31,35 +30,13 @@
                         }
                     }
                     <a asp-action="Edit" asp-controller="Questions" asp-route-id="@question.Id" class="btn btn-secondary">Edit</a>
-                    <a asp-action="Remove" asp-controller="Questions" asp-route-id="@question.Id" class="btn btn-danger" data-toggle="modal" data-target="#delQ">Remove</a>
+                    <a asp-action="Remove" asp-controller="Questions" asp-route-id="@question.Id" class="btn btn-danger">Remove</a>
 
                 </div>
                 <div class="card-footer text-muted">
                     @counter
                 </div>
             </div>
-
-            <!-- Finish dialog -->
-            @*<div class="modal fade" id="delQ" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title text-center" id="exampleModalLabel">Warning!</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            </button>
-                        </div>
-                        <div class="modal-body text-center">
-                            <h5>Are you sure you want to remove this question?</h5>
-                        </div>
-                        <div class="modal-footer">
-                            <button class="btn btn-danger" type="submit" asp-action="Remove" asp-controller="Questions" asp-route-id="@question.Id">
-                                Remove
-                            </button>
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel!</button>
-                        </div>
-                    </div>
-                </div>
-            </div>*@
         }
     }
 

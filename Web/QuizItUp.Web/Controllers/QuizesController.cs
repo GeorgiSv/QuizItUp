@@ -159,14 +159,14 @@
                 return this.Redirect("/Home/Error");
             }
 
-            return this.RedirectToAction("AllQuizesPerCategory", "Categories", new { id = categoryId });
+            return this.RedirectToAction("Start", "Quizes", new { id });
         }
 
         [ServiceFilter(typeof(UserValidationAttribute))]
         public async Task<IActionResult> UnPublish(string id)
         {
             var categoryId = await this.quizService.UnPublishAsync(id);
-            return this.RedirectToAction("AllQuizesPerCategory", "Categories", new { id = categoryId });
+            return this.RedirectToAction("Start", "Quizes", new { id });
         }
 
         public async Task<IActionResult> MyQuizes(string id)

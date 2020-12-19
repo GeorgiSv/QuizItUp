@@ -18,26 +18,34 @@
     {
         private readonly IDeletableEntityRepository<Result> resultRepo;
         private readonly IDeletableEntityRepository<ApplicationUser> usersRepo;
+        private readonly IDeletableEntityRepository<Quiz> quizesRepo;
         private readonly IUsersService usersService;
 
         public ResultsService(
             IDeletableEntityRepository<Result> resultRepo,
             IDeletableEntityRepository<ApplicationUser> usersRepo,
+            IDeletableEntityRepository<Quiz> quizesRepo,
             IUsersService usersService)
         {
             this.resultRepo = resultRepo;
             this.usersRepo = usersRepo;
+            this.quizesRepo = quizesRepo;
             this.usersService = usersService;
         }
 
         public async Task<string> AddResultAsync(bool isPassed, string quizId, int trophies, string userId, int correctAnswers)
         {
+            var quiz = await this.quizesRepo.All().FirstOrDefaultAsync(z => z.Id == quizId);
+
             if (trophies >= 0)
             {
                 if (isPassed)
                 {
-                    await this.AddTrphiesToUser(quizId, trophies, userId);
-                    await this.usersService.UpdateUsersRanksAsync(userId);
+                    if (quiz.CreatorId != userId)
+                    {
+                        await this.AddTrphiesToUser(quizId, trophies, userId);
+                        await this.usersService.UpdateUsersRanksAsync(userId);
+                    }
                 }
                 else
                 {

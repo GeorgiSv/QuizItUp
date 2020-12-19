@@ -4,7 +4,9 @@
     {
         Movies = 1,
         Games = 2,
-        Sport = 3,
+        History = 3,
         Programming = 4,
+        Music = 4,
+        Sport = 4,
     }
 }

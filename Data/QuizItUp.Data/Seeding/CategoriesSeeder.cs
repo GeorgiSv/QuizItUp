@@ -18,10 +18,12 @@
             }
 
             var categories = new Dictionary<string, string>();
-            categories.Add("Movie", "https://menafn.com/updates/pr/2020-11/06/I_ce6442e6-bimage_story.jpg");
-            categories.Add("Games", "https://xenocell.com/wp-content/uploads/2019/03/games.jpg");
-            categories.Add("Programming", "https://hub.packtpub.com/wp-content/uploads/2018/05/programming.jpg");
-            categories.Add("Sport", "https://img.freepik.com/free-vector/sport-equipment-concept_1284-13034.jpg?size=338&ext=jpg");
+            categories.Add("Movies", "https://res.cloudinary.com/dlely3oct/image/upload/v1607785078/categories/moviesCategory_dz2nwp.jpg");
+            categories.Add("Games", "https://res.cloudinary.com/dlely3oct/image/upload/v1607785274/categories/games_hplxuj.jpg");
+            categories.Add("Programming", "https://res.cloudinary.com/dlely3oct/image/upload/v1607785351/categories/programming_bwhvhv.jpg");
+            categories.Add("History", "https://res.cloudinary.com/dlely3oct/image/upload/v1607784829/categories/sport_kneqa2.jpg");
+            categories.Add("Music", "https://res.cloudinary.com/dlely3oct/image/upload/v1607785453/categories/1123676_eo6hoh.jpg");
+            categories.Add("Sport", "https://res.cloudinary.com/dlely3oct/image/upload/v1607784918/categories/apple-music-note_ojhwuc.jpg");
 
             foreach (var category in categories)
             {

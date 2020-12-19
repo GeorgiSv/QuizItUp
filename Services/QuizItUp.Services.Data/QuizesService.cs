@@ -70,6 +70,7 @@
         public async Task<IList<QuizViewModel>> GetAllQuizesAsync()
              => await this.quizesRepo
             .All()
+            .Where(x => x.IsPublished == true)
             .To<QuizViewModel>()
             .OrderByDescending(x => x.CreatedOn)
             .ToListAsync();
@@ -108,6 +109,7 @@
         {
             var quiz = await this.quizesRepo
                 .All()
+                .Include(x => x.Questions)
                 .Where(x => x.Id == quizId)
                 .FirstOrDefaultAsync();
 

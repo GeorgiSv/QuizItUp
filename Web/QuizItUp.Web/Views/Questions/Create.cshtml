@@ -15,7 +15,7 @@
 
         <div class="card text-center">
             <div class="card-header">
-                <button type="submit" onclick="return validateQuestion()" class="btn btn-primary">Add question</button>
+                <button type="submit" onclick="return validateQuestion()" class="btn btn-secondary">Add question</button>
             </div>
 
             <div class="card-body">
@@ -50,11 +50,11 @@
     </form>
     <div class="card-footer text-muted text-center">
 
-        <button onclick="AddMoreAnswers()" class="btn btn-primary">Add answer</button>
-        <button onclick="RemoveAnswer()" class="btn btn-primary">Remove answer</button>
+        <button onclick="AddMoreAnswers()" class="btn btn-secondary">Add answer</button>
+        <button onclick="RemoveAnswer()" class="btn btn-secondary">Remove answer</button>
     </div>
 
-    <a asp-action="AllQuizInfo" asp-controller="Quizes" asp-route-id="@Model.QuizViewModel.Id" class="btn btn-primary btn-block">All quiz info</a>
+    <a asp-action="AllQuizInfo" asp-controller="Quizes" asp-route-id="@Model.QuizViewModel.Id" class="btn btn-secondary btn-block">All quiz info</a>
 </div>
 
 @section Scripts {

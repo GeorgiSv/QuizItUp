@@ -46,14 +46,14 @@
 
                 </div>
                 <div class="card-footer text-muted">
-                    <button type="submit" class="btn btn-primary" onclick="return validateQuestion()">Update</button>
+                    <button type="submit" class="btn btn-secondary" onclick="return validateQuestion()">Update</button>
                 </div>
             </div>
 
     </form>
     @*<button onclick="AddMoreAnswers()" class="btn btn-primary">Add answer</button>*@
 
-    <a asp-action="AllQuizInfo" asp-controller="Quizes" asp-route-id="@Model.QuizViewModel.Id" class="btn btn-primary btn-block">All quiz info</a>
+    <a asp-action="AllQuizInfo" asp-controller="Quizes" asp-route-id="@Model.QuizViewModel.Id" class="btn btn-secondary btn-block">All quiz info</a>
 </div>
 
 @section Scripts {
