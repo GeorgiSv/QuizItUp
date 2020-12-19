@@ -12,6 +12,7 @@ Application for creating and taking quizes where you can earn trophies and compe
 - JavaScript
 - jQuery
 - Cloudinary
+- Azure - https://quizitup.azurewebsites.net/
 
 
 ## Credits
