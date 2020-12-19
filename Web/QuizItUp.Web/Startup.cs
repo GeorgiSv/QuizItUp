@@ -101,15 +101,14 @@
                 new ApplicationDbContextSeeder().SeedAsync(dbContext, serviceScope.ServiceProvider).GetAwaiter().GetResult();
             }
 
-            //if (env.IsDevelopment())
-            //{
-            //}
-
-            //else
+            if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
                 app.UseDatabaseErrorPage();
-                //app.UseExceptionHandler("/Home/Error");
+            }
+            else
+            {
+                app.UseExceptionHandler("/Home/Error");
                 app.UseHsts();
             }
 

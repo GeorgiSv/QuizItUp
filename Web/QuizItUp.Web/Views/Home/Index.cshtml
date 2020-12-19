@@ -1,21 +1,30 @@
 ﻿@using QuizItUp.Common
 @model QuizItUp.Web.ViewModels.Home.IndexViewModel
+@using QuizItUp.Data.Models
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
 @{
     this.ViewData["Title"] = "Home Page";
 }
 
 <div class="container-md" style="text-align:center">
+    @if (this.SignInManager.IsSignedIn(this.User))
+    {
+        <h1 class="text-lg-center">Hi, @this.User.Identity.Name.Split("@")[0]</h1>
+    }
+
     <h1 class="homeFont">Let's @GlobalConstants.SystemName!</h1>
 
     <hr />
     <!-- Three columns of text below the carousel -->
     <div class="row">
         <div class="col-lg-4">
-   
-                <img src="https://res.cloudinary.com/dlely3oct/image/upload/v1608214827/pics/quiz_xcv7al.svg" alt="Alternate Text" ss="bd-placeholder-img rounded-circle" width="140" height="140" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 140x140" preserveAspectRatio="xMidYMid slice" focusable="false" />
+
+            <img src="https://res.cloudinary.com/dlely3oct/image/upload/v1608214827/pics/quiz_xcv7al.svg" alt="Alternate Text" ss="bd-placeholder-img rounded-circle" width="140" height="140" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 140x140" preserveAspectRatio="xMidYMid slice" focusable="false" />
             <h2>Create Quizes</h2>
             <p>Create hard quizes and chalenge your frineds and all other playes!</p>
-            <p><a class="btn btn-secondary" asp-action="Create" asp-controller="Quizes"  role="button">View</a></p>
+            <p><a class="btn btn-secondary" asp-action="Create" asp-controller="Quizes" role="button">View</a></p>
         </div><!-- /.col-lg-4 -->
         <div class="col-lg-4">
             <img src="https://res.cloudinary.com/dlely3oct/image/upload/v1608218114/pics/choose_dcnvrr.svg" alt="Alternate Text" ss="bd-placeholder-img rounded-circle" width="140" height="140" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 140x140" preserveAspectRatio="xMidYMid slice" focusable="false" />

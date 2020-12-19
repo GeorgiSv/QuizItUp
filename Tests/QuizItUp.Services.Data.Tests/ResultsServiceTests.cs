@@ -19,19 +19,24 @@
         [Fact]
         public async Task AddResultShouldAddCorrectlyResult()
         {
+            var quiz = new Quiz()
+            {
+                CreatorId = "ASD",
+            };
             var user = new ApplicationUser()
             {
                 UserName = "test",
             };
 
+            this.DbContext.Quizes.Add(quiz);
             this.DbContext.Users.Add(user);
             await this.DbContext.SaveChangesAsync();
 
-            var resultId = await this.Service.AddResultAsync(true, "123", 10, user.Id, 5);
+            var resultId = await this.Service.AddResultAsync(true, quiz.Id, 10, user.Id, 5);
             var resul = this.DbContext.Results.FirstOrDefault(x => x.Id == resultId);
 
             Assert.Equal(resultId, resul.Id);
-            Assert.Equal("123", resul.QuizId);
+            Assert.Equal(quiz.Id, resul.QuizId);
             Assert.Equal(10, resul.Trophies);
             Assert.Equal(user.Id, resul.ApplicationUserId);
             Assert.Equal(5, resul.CorrectAnswers);

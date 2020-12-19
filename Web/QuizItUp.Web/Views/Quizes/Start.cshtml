@@ -80,10 +80,8 @@
 
                 <div id="@questionCounter" class="component" style="display:none">
                     <div class="card mb-3">
-                        <div class="card-header text-center">
-                            @Html.HiddenFor(model => model.Questions[i].Id)
-                            @Html.HiddenFor(model => model.Questions[i].QuestionText)
-                        </div>
+                        @Html.HiddenFor(model => model.Questions[i].Id)
+                        @Html.HiddenFor(model => model.Questions[i].QuestionText)
                         <br />
                         <div class="card-title text-center">
                             <h4 class="quiz">@question.QuestionText</h4>
